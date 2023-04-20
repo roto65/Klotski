@@ -4,20 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/screen/Window.java" afterDir="false" />
+    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Initial Commit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/main/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/screen/Board.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/screen/blocks/Block.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/screen/blocks/LargeBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/screen/blocks/SmallBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/screen/blocks/WideBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Big.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Mid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Small.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/screen/Window.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,12 +51,20 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "last_opened_file_path": "C:/Users/anton/Desktop/Klotski/src/main/resources",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\anton\Desktop\Klotski\src\main\resources" />
+      <recent name="C:\Users\anton\Desktop\Klotski\drawable" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Klotski [test]">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="Klotski.main" />
@@ -108,6 +115,14 @@
       <option name="presentableId" value="Default" />
       <updated>1681972528730</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1681974526758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681974526758</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -120,5 +135,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit" />
   </component>
 </project>
