@@ -1,4 +1,4 @@
-package screen.blocks;
+package ui.blocks;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

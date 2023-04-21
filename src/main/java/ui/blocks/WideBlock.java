@@ -1,4 +1,4 @@
-package screen.blocks;
+package ui.blocks;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,13 +11,13 @@ import static main.Constants.TITLE_SIZE;
 
 public class WideBlock extends Block{
 
-    private int rotation; // 0: horizontal, 1: vertical
+    private Facing facing; // 0: horizontal, 1: vertical
 
-    public WideBlock(int x, int y, int rotation) {
+    public WideBlock(int x, int y, Facing facing) {
         this.x = x;
         this.y = y;
 
-        this.rotation = rotation;
+        this.facing = facing;
 
         loadSprite();
     }
@@ -43,7 +43,7 @@ public class WideBlock extends Block{
         locationY = y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
 
 
-        if (rotation == 1) {
+        if (facing == Facing.VERTICAL) {
             g2d.rotate(Math.toRadians(90), locationX, locationY);
         }
             g.drawImage(sprite, x * TITLE_SIZE, y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
@@ -54,3 +54,4 @@ public class WideBlock extends Block{
         g2d.setTransform(backup);
     }
 }
+

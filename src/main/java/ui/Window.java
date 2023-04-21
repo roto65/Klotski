@@ -1,9 +1,7 @@
-package screen;
+package ui;
 
 import javax.swing.*;
-import java.awt.*;
 
-import static main.Constants.*;
 
 public class Window {
 
@@ -15,7 +13,7 @@ public class Window {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //window.setMinimumSize(new Dimension(TITLE_SIZE * COLUMNS, TITLE_SIZE * ROWS));
+        window.setResizable(false);
 
         window.pack();
         window.setLocationRelativeTo(null);

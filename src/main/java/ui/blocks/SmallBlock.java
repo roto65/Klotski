@@ -1,4 +1,4 @@
-package screen.blocks;
+package ui.blocks;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -1,6 +1,6 @@
 package main;
 
-import screen.Window;
+import ui.Window;
 
 import javax.swing.*;
 

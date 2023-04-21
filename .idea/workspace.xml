@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Changed permission of gradlew" />
+    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Updated README.md">
+      <change afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/Facing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/LargeBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/LargeBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/SmallBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/SmallBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/WideBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/WideBlock.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +33,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -88,8 +103,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.Klotski [test]" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.Klotski [test]" />
       </list>
     </recent_temporary>
   </component>
@@ -123,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682011084623</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Updated README.md">
+      <created>1682011330155</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682011330155</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,6 +163,7 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Added Blocks" />
     <MESSAGE value="Changed permission of gradlew" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed permission of gradlew" />
+    <MESSAGE value="Updated README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
   </component>
 </project>

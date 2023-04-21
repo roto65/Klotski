@@ -1,9 +1,6 @@
-package screen;
+package ui;
 
-import screen.blocks.Block;
-import screen.blocks.LargeBlock;
-import screen.blocks.SmallBlock;
-import screen.blocks.WideBlock;
+import ui.blocks.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,12 +21,12 @@ public class Board extends JPanel {
     }
 
     private void populateBoard() {
-        blocks.add(new WideBlock(0, 0, 1));
+        blocks.add(new WideBlock(0, 0, Facing.VERTICAL));
         blocks.add(new LargeBlock(1, 0));
-        blocks.add(new WideBlock(3, 0, 1));
-        blocks.add(new WideBlock(0, 2, 1));
-        blocks.add(new WideBlock(1, 2, 0));
-        blocks.add(new WideBlock(3, 2, 1));
+        blocks.add(new WideBlock(3, 0, Facing.VERTICAL));
+        blocks.add(new WideBlock(0, 2, Facing.VERTICAL));
+        blocks.add(new WideBlock(1, 2, Facing.HORIZONTAL));
+        blocks.add(new WideBlock(3, 2, Facing.VERTICAL));
         blocks.add(new SmallBlock(1, 3));
         blocks.add(new SmallBlock(2, 3));
         blocks.add(new SmallBlock(0, 4));
