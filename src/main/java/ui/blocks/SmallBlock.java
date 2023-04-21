@@ -10,9 +10,15 @@ import static main.Constants.TITLE_SIZE;
 
 public class SmallBlock extends Block{
 
+    @SuppressWarnings("unused")
+    public SmallBlock() {
+        loadSprite();
+    }
+
     public SmallBlock(int x, int y) {
-        this.x = x;
-        this.y = y;
+        pos = new Point(x, y);
+
+        blockType = BlockType.SMALL;
 
         loadSprite();
     }
@@ -20,13 +26,13 @@ public class SmallBlock extends Block{
     @Override
     protected void loadSprite() {
         try {
-            sprite = ImageIO.read(new File("src/main/resources/Small.png"));
+            sprite = ImageIO.read(new File("src/main/resources/drawable/Small.png"));
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
         }
     }
 
     public void draw(Graphics g, ImageObserver observer) {
-        g.drawImage(sprite, x * TITLE_SIZE, y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+        g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
     }
 }

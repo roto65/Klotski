@@ -11,13 +11,17 @@ import static main.Constants.TITLE_SIZE;
 
 public class WideBlock extends Block{
 
-    private Facing facing; // 0: horizontal, 1: vertical
+    @SuppressWarnings("unused")
+    public WideBlock() {
+        loadSprite();
+    }
+    public WideBlock(int x, int y, BlockType blockType) {
+        pos = new Point(x, y);
 
-    public WideBlock(int x, int y, Facing facing) {
-        this.x = x;
-        this.y = y;
-
-        this.facing = facing;
+        if (blockType != BlockType.WIDE_VERTICAL && blockType != BlockType.WIDE_HORIZONTAL) {
+            throw new IllegalArgumentException();
+        }
+        this.blockType = blockType;
 
         loadSprite();
     }
@@ -25,7 +29,7 @@ public class WideBlock extends Block{
     @Override
     protected void loadSprite() {
         try {
-            sprite = ImageIO.read(new File("src/main/resources/Mid.png"));
+            sprite = ImageIO.read(new File("src/main/resources/drawable/Mid.png"));
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
         }
@@ -39,17 +43,17 @@ public class WideBlock extends Block{
 
         double locationX, locationY;
 
-        locationX = x * TITLE_SIZE + ((float) TITLE_SIZE / 2);
-        locationY = y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
+        locationX = pos.x * TITLE_SIZE + ((float) TITLE_SIZE / 2);
+        locationY = pos.y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
 
 
-        if (facing == Facing.VERTICAL) {
+        if (blockType == BlockType.WIDE_VERTICAL) {
             g2d.rotate(Math.toRadians(90), locationX, locationY);
         }
-            g.drawImage(sprite, x * TITLE_SIZE, y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+            g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
             g2d.rotate(Math.toRadians(180), locationX, locationY);
-            g.drawImage(sprite, (x - 1) * TITLE_SIZE, y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+            g.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
         g2d.setTransform(backup);
     }

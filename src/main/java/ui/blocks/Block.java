@@ -6,10 +6,11 @@ import java.awt.image.ImageObserver;
 
 public abstract class Block {
 
-    protected int x, y;
-    protected BufferedImage sprite;
-
+    protected Point pos;
+    protected transient BufferedImage sprite; //transient = non serializable
+    protected BlockType blockType;
     protected abstract void loadSprite();
 
     public abstract void draw(Graphics g, ImageObserver observer);
+
 }
