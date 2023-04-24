@@ -50,7 +50,6 @@ public class Board extends JPanel {
         super.paintComponent(g);
 
         for (Block block: blocks) {
-            System.out.println(block);
             block.draw(g, this);
         }
     }
