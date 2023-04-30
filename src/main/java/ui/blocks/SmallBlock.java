@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static main.Constants.*;
 
@@ -12,6 +13,7 @@ public class SmallBlock extends Block{
 
     @SuppressWarnings("unused")
     public SmallBlock() {
+        loadOffsets();
         loadSprite();
     }
 
@@ -20,7 +22,17 @@ public class SmallBlock extends Block{
 
         blockType = BlockType.SMALL;
 
+        loadOffsets();
         loadSprite();
+    }
+
+    @Override
+    protected void loadOffsets() {
+        offsets = new ArrayList<>() {
+            {
+                add(new Point(0, 0));
+            }
+        };
     }
 
     @Override

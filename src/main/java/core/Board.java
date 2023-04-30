@@ -2,6 +2,7 @@ package core;
 
 import io.Parser;
 import ui.BoardComponent;
+import ui.Window;
 import ui.blocks.*;
 
 import java.awt.*;
@@ -72,9 +73,13 @@ public class Board implements BlockMoveListener {
             return;
         }
 
+        // Collision check
+
         blocks.get(startBlockIndex).move(endPoint);
 
         boardComponent.repaint();
+
+        checkWin();
     }
 
     private static Point normalizeCord(Point input) {
@@ -92,5 +97,17 @@ public class Board implements BlockMoveListener {
                 return i;
         }
         return -1;
+    }
+
+    private void checkWin() {
+        for (Block block : blocks) {
+            if (block.getClass().equals(LargeBlock.class)) {
+                Point pos = block.getPos();
+                if (pos.x == 1 && pos.y == 3){
+                    System.out.println("Hai vinto, sei un figo!");
+                    Window.endGame(getBoardComponent());
+                }
+            }
+        }
     }
 }

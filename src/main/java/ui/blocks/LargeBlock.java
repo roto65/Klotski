@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static main.Constants.*;
 import static main.Constants.ROWS;
@@ -14,6 +15,7 @@ public class LargeBlock extends Block{
 
     @SuppressWarnings("unused")
     public LargeBlock() {
+        loadOffsets();
         loadSprite();
     }
 
@@ -22,7 +24,20 @@ public class LargeBlock extends Block{
 
         blockType = BlockType.LARGE;
 
+        loadOffsets();
         loadSprite();
+    }
+
+    @Override
+    protected void loadOffsets() {
+        offsets = new ArrayList<>() {
+            {
+                add(new Point(0, 0));
+                add(new Point(0, 1));
+                add(new Point(1, 0));
+                add(new Point(1, 1));
+            }
+        };
     }
 
     @Override

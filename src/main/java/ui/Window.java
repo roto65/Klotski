@@ -4,9 +4,11 @@ import javax.swing.*;
 
 public class Window {
 
+    private static JFrame window;
+
     public static void initWindow(BoardComponent boardComponent) {
 
-        JFrame window = new JFrame("Klotski");
+        window = new JFrame("Klotski");
 
         window.addMouseListener(boardComponent);
 
@@ -20,5 +22,10 @@ public class Window {
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
+    }
+
+    public static void endGame(BoardComponent boardComponent) {
+
+        window.removeMouseListener(boardComponent);
     }
 }

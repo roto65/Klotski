@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Initialize game object(s)
-        Board board = new Board("wideTest");
+        Board board = new Board("largeTest");
 
         // Initialize ui
         SwingUtilities.invokeLater(() -> Window.initWindow(board.getBoardComponent()));

@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static main.Constants.*;
 
@@ -13,6 +14,7 @@ public class WideBlock extends Block{
 
     @SuppressWarnings("unused")
     public WideBlock() {
+        loadOffsets();
         loadSprite();
     }
     public WideBlock(int x, int y, BlockType blockType) {
@@ -23,7 +25,26 @@ public class WideBlock extends Block{
         }
         this.blockType = blockType;
 
+        loadOffsets();
         loadSprite();
+    }
+
+    @Override
+    protected void loadOffsets() {
+        switch (blockType) {
+            case WIDE_HORIZONTAL -> offsets = new ArrayList<>() {
+                {
+                    add(new Point(0, 0));
+                    add(new Point(1, 0));
+                }
+            };
+            case WIDE_VERTICAL -> offsets = new ArrayList<>() {
+                {
+                    add(new Point(0, 0));
+                    add(new Point(0, 1));
+                }
+            };
+        }
     }
 
     @Override
