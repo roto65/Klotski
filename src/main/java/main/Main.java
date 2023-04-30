@@ -6,10 +6,11 @@ import ui.Window;
 import javax.swing.*;
 
 public class Main {
+
     public static void main(String[] args) {
 
         // Initialize game object(s)
-        Board board = new Board();
+        Board board = new Board("wideTest");
 
         // Initialize ui
         SwingUtilities.invokeLater(() -> Window.initWindow(board.getBoardComponent()));

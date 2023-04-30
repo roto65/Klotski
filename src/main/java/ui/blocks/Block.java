@@ -13,11 +13,9 @@ public abstract class Block {
 
     public abstract void draw(Graphics g, ImageObserver observer);
 
+    public abstract void move(Point destination);
+
     public Point getPos() {
         return pos;
-    }
-
-    public void setPos(Point pos) {
-        this.pos = pos;
     }
 }

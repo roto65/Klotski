@@ -7,24 +7,25 @@ import ui.blocks.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static main.Constants.TITLE_SIZE;
+import static main.Constants.*;
 
 public class Board implements BlockMoveListener {
 
     private final BoardComponent boardComponent;
 
     private ArrayList<Block> blocks = new ArrayList<>();
-    public Board() {
-        initBlocks("default");
+    public Board(String blockConfiguration) {
+        initBlocks(blockConfiguration);
 
         boardComponent = new BoardComponent(blocks);
         boardComponent.setListener(this);
     }
 
+    @SuppressWarnings("SameParameterValue")
     void initBlocks(String filename) {
         Parser parser = new Parser(filename);
 
-        this.blocks = parser.load();
+        this.blocks = new ArrayList<>(parser.load());
     }
 
     public BoardComponent getBoardComponent() {
@@ -51,21 +52,27 @@ public class Board implements BlockMoveListener {
 
     @Override
     public void blockMoved(Point startCoord, Point endCoord) {
+
+        if (startCoord == null || endCoord == null) {
+            return;
+        }
         
         Point startPoint = normalizeCord(startCoord);
         Point endPoint = normalizeCord(endCoord);
 
         int startBlockIndex = linearSearch(startPoint);
 
+        // NO block clicked
         if (startBlockIndex == -1) {
             return;
         }
 
+        // NO destination space
         if (linearSearch(endPoint) != -1) {
             return;
         }
 
-        blocks.get(startBlockIndex).setPos(endPoint);
+        blocks.get(startBlockIndex).move(endPoint);
 
         boardComponent.repaint();
     }

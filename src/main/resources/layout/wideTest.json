@@ -1,0 +1,16 @@
+[
+  {
+    "pos": {
+      "x": 1,
+      "y": 1
+    },
+    "blockType": "WIDE_HORIZONTAL"
+  },
+  {
+    "pos": {
+      "x": 3,
+      "y": 3
+    },
+    "blockType": "WIDE_VERTICAL"
+  }
+]

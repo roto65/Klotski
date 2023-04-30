@@ -6,7 +6,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-import static main.Constants.TITLE_SIZE;
+import static main.Constants.*;
 
 public class SmallBlock extends Block{
 
@@ -34,5 +34,28 @@ public class SmallBlock extends Block{
 
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+    }
+
+    @Override
+    public void move(Point destination) {
+
+        pos = destination;
+
+        if (pos.x < 0) {
+            pos.x = 0;
+        }
+
+        if (pos.y < 0) {
+            pos.y = 0;
+        }
+
+        if (pos.x >= COLUMNS) {
+            pos.x = COLUMNS - 1;
+        }
+
+        if (pos.y >= ROWS) {
+            pos.y = ROWS - 1;
+        }
+
     }
 }

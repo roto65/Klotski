@@ -7,7 +7,7 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
-import static main.Constants.TITLE_SIZE;
+import static main.Constants.*;
 
 public class WideBlock extends Block{
 
@@ -56,6 +56,39 @@ public class WideBlock extends Block{
             g.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
         g2d.setTransform(backup);
+    }
+
+    @Override
+    public void move(Point destination) {
+
+        pos = destination;
+
+        if (pos.x < 0) {
+            pos.x = 0;
+        }
+
+        if (pos.y < 0) {
+            pos.y = 0;
+        }
+
+        switch (blockType) {
+            case WIDE_VERTICAL -> {
+                if (pos.x >= COLUMNS) {
+                    pos.x = COLUMNS - 1;
+                }
+                if (pos.y >= ROWS - 1) {
+                    pos.y = ROWS - 2;
+                }
+            }
+            case WIDE_HORIZONTAL -> {
+                if (pos.x >= COLUMNS - 1) {
+                    pos.x = COLUMNS - 2;
+                }
+                if (pos.y >= ROWS) {
+                    pos.y = ROWS - 1;
+                }
+            }
+        }
     }
 }
 

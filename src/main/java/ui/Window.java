@@ -2,7 +2,6 @@ package ui;
 
 import javax.swing.*;
 
-
 public class Window {
 
     public static void initWindow(BoardComponent boardComponent) {
