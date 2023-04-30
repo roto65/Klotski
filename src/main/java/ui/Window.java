@@ -5,11 +5,13 @@ import javax.swing.*;
 
 public class Window {
 
-    public static void initWindow() {
+    public static void initWindow(BoardComponent boardComponent) {
 
         JFrame window = new JFrame("Klotski");
 
-        window.add(new Board());
+        window.addMouseListener(boardComponent);
+
+        window.add(boardComponent);
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
