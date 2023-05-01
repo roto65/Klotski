@@ -13,8 +13,6 @@ public class SmallBlock extends Block{
 
     @SuppressWarnings("unused")
     public SmallBlock() {
-        loadOffsets();
-        loadSprite();
     }
 
     public SmallBlock(int x, int y) {

@@ -21,4 +21,9 @@ public abstract class Block {
     public Point getPos() {
         return pos;
     }
+
+    public void postDeserializationProcess() {
+        loadOffsets();
+        loadSprite();
+    }
 }

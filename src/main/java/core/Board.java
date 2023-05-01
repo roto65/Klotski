@@ -57,7 +57,17 @@ public class Board implements BlockMoveListener {
         if (startCoord == null || endCoord == null) {
             return;
         }
-        
+
+        // Mono axis move
+        int deltaX = Math.abs(endCoord.x - startCoord.x);
+        int deltaY = Math.abs(endCoord.y - startCoord.y);
+
+        if (deltaX >= deltaY) {
+            endCoord.y = startCoord.y;
+        } else {
+            endCoord.x = startCoord.x;
+        }
+
         Point startPoint = normalizeCord(startCoord);
         Point endPoint = normalizeCord(endCoord);
 

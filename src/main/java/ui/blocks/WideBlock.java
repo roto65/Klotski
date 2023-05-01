@@ -14,8 +14,6 @@ public class WideBlock extends Block{
 
     @SuppressWarnings("unused")
     public WideBlock() {
-        loadOffsets();
-        loadSprite();
     }
     public WideBlock(int x, int y, BlockType blockType) {
         pos = new Point(x, y);

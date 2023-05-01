@@ -15,8 +15,6 @@ public class LargeBlock extends Block{
 
     @SuppressWarnings("unused")
     public LargeBlock() {
-        loadOffsets();
-        loadSprite();
     }
 
     public LargeBlock(int x, int y) {
