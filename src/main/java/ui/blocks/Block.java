@@ -26,4 +26,14 @@ public abstract class Block {
         loadOffsets();
         loadSprite();
     }
+
+    public ArrayList<Point> getSectionsPos() {
+        return new ArrayList<>() {
+            {
+                for (Point offset : offsets) {
+                    add(new Point(pos.x + offset.x, pos.y + offset.y));
+                }
+            }
+        };
+    }
 }

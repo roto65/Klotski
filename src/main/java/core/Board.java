@@ -54,38 +54,34 @@ public class Board implements BlockMoveListener {
     @Override
     public void blockMoved(Point startCoord, Point endCoord) {
 
-        if (startCoord == null || endCoord == null) {
-            return;
-        }
+        Point startPoint = normalizeCord(startCoord);
+        Point endPoint   = normalizeCord(endCoord);
 
         // Mono axis move
-        int deltaX = Math.abs(endCoord.x - startCoord.x);
-        int deltaY = Math.abs(endCoord.y - startCoord.y);
-
-        if (deltaX >= deltaY) {
-            endCoord.y = startCoord.y;
-        } else {
-            endCoord.x = startCoord.x;
-        }
-
-        Point startPoint = normalizeCord(startCoord);
-        Point endPoint = normalizeCord(endCoord);
+        int deltaX = endPoint.x - startPoint.x;
+        int deltaY = endPoint.y - startPoint.y;
 
         int startBlockIndex = linearSearch(startPoint);
 
         // NO block clicked
-        if (startBlockIndex == -1) {
-            return;
+        if (startBlockIndex == -1) return;
+
+        Block blockToMove = blocks.get(startBlockIndex);
+        blocks.remove(startBlockIndex);
+
+        if (Math.abs(deltaX) >= Math.abs(deltaY)) {
+            if (deltaX >= 0) {      // Right move
+                pushBlock(blockToMove, deltaX, Direction.RIGHT);
+            } else {                // Left move
+                pushBlock(blockToMove, -deltaX, Direction.LEFT);
+            }
+        } else {
+        if (deltaY >= 0) {          // Down move
+                pushBlock(blockToMove, deltaY, Direction.DOWN);
+            } else {                // Up move
+                pushBlock(blockToMove, -deltaY, Direction.UP);
+            }
         }
-
-        // NO destination space
-        if (linearSearch(endPoint) != -1) {
-            return;
-        }
-
-        // Collision check
-
-        blocks.get(startBlockIndex).move(endPoint);
 
         boardComponent.repaint();
 
@@ -103,10 +99,35 @@ public class Board implements BlockMoveListener {
     private int linearSearch(Point point) {
 
         for (int i = 0; i < blocks.size(); i++) {
-            if (blocks.get(i).getPos().equals(point))
-                return i;
+            for (Point sectionPos : blocks.get(i).getSectionsPos()) {
+                if (sectionPos.equals(point)) {
+                    return i;
+                }
+            }
         }
         return -1;
+    }
+
+    private void pushBlock(Block blockToMove, int steps, Direction direction) {
+
+        Point directionVector = direction.getVector();
+
+        while (steps > 0) {
+
+            for (Point sectionPos : blockToMove.getSectionsPos()){
+                Point posToSearch = new Point(sectionPos.x + directionVector.x, sectionPos.y + directionVector.y);
+                if (linearSearch(posToSearch) != -1) {
+                    blocks.add(blockToMove);
+                    return;
+                }
+            }
+            Point currentPos = blockToMove.getPos();
+
+            blockToMove.move(new Point(currentPos.x + directionVector.x, currentPos.y + directionVector.y));
+
+            steps--;
+        }
+        blocks.add(blockToMove);
     }
 
     private void checkWin() {
