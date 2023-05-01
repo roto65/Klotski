@@ -1,0 +1,123 @@
+Index: .idea/workspace.xml
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,16 +4,22 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Updated README.md">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/Facing.java" afterDir="false" />
++    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Added serialization support">
++      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/io/BlockAdapter.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/io/Parser.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/layout/default.json" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/screen/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Board.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/screen/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Window.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/Block.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/LargeBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/LargeBlock.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/SmallBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/SmallBlock.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/screen/blocks/WideBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/WideBlock.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ui/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Board.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ui/blocks/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/Block.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ui/blocks/Facing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/BlockType.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ui/blocks/LargeBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/LargeBlock.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ui/blocks/SmallBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/SmallBlock.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/ui/blocks/WideBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/blocks/WideBlock.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/Big.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/drawable/Big.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/Mid.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/drawable/Mid.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/Small.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/drawable/Small.png" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -42,6 +48,9 @@
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
++  </component>
++  <component name="ProblemsViewState">
++    <option name="selectedTabId" value="CurrentFile" />
+   </component>
+   <component name="ProjectId" id="2OgBp6W8kEHCRnkZpuTMipSfXA3" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+@@ -51,20 +60,24 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/anton/Desktop/Klotski/src/main/resources&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "last_opened_file_path": "C:/dev/Battaglia-Navale",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.2",
++    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+   }
+-}</component>
++}]]></component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\anton\Desktop\Klotski\src\main\resources" />
+       <recent name="C:\Users\anton\Desktop\Klotski\drawable" />
+     </key>
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\anton\Desktop\Klotski\src\main\resources\drawable" />
++    </key>
+   </component>
+   <component name="RunManager" selected="Application.Main">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+@@ -145,7 +158,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1682011330155</updated>
+     </task>
+-    <option name="localTasksCounter" value="5" />
++    <task id="LOCAL-00005" summary="Added Facing support for wide blocks">
++      <created>1682086965060</created>
++      <option name="number" value="00005" />
++      <option name="presentableId" value="LOCAL-00005" />
++      <option name="project" value="LOCAL" />
++      <updated>1682086965060</updated>
++    </task>
++    <option name="localTasksCounter" value="6" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -164,6 +184,24 @@
+     <MESSAGE value="Added Blocks" />
+     <MESSAGE value="Changed permission of gradlew" />
+     <MESSAGE value="Updated README.md" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Updated README.md" />
++    <MESSAGE value="Added Facing support for wide blocks" />
++    <MESSAGE value="Added serialization support" />
++    <option name="LAST_COMMIT_MESSAGE" value="Added serialization support" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/main/java/ui/Board.java</url>
++          <line>23</line>
++          <option name="timeStamp" value="1" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++  </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/Klotski$Main.ic" NAME="Main Coverage Results" MODIFIED="1682088402619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
++      <FILTER>main.*</FILTER>
++    </SUITE>
+   </component>
+ </project>
+\ No newline at end of file
