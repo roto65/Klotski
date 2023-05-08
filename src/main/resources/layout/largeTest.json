@@ -1,9 +1,11 @@
-[
-  {
-    "pos": {
-      "x": 1,
-      "y": 1
-    },
-    "blockType": "LARGE"
-  }
-]
+{
+  "blocks": [
+    {
+      "pos": {
+        "x": 1,
+        "y": 1
+      },
+      "blockType": "LARGE"
+    }
+  ]
+}

@@ -1,72 +1,74 @@
-[
-  {
-    "pos": {
-      "x": 0,
-      "y": 0
+{
+  "blocks": [
+    {
+      "pos": {
+        "x": 0,
+        "y": 0
+      },
+      "blockType": "WIDE_VERTICAL"
     },
-    "blockType": "WIDE_VERTICAL"
-  },
-  {
-    "pos": {
-      "x": 1,
-      "y": 0
+    {
+      "pos": {
+        "x": 1,
+        "y": 0
+      },
+      "blockType": "LARGE"
     },
-    "blockType": "LARGE"
-  },
-  {
-    "pos": {
-      "x": 3,
-      "y": 0
+    {
+      "pos": {
+        "x": 3,
+        "y": 0
+      },
+      "blockType": "WIDE_VERTICAL"
     },
-    "blockType": "WIDE_VERTICAL"
-  },
-  {
-    "pos": {
-      "x": 0,
-      "y": 2
+    {
+      "pos": {
+        "x": 0,
+        "y": 2
+      },
+      "blockType": "WIDE_VERTICAL"
     },
-    "blockType": "WIDE_VERTICAL"
-  },
-  {
-    "pos": {
-      "x": 1,
-      "y": 2
+    {
+      "pos": {
+        "x": 1,
+        "y": 2
+      },
+      "blockType": "WIDE_HORIZONTAL"
     },
-    "blockType": "WIDE_HORIZONTAL"
-  },
-  {
-    "pos": {
-      "x": 3,
-      "y": 2
+    {
+      "pos": {
+        "x": 3,
+        "y": 2
+      },
+      "blockType": "WIDE_VERTICAL"
     },
-    "blockType": "WIDE_VERTICAL"
-  },
-  {
-    "pos": {
-      "x": 1,
-      "y": 3
+    {
+      "pos": {
+        "x": 1,
+        "y": 3
+      },
+      "blockType": "SMALL"
     },
-    "blockType": "SMALL"
-  },
-  {
-    "pos": {
-      "x": 2,
-      "y": 3
+    {
+      "pos": {
+        "x": 2,
+        "y": 3
+      },
+      "blockType": "SMALL"
     },
-    "blockType": "SMALL"
-  },
-  {
-    "pos": {
-      "x": 0,
-      "y": 4
+    {
+      "pos": {
+        "x": 0,
+        "y": 4
+      },
+      "blockType": "SMALL"
     },
-    "blockType": "SMALL"
-  },
-  {
-    "pos": {
-      "x": 3,
-      "y": 4
-    },
-    "blockType": "SMALL"
-  }
-]
+    {
+      "pos": {
+        "x": 3,
+        "y": 4
+      },
+      "blockType": "SMALL"
+    }
+  ]
+}

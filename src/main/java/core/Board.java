@@ -1,6 +1,7 @@
 package core;
 
-import io.Parser;
+import io.GsonFileParser;
+import io.db.BsonParser;
 import ui.BoardComponent;
 import ui.Window;
 import ui.blocks.*;
@@ -8,7 +9,7 @@ import ui.blocks.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static main.Constants.*;
+import static main.Constants.TITLE_SIZE;
 
 public class Board implements BlockMoveListener {
 
@@ -24,7 +25,10 @@ public class Board implements BlockMoveListener {
 
     @SuppressWarnings("SameParameterValue")
     void initBlocks(String filename) {
-        Parser parser = new Parser(filename);
+
+        //GsonFileParser parser = new GsonFileParser(filename);
+
+        BsonParser parser = new BsonParser();
 
         this.blocks = new ArrayList<>(parser.load());
     }
@@ -46,7 +50,7 @@ public class Board implements BlockMoveListener {
         blocks.add(new SmallBlock(0, 4));
         blocks.add(new SmallBlock(3, 4));
 
-        Parser parser = new Parser("default", "json");
+        GsonFileParser parser = new GsonFileParser("default", "json");
 
         parser.save(blocks);
     }

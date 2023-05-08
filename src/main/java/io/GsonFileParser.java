@@ -3,6 +3,7 @@ package io;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import core.BlockCollection;
 import ui.blocks.Block;
 
 import java.io.FileReader;
@@ -10,22 +11,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Parser {
+public class GsonFileParser {
 
     private final String filename;
     private final String extension;
 
-    public Parser(String filename) {
+    public GsonFileParser(String filename) {
         this.filename = filename;
         extension = "json";
     }
 
-    public Parser(String filename, String extension) {
+    public GsonFileParser(String filename, String extension) {
         this.filename = filename;
         this.extension = extension;
     }
 
     public void save(ArrayList<Block> blocks) {
+
+        BlockCollection collection = new BlockCollection(blocks);
 
         String path = "src/main/resources/layout/" + filename + "." + extension;
 
@@ -36,14 +39,13 @@ public class Parser {
         try {
             FileWriter fileWriter = new FileWriter(path);
 
-            gson.toJson(blocks, fileWriter);
+            gson.toJson(collection, fileWriter);
 
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public ArrayList<Block> load() {
@@ -54,17 +56,18 @@ public class Parser {
 
         Gson gson = gsonBuilder.create();
 
-        ArrayList<Block> blocks = null;
+        BlockCollection collection = null;
 
         try {
             FileReader fileReader = new FileReader(path);
 
-            blocks = gson.fromJson(fileReader, new TypeToken<ArrayList<Block>>(){}.getType());
+            collection = gson.fromJson(fileReader, new TypeToken<BlockCollection>(){}.getType());
             fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return blocks;
+        assert collection != null : "Error loading layout file";
+        return collection.getBlocks();
     }
 }
