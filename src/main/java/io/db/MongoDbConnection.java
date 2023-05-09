@@ -12,7 +12,9 @@ import org.apache.log4j.Logger;
 import org.bson.BsonDocument;
 import org.bson.Document;
 
-import static main.Constants.*;
+import static io.db.Credentials.mongoUri;
+import static main.Constants.collectionName;
+import static main.Constants.databaseName;
 
 // Ref: https://github.com/mongodb-university/atlas_starter_java/blob/master/src/main/java/mongodb/Main.java
 
