@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Implemented load/save db ops">
+    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Solved secret issue">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,7 +291,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683566641855</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Solved secret issue">
+      <created>1683623135534</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1683623135534</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -332,7 +340,8 @@
     <MESSAGE value="Solved deserialization issue" />
     <MESSAGE value="Completed block movement" />
     <MESSAGE value="Implemented load/save db ops" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented load/save db ops" />
+    <MESSAGE value="Solved secret issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solved secret issue" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
