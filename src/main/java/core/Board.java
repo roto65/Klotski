@@ -58,6 +58,8 @@ public class Board implements BlockMoveListener {
     @Override
     public void blockMoved(Point startCoord, Point endCoord) {
 
+        if (startCoord == null || endCoord == null) return;
+
         Point startPoint = normalizeCord(startCoord);
         Point endPoint   = normalizeCord(endCoord);
 
