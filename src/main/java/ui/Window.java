@@ -11,7 +11,7 @@ public class Window {
     private static JFrame window;
     private static GridBagConstraints gridBagConstraints;
 
-    public static void initWindow(BoardComponent boardComponent) {
+    public static void initWindow(BoardComponent boardComponent, DashboardComponent dashboardComponent) {
 
         window = new JFrame("Klotski");
 
@@ -23,7 +23,7 @@ public class Window {
 
         gridBagConstraints.gridheight = ROWS;
 
-        initLayout(boardComponent, new DashboardComponent());
+        initLayout(boardComponent, dashboardComponent);
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

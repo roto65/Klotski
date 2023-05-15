@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Added DashboardComponent&#10;&#10;DashboardComponent is the window part with buttons (WIP)">
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/CustomButtonExample.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ui/StyledButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/drawable/Button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/core/Dashboard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/core/StyledButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ui/StyledButtonUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/drawable/PressedButton.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/font/DotGothic.ttf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/BoardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/BoardComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ui/DashboardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/DashboardComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/StyledButton.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/drawable/Button.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/drawable/Button.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +50,7 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
@@ -109,6 +119,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\anton\Desktop\Klotski\src\main\resources\drawable" />
       <recent name="C:\Users\anton\Desktop\Klotski\src\main\java\io\db" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="core" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">

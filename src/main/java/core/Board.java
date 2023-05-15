@@ -13,18 +13,29 @@ import static main.Constants.TITLE_SIZE;
 
 public class Board implements BlockMoveListener {
 
-    private final BoardComponent boardComponent;
+    private String lastConfigName;
+    private BoardComponent boardComponent;
 
     private ArrayList<Block> blocks = new ArrayList<>();
     public Board(String blockConfiguration) {
+        lastConfigName = blockConfiguration;
         initBlocks(blockConfiguration);
 
         boardComponent = new BoardComponent(blocks);
         boardComponent.setListener(this);
     }
 
+    public void resetBlocks() {
+
+        initBlocks(lastConfigName);
+
+        boardComponent.setBlocks(blocks);
+
+        boardComponent.repaint();
+    }
+
     @SuppressWarnings("SameParameterValue")
-    void initBlocks(String filename) {
+    private void initBlocks(String filename) {
 
         //GsonFileParser parser = new GsonFileParser(filename);
 

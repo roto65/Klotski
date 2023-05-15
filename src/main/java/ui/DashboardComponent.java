@@ -1,44 +1,50 @@
 package ui;
 
+import core.StyledButton;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 import static main.Constants.ROWS;
 import static main.Constants.TITLE_SIZE;
 
 public class DashboardComponent extends JPanel {
 
-    private final StyledButton button;
+    private GridBagConstraints constraints;
 
-    public DashboardComponent() {
+    public DashboardComponent(ArrayList<StyledButton> buttons) {
 
-        setPreferredSize(new Dimension(TITLE_SIZE * 2, TITLE_SIZE * ROWS));
+        setPreferredSize(new Dimension(TITLE_SIZE * 3, TITLE_SIZE * ROWS));
 
         setBackground(new Color(255,91,46));
 
-         button = new StyledButton("Yee");
+        this.setLayout(new GridBagLayout());
+        constraints = new GridBagConstraints();
 
-        add(button);
+        // padding settings to put some space between the buttons
+        constraints.insets = new Insets(0, TITLE_SIZE / 8, 0, TITLE_SIZE / 8);
 
-        button.addActionListener(e -> System.out.print("culo"));
-    }
+        for (StyledButton button : buttons) {
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+            constraints.gridx = button.getPos().x;
+            constraints.gridy = button.getPos().y;
+
+            add(button, constraints);
+        }
     }
 
     /*
     Buttons:
         - New Game (Reset)
-        - Change loadout
+        - Change load-out ?
         - Save
         - Load
         - Undo
-        - Best Move
+        - Redo ?
+        - Best Move (Hint)
         - Exit
     Move counter
      */
-
 
 }
