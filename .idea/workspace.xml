@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Added basic wall collision&#10;&#10;(WIP) Still NO full valid move check">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ui/DashboardComponent.java" afterDir="false" />
+    <list default="true" id="378a6197-bd2f-412f-b785-ca9c9f82155d" name="Changes" comment="Added DashboardComponent&#10;&#10;DashboardComponent is the window part with buttons (WIP)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/main/CustomButtonExample.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ui/StyledButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/drawable/Button.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ui/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/DashboardComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/DashboardComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,10 +107,24 @@
       <recent name="C:\Users\anton\Desktop\Klotski\drawable" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\anton\Desktop\Klotski\src\main\resources\drawable" />
       <recent name="C:\Users\anton\Desktop\Klotski\src\main\java\io\db" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
+    <configuration name="CustomButtonExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.CustomButtonExample" />
+      <module name="Klotski.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="Klotski.main" />
@@ -168,12 +183,14 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.CustomButtonExample" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Gradle.Klotski [javadoc]" />
       <item itemvalue="Gradle.Klotski [wrapper]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CustomButtonExample" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.Klotski [javadoc]" />
         <item itemvalue="Gradle.Klotski [wrapper]" />
@@ -280,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683623135534</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added DashboardComponent&#10;&#10;DashboardComponent is the window part with buttons (WIP)">
+      <created>1683806306849</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1683806306849</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -334,7 +358,8 @@
     <MESSAGE value="Completed block movement" />
     <MESSAGE value="Implemented load/save db ops" />
     <MESSAGE value="Solved secret issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Solved secret issue" />
+    <MESSAGE value="Added DashboardComponent&#10;&#10;DashboardComponent is the window part with buttons (WIP)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added DashboardComponent&#10;&#10;DashboardComponent is the window part with buttons (WIP)" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
