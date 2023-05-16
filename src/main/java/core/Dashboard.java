@@ -47,13 +47,13 @@ public class Dashboard {
 
         StyledButton undoButton = new StyledButton("Undo", new Point(0, 2));
         undoButton.addActionListener(e -> {
-            // TODO: add this method
+            board.undo();
         });
         buttons.add(undoButton);
 
         StyledButton redoButton = new StyledButton("Redo", new Point(1, 2));
         redoButton.addActionListener(e -> {
-            // TODO: add this method
+            board.redo();
         });
         buttons.add(redoButton);
 

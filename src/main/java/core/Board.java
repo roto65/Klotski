@@ -119,9 +119,23 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
 
         moves.add(move);
-        movesIterator = moves.listIterator();
+        movesIterator = moves.listIterator(moves.size());
 
         checkWin();
+    }
+
+    private void performMove(Move move) {
+
+        int startBlockIndex = linearSearch(move.getStartPos());
+
+        if (startBlockIndex == -1) return;
+
+        Block blockToMove = blocks.get(startBlockIndex);
+        blocks.remove(startBlockIndex);
+
+        pushBlock(blockToMove, move.getSteps(), move.getDirection());
+
+        boardComponent.repaint();
     }
 
     private static Point normalizeCord(Point input) {
@@ -145,6 +159,13 @@ public class Board implements BlockMoveListener {
     }
 
     private void pushBlock(Block blockToMove, int steps, Direction direction) {
+
+        /*
+         * TODO: forse questa funzione dovrebbe prendere in input l'indice del blocco e non il blocco stesso
+         * in questo modo si rende più atomico il tutto e si eliminano le operazioni precedenti alla chiamata della
+         * funzione stessa
+         */
+
 
         Point directionVector = direction.getVector();
 
@@ -179,10 +200,17 @@ public class Board implements BlockMoveListener {
     }
 
     public void undo() {
-
+        if (movesIterator.hasPrevious()) {
+            Move previous = movesIterator.previous().reverse();
+            performMove(previous);
+        }
     }
 
     public void redo() {
+        if (movesIterator.hasNext()) {
+            Move next = movesIterator.next();
+            performMove(next);
+        }
 
     }
 }
