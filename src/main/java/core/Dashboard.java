@@ -29,7 +29,7 @@ public class Dashboard {
 
         StyledButton resetButton = new StyledButton("New Game", new Point(0, 0));
         resetButton.addActionListener(e -> {
-            board.resetBlocks();
+            board.resetBoard();
         });
         buttons.add(resetButton);
 

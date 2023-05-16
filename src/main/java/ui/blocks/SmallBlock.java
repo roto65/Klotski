@@ -36,7 +36,7 @@ public class SmallBlock extends Block{
     @Override
     protected void loadSprite() {
         try {
-            sprite = ImageIO.read(new File("src/main/resources/drawable/Small.png"));
+            sprite = ImageIO.read(new File("src/main/resources/drawable/Block.png"));
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
         }

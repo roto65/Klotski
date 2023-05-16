@@ -8,6 +8,7 @@ import ui.blocks.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import static main.Constants.TITLE_SIZE;
 
@@ -16,6 +17,9 @@ public class Board implements BlockMoveListener {
     private String lastConfigName;
     private BoardComponent boardComponent;
 
+    private ArrayList<Move> moves;
+    private ListIterator<Move> movesIterator;
+
     private ArrayList<Block> blocks = new ArrayList<>();
     public Board(String blockConfiguration) {
         lastConfigName = blockConfiguration;
@@ -23,9 +27,15 @@ public class Board implements BlockMoveListener {
 
         boardComponent = new BoardComponent(blocks);
         boardComponent.setListener(this);
+
+        moves = new ArrayList<>();
+        movesIterator = moves.listIterator();
     }
 
-    public void resetBlocks() {
+    public void resetBoard() {
+
+        moves = new ArrayList<>();
+        movesIterator = moves.listIterator();
 
         initBlocks(lastConfigName);
 
@@ -86,21 +96,30 @@ public class Board implements BlockMoveListener {
         Block blockToMove = blocks.get(startBlockIndex);
         blocks.remove(startBlockIndex);
 
+        Move move;
+
         if (Math.abs(deltaX) >= Math.abs(deltaY)) {
             if (deltaX >= 0) {      // Right move
                 pushBlock(blockToMove, deltaX, Direction.RIGHT);
+                move = new Move(startPoint, deltaX, Direction.RIGHT);
             } else {                // Left move
                 pushBlock(blockToMove, -deltaX, Direction.LEFT);
+                move = new Move(startPoint, -deltaX, Direction.LEFT);
             }
         } else {
         if (deltaY >= 0) {          // Down move
                 pushBlock(blockToMove, deltaY, Direction.DOWN);
+                move = new Move(startPoint, deltaY, Direction.DOWN);
             } else {                // Up move
                 pushBlock(blockToMove, -deltaY, Direction.UP);
+                move = new Move(startPoint, -deltaY, Direction.UP);
             }
         }
 
         boardComponent.repaint();
+
+        moves.add(move);
+        movesIterator = moves.listIterator();
 
         checkWin();
     }
@@ -157,5 +176,13 @@ public class Board implements BlockMoveListener {
                 }
             }
         }
+    }
+
+    public void undo() {
+
+    }
+
+    public void redo() {
+
     }
 }
