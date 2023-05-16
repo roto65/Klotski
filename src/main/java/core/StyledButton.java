@@ -13,7 +13,7 @@ public class StyledButton extends JButton {
 
     private boolean pressed = false;
 
-    private Point pos;
+    private final Point pos;
 
     public StyledButton(String text, Point pos) {
         super(text);

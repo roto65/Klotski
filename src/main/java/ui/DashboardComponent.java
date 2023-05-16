@@ -32,6 +32,15 @@ public class DashboardComponent extends JPanel {
 
             add(button, constraints);
         }
+
+        JLabel moveCounter = new JLabel("Moves: 0");
+
+        moveCounter.setPreferredSize(new Dimension(TITLE_SIZE, TITLE_SIZE / 2));
+
+        constraints.gridx = 1;
+        constraints.gridy = 4;
+
+        add(moveCounter, constraints);
     }
 
     /*
