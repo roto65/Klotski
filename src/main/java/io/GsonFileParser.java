@@ -13,24 +13,19 @@ import java.util.ArrayList;
 
 public class GsonFileParser {
 
-    private final String filename;
-    private final String extension;
+    private final String path;
 
-    public GsonFileParser(String filename) {
-        this.filename = filename;
-        extension = "json";
+    public GsonFileParser(String absolutePath) {
+        this.path = absolutePath;
     }
 
     public GsonFileParser(String filename, String extension) {
-        this.filename = filename;
-        this.extension = extension;
+        this.path = "src/main/resources/layout/" + filename + "." + extension;
     }
 
     public void save(ArrayList<Block> blocks) {
 
         BlockCollection collection = new BlockCollection(blocks);
-
-        String path = "src/main/resources/layout/" + filename + "." + extension;
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter()).setPrettyPrinting();
 
@@ -49,8 +44,6 @@ public class GsonFileParser {
     }
 
     public ArrayList<Block> load() {
-
-        String path = "src/main/resources/layout/" + filename + "." + extension;
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
 

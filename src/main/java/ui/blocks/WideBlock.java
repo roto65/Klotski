@@ -3,6 +3,7 @@ package ui.blocks;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import static main.Constants.*;
 
 public class WideBlock extends Block{
+
+    private transient BufferedImage altSprite;
 
     @SuppressWarnings("unused")
     public WideBlock() {
@@ -48,7 +51,12 @@ public class WideBlock extends Block{
     @Override
     protected void loadSprite() {
         try {
-            sprite = ImageIO.read(new File("src/main/resources/drawable/Mid.png"));
+            if (USE_LEGACY_SPRITES) {
+                sprite = ImageIO.read(new File("src/main/resources/drawable/Mid.png"));
+            } else {
+                sprite = ImageIO.read(new File("src/main/resources/drawable/WideBlock.png"));
+                altSprite = ImageIO.read(new File("src/main/resources/drawable/TallBlock.png"));
+            }
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
         }
@@ -56,25 +64,34 @@ public class WideBlock extends Block{
 
     public void draw(Graphics g, ImageObserver observer) {
 
-        Graphics2D g2d = (Graphics2D) g;
+        if (USE_LEGACY_SPRITES) {
 
-        AffineTransform backup = g2d.getTransform();
+            Graphics2D g2d = (Graphics2D) g;
 
-        double locationX, locationY;
+            AffineTransform backup = g2d.getTransform();
 
-        locationX = pos.x * TITLE_SIZE + ((float) TITLE_SIZE / 2);
-        locationY = pos.y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
+            double locationX, locationY;
+
+            locationX = pos.x * TITLE_SIZE + ((float) TITLE_SIZE / 2);
+            locationY = pos.y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
 
 
-        if (blockType == BlockType.WIDE_VERTICAL) {
-            g2d.rotate(Math.toRadians(90), locationX, locationY);
-        }
+            if (blockType == BlockType.WIDE_VERTICAL) {
+                g2d.rotate(Math.toRadians(90), locationX, locationY);
+            }
             g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
             g2d.rotate(Math.toRadians(180), locationX, locationY);
             g.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
-        g2d.setTransform(backup);
+            g2d.setTransform(backup);
+        } else {
+            if (blockType == BlockType.WIDE_HORIZONTAL) {
+                g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE * 2, TITLE_SIZE, observer);
+            } else if (blockType == BlockType.WIDE_VERTICAL) {
+                g.drawImage(altSprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE * 2, observer);
+            }
+        }
     }
 
     @Override

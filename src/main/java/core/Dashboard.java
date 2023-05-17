@@ -35,13 +35,13 @@ public class Dashboard {
 
         StyledButton saveButton = new StyledButton("Save", new Point(0, 1));
         saveButton.addActionListener(e -> {
-            // TODO: add this method
+            board.save();
         });
         buttons.add(saveButton);
 
         StyledButton loadButton = new StyledButton("Load", new Point(1, 1));
         loadButton.addActionListener(e -> {
-            // TODO: add this method
+            board.load();
         });
         buttons.add(loadButton);
 

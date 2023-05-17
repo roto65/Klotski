@@ -1,12 +1,14 @@
 package core;
 
 import io.GsonFileParser;
+import io.JsonFileChooser;
 import io.db.BsonParser;
 import ui.BoardComponent;
 import ui.Window;
 import ui.blocks.*;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -15,7 +17,7 @@ import static main.Constants.TITLE_SIZE;
 public class Board implements BlockMoveListener {
 
     private String lastConfigName;
-    private BoardComponent boardComponent;
+    private final BoardComponent boardComponent;
 
     private ArrayList<Move> moves;
     private ListIterator<Move> movesIterator;
@@ -211,6 +213,38 @@ public class Board implements BlockMoveListener {
             Move next = movesIterator.next();
             performMove(next);
         }
+
+    }
+
+    public void save() {
+        JsonFileChooser fileChooser = new JsonFileChooser();
+        File file = fileChooser.showSaveDialog();
+
+        if (file == null) return;
+
+        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
+
+        parser.save(blocks);
+
+    }
+
+    public void load() {
+
+        JsonFileChooser fileChooser = new JsonFileChooser();
+        File file = fileChooser.showLoadDialog();
+
+        if (file == null) return;
+
+        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
+
+        moves = new ArrayList<>();
+        movesIterator = moves.listIterator();
+
+        blocks = parser.load();
+
+        boardComponent.setBlocks(blocks);
+
+        boardComponent.repaint();
 
     }
 }
