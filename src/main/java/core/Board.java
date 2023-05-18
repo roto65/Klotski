@@ -98,30 +98,31 @@ public class Board implements BlockMoveListener {
         Block blockToMove = blocks.get(startBlockIndex);
         blocks.remove(startBlockIndex);
 
-        Move move;
+        Point trueStartPos = blockToMove.getPos();
+        Point trueEndPos;
 
         if (Math.abs(deltaX) >= Math.abs(deltaY)) {
             if (deltaX >= 0) {      // Right move
-                pushBlock(blockToMove, deltaX, Direction.RIGHT);
-                move = new Move(startPoint, deltaX, Direction.RIGHT);
+                trueEndPos = pushBlock(blockToMove, deltaX, Direction.RIGHT);
             } else {                // Left move
-                pushBlock(blockToMove, -deltaX, Direction.LEFT);
-                move = new Move(startPoint, -deltaX, Direction.LEFT);
+                trueEndPos = pushBlock(blockToMove, -deltaX, Direction.LEFT);
             }
         } else {
         if (deltaY >= 0) {          // Down move
-                pushBlock(blockToMove, deltaY, Direction.DOWN);
-                move = new Move(startPoint, deltaY, Direction.DOWN);
+                trueEndPos = pushBlock(blockToMove, deltaY, Direction.DOWN);
             } else {                // Up move
-                pushBlock(blockToMove, -deltaY, Direction.UP);
-                move = new Move(startPoint, -deltaY, Direction.UP);
+                trueEndPos = pushBlock(blockToMove, -deltaY, Direction.UP);
             }
         }
 
+        Move move = new Move(trueStartPos, trueEndPos);
+
         boardComponent.repaint();
 
-        moves.add(move);
-        movesIterator = moves.listIterator(moves.size());
+        if (!trueStartPos.equals(trueEndPos)) {
+            moves.add(move);
+            movesIterator = moves.listIterator(moves.size());
+        }
 
         checkWin();
     }
@@ -135,7 +136,7 @@ public class Board implements BlockMoveListener {
         Block blockToMove = blocks.get(startBlockIndex);
         blocks.remove(startBlockIndex);
 
-        pushBlock(blockToMove, move.getSteps(), move.getDirection());
+        pushBlock(blockToMove, move.evalSteps(), move.evalDirection());
 
         boardComponent.repaint();
     }
@@ -160,7 +161,7 @@ public class Board implements BlockMoveListener {
         return -1;
     }
 
-    private void pushBlock(Block blockToMove, int steps, Direction direction) {
+    private Point pushBlock(Block blockToMove, int steps, Direction direction) {
 
         /*
          * TODO: forse questa funzione dovrebbe prendere in input l'indice del blocco e non il blocco stesso
@@ -168,8 +169,9 @@ public class Board implements BlockMoveListener {
          * funzione stessa
          */
 
-
         Point directionVector = direction.getVector();
+
+        Point endPoint;
 
         while (steps > 0) {
 
@@ -177,7 +179,7 @@ public class Board implements BlockMoveListener {
                 Point posToSearch = new Point(sectionPos.x + directionVector.x, sectionPos.y + directionVector.y);
                 if (linearSearch(posToSearch) != -1) {
                     blocks.add(blockToMove);
-                    return;
+                    return blockToMove.getPos();
                 }
             }
             Point currentPos = blockToMove.getPos();
@@ -186,7 +188,9 @@ public class Board implements BlockMoveListener {
 
             steps--;
         }
+
         blocks.add(blockToMove);
+        return blockToMove.getPos();
     }
 
     private void checkWin() {
@@ -204,6 +208,7 @@ public class Board implements BlockMoveListener {
     public void undo() {
         if (movesIterator.hasPrevious()) {
             Move previous = movesIterator.previous().reverse();
+
             performMove(previous);
         }
     }
