@@ -41,7 +41,11 @@ public class LargeBlock extends Block{
     @Override
     protected void loadSprite() {
         try {
-            sprite = ImageIO.read(new File("src/main/resources/drawable/Big.png"));
+            if (USE_LEGACY_SPRITES) {
+                sprite = ImageIO.read(new File("src/main/resources/drawable/Big.png"));
+            } else {
+                sprite = ImageIO.read(new File("src/main/resources/drawable/LargeBlock.png"));
+            }
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
         }
@@ -49,31 +53,34 @@ public class LargeBlock extends Block{
 
     public void draw(Graphics g, ImageObserver observer) {
 
-        Graphics2D g2d = (Graphics2D) g;
+        if (USE_LEGACY_SPRITES) {
+            Graphics2D g2d = (Graphics2D) g;
 
-        AffineTransform backup = g2d.getTransform();
+            AffineTransform backup = g2d.getTransform();
 
-        double locationX, locationY;
+            double locationX, locationY;
 
-        locationX = pos.x * TITLE_SIZE + ((float) TITLE_SIZE / 2);
-        locationY = pos.y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
+            locationX = pos.x * TITLE_SIZE + ((float) TITLE_SIZE / 2);
+            locationY = pos.y * TITLE_SIZE + ((float) TITLE_SIZE / 2);
 
-        // tl corner
-        g2d.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+            // tl corner
+            g2d.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
-        // tr corner
-        g2d.rotate(Math.toRadians(90), locationX, locationY);
-        g2d.drawImage(sprite, pos.x * TITLE_SIZE, (pos.y - 1) * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+            // tr corner
+            g2d.rotate(Math.toRadians(90), locationX, locationY);
+            g2d.drawImage(sprite, pos.x * TITLE_SIZE, (pos.y - 1) * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
-        //br corner
-        g2d.rotate(Math.toRadians(90), locationX, locationY);
-        g2d.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, (pos.y - 1) * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+            //br corner
+            g2d.rotate(Math.toRadians(90), locationX, locationY);
+            g2d.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, (pos.y - 1) * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
-        //bl corner
-        g2d.rotate(Math.toRadians(90), locationX, locationY);
-        g2d.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
+            //bl corner
+            g2d.rotate(Math.toRadians(90), locationX, locationY);
+            g2d.drawImage(sprite, (pos.x - 1) * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
 
-        g2d.setTransform(backup);
+            g2d.setTransform(backup);
+        } else {
+            g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE * 2, TITLE_SIZE * 2, observer);        }
     }
 
     @Override

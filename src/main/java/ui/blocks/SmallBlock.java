@@ -39,7 +39,7 @@ public class SmallBlock extends Block{
             if (USE_LEGACY_SPRITES) {
                 sprite = ImageIO.read(new File("src/main/resources/drawable/Small.png"));
             } else {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/Block.png"));
+                sprite = ImageIO.read(new File("src/main/resources/drawable/SmallBlock.png"));
             }
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
