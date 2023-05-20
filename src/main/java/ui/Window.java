@@ -27,7 +27,7 @@ public class Window {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        window.setSize(TITLE_SIZE * 7, TITLE_SIZE * 5);
+        //window.setSize(TITLE_SIZE * 7, TITLE_SIZE * 5);
 
         window.setResizable(false);
 

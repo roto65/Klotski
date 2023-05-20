@@ -22,6 +22,8 @@ public class Board implements BlockMoveListener {
     private ArrayList<Move> moves;
     private ListIterator<Move> movesIterator;
 
+    private MoveCountIncrementListener moveCountIncrementListener;
+
     private ArrayList<Block> blocks = new ArrayList<>();
     public Board(String blockConfiguration) {
         lastConfigName = blockConfiguration;
@@ -58,6 +60,10 @@ public class Board implements BlockMoveListener {
 
     public BoardComponent getBoardComponent() {
         return boardComponent;
+    }
+
+    public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
+        this.moveCountIncrementListener = moveCountIncrementListener;
     }
 
     @SuppressWarnings("unused")
@@ -122,6 +128,8 @@ public class Board implements BlockMoveListener {
         if (!trueStartPos.equals(trueEndPos)) {
             moves.add(move);
             movesIterator = moves.listIterator(moves.size());
+
+            moveCountIncrementListener.incrementMoveCounter();
         }
 
         checkWin();

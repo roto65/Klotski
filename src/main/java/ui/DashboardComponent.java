@@ -1,6 +1,7 @@
 package ui;
 
 import core.StyledButton;
+import core.StyledLabel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class DashboardComponent extends JPanel {
 
     private GridBagConstraints constraints;
 
-    public DashboardComponent(ArrayList<StyledButton> buttons) {
+    public DashboardComponent(ArrayList<StyledButton> buttons, StyledLabel moveCounter) {
 
         setPreferredSize(new Dimension(TITLE_SIZE * 3, TITLE_SIZE * ROWS));
 
@@ -33,11 +34,9 @@ public class DashboardComponent extends JPanel {
             add(button, constraints);
         }
 
-        JLabel moveCounter = new JLabel("Moves: 0");
+        constraints.gridwidth = 2;
 
-        moveCounter.setPreferredSize(new Dimension(TITLE_SIZE, TITLE_SIZE / 2));
-
-        constraints.gridx = 1;
+        constraints.gridx = 0;
         constraints.gridy = 4;
 
         add(moveCounter, constraints);

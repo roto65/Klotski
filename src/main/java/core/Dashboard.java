@@ -5,19 +5,24 @@ import ui.DashboardComponent;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Dashboard {
+public class Dashboard  implements MoveCountIncrementListener{
 
     private final Board board;
     private final DashboardComponent dashboardComponent;
 
     private ArrayList<StyledButton> buttons;
+    private StyledLabel moveCounter;
 
     public Dashboard(Board board) {
         this.board = board;
 
         loadButtons();
 
-        dashboardComponent = new DashboardComponent(buttons);
+        moveCounter = new StyledLabel("Moves: ", "0", new Point(0, 4));
+
+        board.setMoveCountIncrementListener(this);
+
+        dashboardComponent = new DashboardComponent(buttons, moveCounter);
     }
 
     public DashboardComponent getDashboardComponent() {
@@ -68,5 +73,22 @@ public class Dashboard {
             System.exit(0);
         });
         buttons.add(exitButton);
+    }
+
+    @Override
+    public void incrementMoveCounter() {
+        System.out.println(moveCounter.getVariableText());
+
+        int count = 1 + Integer.parseInt(moveCounter.getVariableText());
+        moveCounter.setVariableText(String.valueOf(count));
+
+        dashboardComponent.repaint();
+    }
+
+    public void setMoveCounter(int count) {
+        String text = moveCounter.getStaticText() + count;
+        moveCounter.setText(text);
+
+        dashboardComponent.repaint();
     }
 }

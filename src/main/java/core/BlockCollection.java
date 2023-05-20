@@ -9,6 +9,7 @@ public class BlockCollection {
     private String name = null;
     private ArrayList<Block> blocks;
     private Move move = null;
+    private int moves = 0;
 
     public BlockCollection() {
 

@@ -2,7 +2,7 @@ package main;
 
 public final class Constants {
 
-    public static final int TITLE_SIZE = 175;
+    public static final int TITLE_SIZE = 128;
     public static final int ROWS = 5;
     public static final int COLUMNS = 4;
 
@@ -17,5 +17,5 @@ public final class Constants {
 
     // flags
 
-    public static final boolean USE_LEGACY_SPRITES = true;
+    public static final boolean USE_LEGACY_SPRITES = false;
 }
