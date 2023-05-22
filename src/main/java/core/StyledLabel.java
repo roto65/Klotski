@@ -1,6 +1,7 @@
 package core;
 
 import ui.StyledButtonUI;
+import ui.StyledLabelUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -19,9 +20,7 @@ public class StyledLabel extends JLabel {
 
         setPreferredSize(new Dimension(TITLE_SIZE, TITLE_SIZE / 2));
 
-        setBorder(new BevelBorder(BevelBorder.RAISED));
-
-//        setUI(new StyledButtonUI());
+        setUI(new StyledLabelUI());
 
         this.staticText = staticText;
         this.variableText = variableText;

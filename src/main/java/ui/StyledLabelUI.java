@@ -1,5 +1,7 @@
 package ui;
 
+import core.StyledLabel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicLabelUI;
@@ -18,7 +20,7 @@ public class StyledLabelUI extends BasicLabelUI {
 
     public StyledLabelUI() {
         try {
-            sprite = ImageIO.read(new File("src/main/resources/drawable/PressedButton.png"));
+            sprite = ImageIO.read(new File("src/main/resources/drawable/MoveCounter2.png"));
         } catch (IOException e) {
             System.out.println("Error opening image file: " + e.getMessage());
         }
@@ -32,14 +34,35 @@ public class StyledLabelUI extends BasicLabelUI {
     }
 
     @Override
-    public void paint(Graphics g, JComponent c) {
-        super.paint(g, c);
+    public void paint(Graphics g, JComponent component) {
+
+        StyledLabel label = (StyledLabel) component;
+
+        Image scaledSprite = sprite.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_FAST);
+
+        g.drawImage(scaledSprite, 0, 0, null);
+
+        super.paint(g, component);
     }
 
     @Override
     protected void paintEnabledText(JLabel label, Graphics g, String text, int textX, int textY) {
         g.setFont(labelFont);
+
+        // Get the FontMetrics to calculate the text position
+        FontMetrics metrics = g.getFontMetrics(labelFont);
+        int width = label.getWidth();
+        int height = label.getHeight();
+        int textWidth = metrics.stringWidth(text);
+        int textHeight = metrics.getHeight();
+
+        // Calculate the x-position of the text to center it horizontally
+        int x = (width - textWidth) / 2;
+
+        // Calculate the y-position of the text to center it vertically
+        int y = metrics.getAscent() + TITLE_SIZE / 12;
+
         g.setColor(label.getForeground());
-        g.drawString(text, textX, textY);
+        g.drawString(text, x, y);
     }
 }
