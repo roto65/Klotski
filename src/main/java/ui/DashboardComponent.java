@@ -14,7 +14,7 @@ public class DashboardComponent extends JPanel {
 
     private GridBagConstraints constraints;
 
-    public DashboardComponent(ArrayList<StyledButton> buttons, StyledLabel moveCounter) {
+    public DashboardComponent(ArrayList<StyledButton> buttons, ArrayList<StyledLabel> labels) {
 
         setPreferredSize(new Dimension(TITLE_SIZE * 3, TITLE_SIZE * ROWS));
 
@@ -24,7 +24,7 @@ public class DashboardComponent extends JPanel {
         constraints = new GridBagConstraints();
 
         // padding settings to put some space between the buttons
-        constraints.insets = new Insets(0, TITLE_SIZE / 8, 0, TITLE_SIZE / 8);
+        constraints.insets = new Insets(TITLE_SIZE / 16, TITLE_SIZE / 8, TITLE_SIZE / 16, TITLE_SIZE / 8);
 
         for (StyledButton button : buttons) {
 
@@ -34,12 +34,24 @@ public class DashboardComponent extends JPanel {
             add(button, constraints);
         }
 
+        constraints.insets = new Insets(TITLE_SIZE / 16, 0, 0, 0);
+
+        for (StyledLabel label : labels) {
+
+            constraints.gridx = label.getPos().x;
+            constraints.gridy = label.getPos().y;
+
+            add(label, constraints);
+        }
+
+        /* Point moveCounterPos = moveCounter.getPos();
+
         constraints.gridwidth = 2;
 
-        constraints.gridx = 0;
-        constraints.gridy = 4;
+        constraints.gridx = moveCounterPos.x;
+        constraints.gridy = moveCounterPos.y;
 
-        add(moveCounter, constraints);
+        add(moveCounter, constraints);*/
     }
 
     /*

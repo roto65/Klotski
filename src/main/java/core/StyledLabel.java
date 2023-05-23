@@ -43,5 +43,7 @@ public class StyledLabel extends JLabel {
 
     public void setVariableText(String variableText) {
         this.variableText = variableText;
+
+        setText(staticText + variableText);
     }
 }

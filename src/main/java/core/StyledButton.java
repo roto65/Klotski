@@ -18,7 +18,7 @@ public class StyledButton extends JButton {
     public StyledButton(String text, Point pos) {
         super(text);
 
-        setPreferredSize(new Dimension(TITLE_SIZE, TITLE_SIZE));
+        setPreferredSize(new Dimension(TITLE_SIZE, (TITLE_SIZE * 4) / 5));
 
         setContentAreaFilled(false);
         setBorderPainted(false);
