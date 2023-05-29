@@ -37,6 +37,7 @@ public class Dashboard  implements MoveCountIncrementListener{
         StyledButton resetButton = new StyledButton("New Game", new Point(0, 0));
         resetButton.addActionListener(e -> {
             board.resetBoard();
+            setMoveCounter(0);
         });
         buttons.add(resetButton);
 
