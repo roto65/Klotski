@@ -2,13 +2,6 @@ package solver;
 
 public class KlotskiSolver {
 
-    public KlotskiSolver() {
-    }
-
-    public static void main (String [] args) {
-        Solver solver = new Solver("HAAIHAAIJBBKJNOKP@@Q");
-        System.out.println(solver.find());
-    }
 
 }
 
@@ -16,7 +9,7 @@ public class KlotskiSolver {
 /*
  * Idee per il risolutore / miglior mossa:
  * applico una BFS per cercare con quale combinazioni di mosse riesco ad arrivare alla fine e suggerisco la prima
- * salvo tutti i miei risultati (tutte le x mosse) su una collection di mongo e nel caso l'utente chieda nuovamente
+ * salvo tutti i miei risultati (tutte le x mosse) su una collection di mongodb e nel caso l'utente chieda nuovamente
  * l'aiuto cerco prima se quella mossa è già stata calcolata
  * per velocizzare la ricerca su db al posto di fare una query complessa con una lista di oggetti converto lo stato
  * della board tramite bitset e poi long in un numero univoco (?) con la seguente convenzione:
