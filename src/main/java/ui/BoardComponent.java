@@ -1,6 +1,6 @@
 package ui;
 
-import core.BlockMoveListener;
+import core.listener.BlockMoveListener;
 import ui.blocks.Block;
 
 import javax.swing.*;

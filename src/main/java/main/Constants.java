@@ -13,6 +13,8 @@ public final class Constants {
 
     public static final String databaseName = "klotski";
     public static final String collectionName = "pattern";
+    public static final String levelsCollection = "levels";
+    public static final String hintCollection = "hints";
 
 
     // flags

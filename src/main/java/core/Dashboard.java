@@ -1,11 +1,14 @@
 package core;
 
+import core.listener.MoveCountIncrementListener;
+import io.db.MongoDbConnection;
+import solver.NewSolver;
 import ui.DashboardComponent;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Dashboard  implements MoveCountIncrementListener{
+public class Dashboard  implements MoveCountIncrementListener {
 
     private final Board board;
     private final DashboardComponent dashboardComponent;
@@ -75,7 +78,8 @@ public class Dashboard  implements MoveCountIncrementListener{
 
         StyledButton hintButton = new StyledButton("Hint", new Point(0, 3));
         hintButton.addActionListener(e -> {
-            // TODO: add this method
+            getHint();
+            incrementMoveCounter();
         });
         buttons.add(hintButton);
 
@@ -87,12 +91,12 @@ public class Dashboard  implements MoveCountIncrementListener{
     }
 
     private void loadLabels() {
+
+        layoutLabel = new StyledLabel("Level: ", "000", new Point(1, 4));
         this.labels = new ArrayList<>();
 
         moveCounter = new StyledLabel("Moves: ", "0", new Point(0, 4));
         labels.add(moveCounter);
-
-        layoutLabel = new StyledLabel("Level: ", "000", new Point(1, 4));
         labels.add(layoutLabel);
     }
 
@@ -102,7 +106,7 @@ public class Dashboard  implements MoveCountIncrementListener{
         moveCounter.setVariableText(String.valueOf(count));
     }
 
-    public void decrementMoveCounter() {
+    private void decrementMoveCounter() {
         int currCount = Integer.parseInt(moveCounter.getVariableText());
 
         if (currCount != 0) {
@@ -110,10 +114,24 @@ public class Dashboard  implements MoveCountIncrementListener{
         }
     }
 
-    public void setMoveCounter(int count) {
+    private void setMoveCounter(int count) {
         String text = moveCounter.getStaticText() + count;
         moveCounter.setText(text);
 
         dashboardComponent.repaint();
+    }
+
+    private void getHint() {
+        MongoDbConnection dbConnection = new MongoDbConnection();
+
+        Move move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+
+        System.out.println(move);
+
+        if (move == null) {
+            NewSolver.start(board.getBlocks());
+            move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+        }
+        board.performMoveUnchecked(move);
     }
 }

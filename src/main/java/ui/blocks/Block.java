@@ -22,6 +22,10 @@ public abstract class Block {
         return pos;
     }
 
+    public BlockType getBlockType() {
+        return blockType;
+    }
+
     public void postDeserializationProcess() {
         loadOffsets();
         loadSprite();

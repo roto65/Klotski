@@ -2,6 +2,8 @@ package core;
 
 import java.awt.*;
 
+import static main.Constants.COLUMNS;
+
 public class Move {
 
     private Point startPos;
@@ -15,12 +17,25 @@ public class Move {
         this.endPos = endPos;
     }
 
+    public Move(int startIndex, int endIndex) {
+        this.startPos = indexConvert(startIndex);
+        this.endPos = indexConvert(endIndex);
+    }
+
     public Point getStartPos() {
         return startPos;
     }
 
     public Point getEndPos() {
         return endPos;
+    }
+
+    public void setStartPos(Point startPos) {
+        this.startPos = startPos;
+    }
+
+    public void setEndPos(Point endPos) {
+        this.endPos = endPos;
     }
 
     public Move reverse() {
@@ -62,6 +77,10 @@ public class Move {
                 return Direction.UP;
             }
         }
+    }
+
+    private Point indexConvert(int index) {
+        return new Point(index % COLUMNS, index / COLUMNS);
     }
 
     @Override

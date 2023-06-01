@@ -1,4 +1,4 @@
-package core;
+package core.listener;
 
 import java.awt.*;
 import java.util.EventListener;

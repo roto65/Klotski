@@ -1,5 +1,7 @@
 package core;
 
+import core.listener.BlockMoveListener;
+import core.listener.MoveCountIncrementListener;
 import io.GsonFileParser;
 import io.JsonFileChooser;
 import io.db.BsonParser;
@@ -60,6 +62,10 @@ public class Board implements BlockMoveListener {
 
     public BoardComponent getBoardComponent() {
         return boardComponent;
+    }
+
+    public ArrayList<Block> getBlocks() {
+        return blocks;
     }
 
     public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
@@ -145,6 +151,17 @@ public class Board implements BlockMoveListener {
         blocks.remove(startBlockIndex);
 
         pushBlock(blockToMove, move.evalSteps(), move.evalDirection());
+
+        boardComponent.repaint();
+    }
+
+    public void performMoveUnchecked(Move move) {
+
+        int startBlockIndex = linearSearch(move.getStartPos());
+
+        if (startBlockIndex == -1) return;
+
+        blocks.get(startBlockIndex).move(move.getEndPos());
 
         boardComponent.repaint();
     }
