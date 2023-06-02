@@ -161,6 +161,10 @@ public class Board implements BlockMoveListener {
 
         if (startBlockIndex == -1) return;
 
+        Point offset = PointUtils.subtract(blocks.get(startBlockIndex).getPos(), move.getStartPos());
+
+        move.setEndPos(PointUtils.add(move.getEndPos(), offset));
+
         blocks.get(startBlockIndex).move(move.getEndPos());
 
         boardComponent.repaint();

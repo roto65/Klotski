@@ -198,7 +198,7 @@ public class NewSolver {
         return false;
     }
 
-    public static void start(ArrayList<Block> blocks) {
+    public static Move start(ArrayList<Block> blocks) {
         // Initialize Board
         init(blocks);
 
@@ -206,8 +206,9 @@ public class NewSolver {
 
         if (USE_DB_HINT_CASHING) {
             uploadMoves();
+            return null;
         } else {
-            System.out.println(findMove(boards.get(0), boards.get(1)));
+            return findMove(boards.get(0), boards.get(1));
         }
     }
 
@@ -269,7 +270,8 @@ public class NewSolver {
 
     public static Move findMove(char [] prev, char [] curr) {
         int fromIndex = 0, toIndex = 0;
-        char blockMoved;
+        char blockMoved = 'z';
+
         for (int i = 0; i < prev.length; i++) {
             if (prev[i] == ' ' && prev[i] != curr[i]) {
                 toIndex = i;
@@ -280,25 +282,45 @@ public class NewSolver {
             }
         }
 
-        for (int i  = 0; i < prev.length ; i++) {
-            if (i % 4 == 3) {
-                System.out.println(prev[i]);
-            } else {
-                System.out.print(prev[i] + "|");
+        int occurrences = 0;
+        for (char c : curr) {
+            if (c == blockMoved) occurrences++;
+        }
+
+        if (occurrences > 1) {
+            if (fromIndex - toIndex > 4) {
+                toIndex += 4;
+            } else if (toIndex - fromIndex > 4) {
+              toIndex -= 4;
+            } else if (fromIndex - toIndex > 1) {
+                toIndex++;
+            } else if (toIndex - fromIndex > 1) {
+                toIndex--;
             }
         }
 
-        System.out.println();
+        if (USE_SOLVER_DEBUG_PRINT) {
 
-        for (int i  = 0; i < curr.length ; i++) {
-            if (i % 4 == 3) {
-                System.out.println(curr[i]);
-            } else {
-                System.out.print(curr[i] + "|");
+            for (int i = 0; i < prev.length; i++) {
+                if (i % 4 == 3) {
+                    System.out.println(prev[i]);
+                } else {
+                    System.out.print(prev[i] + "|");
+                }
             }
-        }
 
-        System.out.println("\nFrom: " + fromIndex + " to: " + toIndex + "\n");
+            System.out.println();
+
+            for (int i = 0; i < curr.length; i++) {
+                if (i % 4 == 3) {
+                    System.out.println(curr[i]);
+                } else {
+                    System.out.print(curr[i] + "|");
+                }
+            }
+
+            System.out.println("\nFrom: " + fromIndex + " to: " + toIndex + "\n");
+        }
 
         return new Move(fromIndex, toIndex);
     }

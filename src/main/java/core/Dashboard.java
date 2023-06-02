@@ -133,7 +133,10 @@ public class Dashboard  implements MoveCountIncrementListener {
             }
             board.performMoveUnchecked(move);
         } else {
-            NewSolver.start(board.getBlocks());
+            Move move = NewSolver.start(board.getBlocks());
+
+            assert move != null;
+            board.performMoveUnchecked(move);
         }
     }
 }
