@@ -6,8 +6,9 @@ import io.db.MongoDbConnection;
 import ui.blocks.Block;
 
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.Queue;
+import java.util.*;
 
 import static main.Constants.*;
 
@@ -203,7 +204,11 @@ public class NewSolver {
 
         evalMoves();
 
-        uploadMoves();
+        if (USE_DB_HINT_CASHING) {
+            uploadMoves();
+        } else {
+            System.out.println(findMove(boards.get(0), boards.get(1)));
+        }
     }
 
     public static void uploadMoves() {
@@ -264,23 +269,33 @@ public class NewSolver {
 
     public static Move findMove(char [] prev, char [] curr) {
         int fromIndex = 0, toIndex = 0;
+        char blockMoved;
         for (int i = 0; i < prev.length; i++) {
             if (prev[i] == ' ' && prev[i] != curr[i]) {
                 toIndex = i;
             }
             if (curr[i] == ' ' && prev[i] != curr[i]) {
                 fromIndex = i;
+                blockMoved = prev[i];
             }
         }
 
-        for (char c : prev) {
-            System.out.print(c + "|");
+        for (int i  = 0; i < prev.length ; i++) {
+            if (i % 4 == 3) {
+                System.out.println(prev[i]);
+            } else {
+                System.out.print(prev[i] + "|");
+            }
         }
 
         System.out.println();
 
-        for (char c : curr) {
-            System.out.print(c + "|");
+        for (int i  = 0; i < curr.length ; i++) {
+            if (i % 4 == 3) {
+                System.out.println(curr[i]);
+            } else {
+                System.out.print(curr[i] + "|");
+            }
         }
 
         System.out.println("\nFrom: " + fromIndex + " to: " + toIndex + "\n");

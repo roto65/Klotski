@@ -8,6 +8,8 @@ import ui.DashboardComponent;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static main.Constants.USE_DB_HINT_CASHING;
+
 public class Dashboard  implements MoveCountIncrementListener {
 
     private final Board board;
@@ -115,23 +117,23 @@ public class Dashboard  implements MoveCountIncrementListener {
     }
 
     private void setMoveCounter(int count) {
-        String text = moveCounter.getStaticText() + count;
-        moveCounter.setText(text);
-
-        dashboardComponent.repaint();
+        moveCounter.setVariableText(String.valueOf(count));
     }
 
     private void getHint() {
-        MongoDbConnection dbConnection = new MongoDbConnection();
 
-        Move move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+        if (USE_DB_HINT_CASHING) {
+            MongoDbConnection dbConnection = new MongoDbConnection();
 
-        System.out.println(move);
+            Move move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
 
-        if (move == null) {
+            if (move == null) {
+                NewSolver.start(board.getBlocks());
+                move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+            }
+            board.performMoveUnchecked(move);
+        } else {
             NewSolver.start(board.getBlocks());
-            move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
         }
-        board.performMoveUnchecked(move);
     }
 }

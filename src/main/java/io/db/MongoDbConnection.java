@@ -10,7 +10,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import core.HintSchema;
 import core.Move;
-import io.db.codecs.*;
+import io.db.codecs.HintSchemaCodecProvider;
+import io.db.codecs.MoveCodecProvider;
+import io.db.codecs.PointCodec;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.bson.BsonDocument;
@@ -78,10 +80,13 @@ public class MongoDbConnection {
 
     public Move findHint(String state) {
 
+        //getHintCollection().deleteMany(new Document());
+
         Bson stateFilter = Filters.eq("state", state);
 
         try {
-            HintSchema result = getHintCollection().find(stateFilter).first();
+            HintSchema result = getHintCollection().find(stateFilter).limit(1).first();
+            //System.out.println(result);
             if (result != null) {
                 return result.getBestMove();
             }

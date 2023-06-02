@@ -19,5 +19,6 @@ public final class Constants {
 
     // flags
 
-    public static final boolean USE_LEGACY_SPRITES = false;
+    public static final boolean USE_LEGACY_SPRITES  = false;
+    public static final boolean USE_DB_HINT_CASHING = false;
 }
