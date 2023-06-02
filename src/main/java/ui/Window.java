@@ -15,7 +15,7 @@ public class Window {
 
         window = new JFrame("Klotski");
 
-        window.addMouseListener(boardComponent);
+        newGame(boardComponent);
 
         gridBagConstraints = new GridBagConstraints();
 
@@ -51,7 +51,10 @@ public class Window {
     }
 
     public static void endGame(BoardComponent boardComponent) {
-
         window.removeMouseListener(boardComponent);
+    }
+
+    public static void newGame(BoardComponent boardComponent) {
+        window.addMouseListener(boardComponent);
     }
 }

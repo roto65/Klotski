@@ -291,7 +291,9 @@ public class NewSolver {
             if (fromIndex - toIndex > 4) {
                 toIndex += 4;
             } else if (toIndex - fromIndex > 4) {
-              toIndex -= 4;
+                toIndex -= 4;
+            } else if (Math.abs(fromIndex - toIndex) == 4) {
+                if (USE_SOLVER_DEBUG_PRINT) System.out.println("Nessuna modifica");
             } else if (fromIndex - toIndex > 1) {
                 toIndex++;
             } else if (toIndex - fromIndex > 1) {

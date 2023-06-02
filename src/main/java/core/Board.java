@@ -40,6 +40,8 @@ public class Board implements BlockMoveListener {
 
     public void resetBoard() {
 
+        Window.newGame(boardComponent);
+
         moves = new ArrayList<>();
         movesIterator = moves.listIterator();
 
