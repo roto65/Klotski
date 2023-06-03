@@ -21,7 +21,7 @@ public class NewSolver {
     static Map<String, Integer> st; // Map between states and integers
     static Map<Integer, String> ts; // Inverse map of the above-mentioned
     static Map<Integer, String> full; // From integers position to full board state
-    static int[] parent; // Keep track of the parents in exploration
+    static ArrayList<Integer> parent; // Keep track of the parents in exploration
     static Queue<String> q; // Queue to keep current visited state
     static int c; // Number of states visited so far
     static String code;
@@ -46,7 +46,7 @@ public class NewSolver {
         ts = new HashMap<>();
         full = new HashMap<>();
 
-        parent = new int[30000];
+        parent = new ArrayList<>(1);
 
         q = new LinkedList<>();
 
@@ -135,7 +135,11 @@ public class NewSolver {
         ts.put(c, aux);
         full.put(c, code);
         st.put(aux, c++);
-        parent[st.get(aux)] = st.get(cur);
+        try {
+            parent.set(st.get(aux), st.get(cur));
+        } catch (IndexOutOfBoundsException e) {
+            parent.add(st.get(aux), st.get(cur));
+        }
     }
 
     static void backtrackSolution(String s) {
@@ -145,7 +149,7 @@ public class NewSolver {
             saveState();
             return;
         }
-        backtrackSolution(ts.get(parent[st.get(s)]));
+        backtrackSolution(ts.get(parent.get(st.get(s))));
         setBoard(full.get(st.get(s)));
         saveState();
     }
@@ -251,7 +255,7 @@ public class NewSolver {
         ts.put(c, s);
         full.put(c, code);
         st.put(s, c++);
-        parent[0] = 0;
+        parent.add(0, 0);
 
         while (!q.isEmpty()) {
             String cur = q.poll();
