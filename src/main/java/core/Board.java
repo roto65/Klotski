@@ -5,6 +5,7 @@ import core.listener.MoveCountIncrementListener;
 import io.GsonFileParser;
 import io.JsonFileChooser;
 import io.db.BsonParser;
+import solver.NewSolver;
 import ui.BoardComponent;
 import ui.Window;
 import ui.blocks.*;
@@ -15,8 +16,11 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 import static main.Constants.TITLE_SIZE;
+import static main.Constants.USE_SOLVER_DEBUG_PRINT;
 
 public class Board implements BlockMoveListener {
+
+    private static boolean winMessageDisplay = true;
 
     private String lastConfigName;
     private final BoardComponent boardComponent;
@@ -39,6 +43,8 @@ public class Board implements BlockMoveListener {
     }
 
     public void resetBoard() {
+
+        winMessageDisplay = true;
 
         Window.newGame(boardComponent);
 
@@ -165,7 +171,17 @@ public class Board implements BlockMoveListener {
 
         Point offset = PointUtils.subtract(blocks.get(startBlockIndex).getPos(), move.getStartPos());
 
+        move.setStartPos(blocks.get(startBlockIndex).getPos());
         move.setEndPos(PointUtils.add(move.getEndPos(), offset));
+
+        if (USE_SOLVER_DEBUG_PRINT) System.out.println(move);
+
+        if (move.isCut()) {
+            moves.addAll(move.evalCutMoves(NewSolver.getState(blocks)));
+        } else {
+            moves.add(move);
+        }
+        movesIterator = moves.listIterator(moves.size());
 
         blocks.get(startBlockIndex).move(move.getEndPos());
 
@@ -224,32 +240,41 @@ public class Board implements BlockMoveListener {
         return blockToMove.getPos();
     }
 
-    private void checkWin() {
+    public boolean checkWin() {
         for (Block block : blocks) {
             if (block.getClass().equals(LargeBlock.class)) {
                 Point pos = block.getPos();
                 if (pos.x == 1 && pos.y == 3){
-                    System.out.println("Hai vinto, sei un figo!");
+                    if (winMessageDisplay) {
+                        System.out.println("Hai vinto, sei un figo!");
+                    }
+                    winMessageDisplay = false;
                     Window.endGame(getBoardComponent());
+                    return true;
                 }
             }
         }
+        return false;
     }
 
-    public void undo() {
+    public boolean undo() {
         if (movesIterator.hasPrevious()) {
             Move previous = movesIterator.previous().reverse();
-
             performMove(previous);
+
+            return true;
         }
+        return false;
     }
 
-    public void redo() {
+    public boolean redo() {
         if (movesIterator.hasNext()) {
             Move next = movesIterator.next();
             performMove(next);
-        }
 
+            return  true;
+        }
+        return false;
     }
 
     public void save() {

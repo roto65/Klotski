@@ -21,5 +21,5 @@ public final class Constants {
 
     public static final boolean USE_LEGACY_SPRITES     = false;
     public static final boolean USE_DB_HINT_CASHING    = false;
-    public static final boolean USE_SOLVER_DEBUG_PRINT = true;
+    public static final boolean USE_SOLVER_DEBUG_PRINT = false;
 }

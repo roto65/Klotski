@@ -8,11 +8,6 @@ public class HintSchema {
     public HintSchema() {
     }
 
-    public HintSchema(String state, Move bestMove) {
-        this.state = state;
-        this.bestMove = bestMove;
-    }
-
     public String getState() {
         return state;
     }

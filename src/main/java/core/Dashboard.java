@@ -66,22 +66,24 @@ public class Dashboard  implements MoveCountIncrementListener {
 
         StyledButton undoButton = new StyledButton("Undo", new Point(0, 2));
         undoButton.addActionListener(e -> {
-            board.undo();
-            decrementMoveCounter();
+            if (board.undo() && !board.checkWin())
+                decrementMoveCounter();
         });
         buttons.add(undoButton);
 
         StyledButton redoButton = new StyledButton("Redo", new Point(1, 2));
         redoButton.addActionListener(e -> {
-            board.redo();
-            incrementMoveCounter();
+            if (board.redo() && !board.checkWin())
+                incrementMoveCounter();
         });
         buttons.add(redoButton);
 
         StyledButton hintButton = new StyledButton("Hint", new Point(0, 3));
         hintButton.addActionListener(e -> {
-            getHint();
-            incrementMoveCounter();
+            if (!board.checkWin()) {
+                getHint();
+                incrementMoveCounter();
+            }
         });
         buttons.add(hintButton);
 
@@ -104,8 +106,8 @@ public class Dashboard  implements MoveCountIncrementListener {
 
     @Override
     public void incrementMoveCounter() {
-        int count = 1 + Integer.parseInt(moveCounter.getVariableText());
-        moveCounter.setVariableText(String.valueOf(count));
+        int currCount = Integer.parseInt(moveCounter.getVariableText());
+        moveCounter.setVariableText(String.valueOf(++currCount));
     }
 
     private void decrementMoveCounter() {
@@ -137,6 +139,11 @@ public class Dashboard  implements MoveCountIncrementListener {
 
             assert move != null;
             board.performMoveUnchecked(move);
+
+            if (move.isCut()) {
+                incrementMoveCounter();
+            }
         }
+        board.checkWin();
     }
 }
