@@ -4,7 +4,6 @@ import core.listener.BlockMoveListener;
 import core.listener.MoveCountIncrementListener;
 import io.GsonFileParser;
 import io.JsonFileChooser;
-import io.db.BsonParser;
 import solver.NewSolver;
 import ui.BoardComponent;
 import ui.Window;
@@ -15,14 +14,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import static main.Constants.TITLE_SIZE;
-import static main.Constants.USE_SOLVER_DEBUG_PRINT;
+import static main.Constants.*;
 
 public class Board implements BlockMoveListener {
 
     private boolean gameWon = false;
 
-    private String lastConfigName;
     private final BoardComponent boardComponent;
 
     private ArrayList<Move> moves;
@@ -30,9 +27,8 @@ public class Board implements BlockMoveListener {
 
     private MoveCountIncrementListener moveCountIncrementListener;
 
-    private ArrayList<Block> blocks = new ArrayList<>();
+    private ArrayList<Block> blocks;
     public Board(String blockConfiguration) {
-        lastConfigName = blockConfiguration;
         initBlocks(blockConfiguration);
 
         boardComponent = new BoardComponent(blocks);
@@ -48,10 +44,12 @@ public class Board implements BlockMoveListener {
 
         Window.newGame(boardComponent);
 
+        GsonFileParser parser = new GsonFileParser(LAST_LEVEL_CONFIGURATION, "json");
+
+        this.blocks = parser.load();
+
         moves = new ArrayList<>();
         movesIterator = moves.listIterator();
-
-        initBlocks(lastConfigName);
 
         boardComponent.setBlocks(blocks);
 
@@ -61,9 +59,11 @@ public class Board implements BlockMoveListener {
     @SuppressWarnings("SameParameterValue")
     private void initBlocks(String filename) {
 
-        //GsonFileParser parser = new GsonFileParser(filename);
+        System.out.println(filename);
 
-        BsonParser parser = new BsonParser();
+        GsonFileParser parser = new GsonFileParser(filename, "json");
+
+        //BsonParser parser = new BsonParser();
 
         this.blocks = new ArrayList<>(parser.load());
     }
@@ -304,6 +304,9 @@ public class Board implements BlockMoveListener {
         movesIterator = moves.listIterator();
 
         blocks = parser.load();
+
+        parser.setLastPlayedPath();
+        parser.save(blocks);
 
         boardComponent.setBlocks(blocks);
 
