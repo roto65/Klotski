@@ -20,7 +20,7 @@ import static main.Constants.USE_SOLVER_DEBUG_PRINT;
 
 public class Board implements BlockMoveListener {
 
-    private static boolean winMessageDisplay = true;
+    private boolean gameWon = false;
 
     private String lastConfigName;
     private final BoardComponent boardComponent;
@@ -44,7 +44,7 @@ public class Board implements BlockMoveListener {
 
     public void resetBoard() {
 
-        winMessageDisplay = true;
+        gameWon = false;
 
         Window.newGame(boardComponent);
 
@@ -74,6 +74,10 @@ public class Board implements BlockMoveListener {
 
     public ArrayList<Block> getBlocks() {
         return blocks;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
     }
 
     public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
@@ -240,21 +244,19 @@ public class Board implements BlockMoveListener {
         return blockToMove.getPos();
     }
 
-    public boolean checkWin() {
+    public void checkWin() {
         for (Block block : blocks) {
             if (block.getClass().equals(LargeBlock.class)) {
                 Point pos = block.getPos();
                 if (pos.x == 1 && pos.y == 3){
-                    if (winMessageDisplay) {
+                    if (isGameWon()) {
                         System.out.println("Hai vinto, sei un figo!");
                     }
-                    winMessageDisplay = false;
+                    gameWon = true;
                     Window.endGame(getBoardComponent());
-                    return true;
                 }
             }
         }
-        return false;
     }
 
     public boolean undo() {

@@ -66,21 +66,21 @@ public class Dashboard  implements MoveCountIncrementListener {
 
         StyledButton undoButton = new StyledButton("Undo", new Point(0, 2));
         undoButton.addActionListener(e -> {
-            if (board.undo() && !board.checkWin())
-                decrementMoveCounter();
+            if (!board.isGameWon())
+                if (board.undo()) decrementMoveCounter();
         });
         buttons.add(undoButton);
 
         StyledButton redoButton = new StyledButton("Redo", new Point(1, 2));
         redoButton.addActionListener(e -> {
-            if (board.redo() && !board.checkWin())
-                incrementMoveCounter();
+            if (!board.isGameWon())
+                if (board.redo()) incrementMoveCounter();
         });
         buttons.add(redoButton);
 
         StyledButton hintButton = new StyledButton("Hint", new Point(0, 3));
         hintButton.addActionListener(e -> {
-            if (!board.checkWin()) {
+            if (!board.isGameWon()) {
                 getHint();
                 incrementMoveCounter();
             }
