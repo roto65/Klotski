@@ -5,7 +5,7 @@
         "x": 0,
         "y": 0
       },
-      "blockType": "SMALL"
+      "blockType": "WIDE_VERTICAL"
     },
     {
       "pos": {
@@ -19,56 +19,56 @@
         "x": 3,
         "y": 0
       },
-      "blockType": "SMALL"
-    },
-    {
-      "pos": {
-        "x": 0,
-        "y": 1
-      },
-      "blockType": "SMALL"
-    },
-    {
-      "pos": {
-        "x": 3,
-        "y": 1
-      },
-      "blockType": "SMALL"
+      "blockType": "WIDE_VERTICAL"
     },
     {
       "pos": {
         "x": 0,
         "y": 2
       },
-      "blockType": "WIDE_VERTICAL"
+      "blockType": "SMALL"
     },
     {
       "pos": {
         "x": 1,
         "y": 2
       },
+      "blockType": "WIDE_HORIZONTAL"
+    },
+    {
+      "pos": {
+        "x": 3,
+        "y": 2
+      },
+      "blockType": "SMALL"
+    },
+    {
+      "pos": {
+        "x": 0,
+        "y": 3
+      },
       "blockType": "WIDE_VERTICAL"
+    },
+    {
+      "pos": {
+        "x": 1,
+        "y": 3
+      },
+      "blockType": "SMALL"
     },
     {
       "pos": {
         "x": 2,
-        "y": 2
+        "y": 3
       },
-      "blockType": "WIDE_VERTICAL"
+      "blockType": "SMALL"
     },
     {
       "pos": {
         "x": 3,
-        "y": 2
+        "y": 3
       },
       "blockType": "WIDE_VERTICAL"
-    },
-    {
-      "pos": {
-        "x": 1,
-        "y": 4
-      },
-      "blockType": "WIDE_HORIZONTAL"
     }
   ],
   "moves": 0

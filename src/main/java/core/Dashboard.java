@@ -139,11 +139,6 @@ public class Dashboard  implements MoveCountIncrementListener {
 
             assert move != null;
             board.performMoveUnchecked(move);
-
-            if (move.isCut()) {
-                incrementMoveCounter();
-            }
         }
-        board.checkWin();
     }
 }

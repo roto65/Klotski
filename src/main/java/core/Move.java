@@ -1,10 +1,8 @@
 package core;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 import static main.Constants.COLUMNS;
-import static main.Constants.USE_SOLVER_DEBUG_PRINT;
 
 public class Move {
 
@@ -92,9 +90,7 @@ public class Move {
         return deltaX != 0 && deltaY != 0;
     }
 
-    public ArrayList<Move> evalCutMoves(String state) {
-        ArrayList<Move> partialMoves = new ArrayList<>();
-
+    public Move evalCutMove(String state) {
         int deltaX = endPos.x - startPos.x;
         int deltaY = endPos.y - startPos.y;
 
@@ -102,16 +98,10 @@ public class Move {
         Point halfY = PointUtils.add(startPos, PointUtils.multiply(Direction.DOWN.getVector() , deltaY));
 
         if (state.charAt(PointUtils.toIndex(halfX)) == '0') {
-            partialMoves.add(new Move(startPos, halfX));
-            partialMoves.add(new Move(halfX   , endPos));
+            return new Move(startPos, halfX);
         } else {
-            partialMoves.add(new Move(startPos, halfY));
-            partialMoves.add(new Move(halfY   , endPos));
+            return new Move(startPos, halfY);
         }
-
-        if (USE_SOLVER_DEBUG_PRINT) System.out.println(partialMoves);
-
-        return partialMoves;
     }
 
     private Point fromIndex(int index) {

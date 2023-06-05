@@ -58,9 +58,6 @@ public class Board implements BlockMoveListener {
 
     @SuppressWarnings("SameParameterValue")
     private void initBlocks(String filename) {
-
-        System.out.println(filename);
-
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
         //BsonParser parser = new BsonParser();
@@ -181,15 +178,17 @@ public class Board implements BlockMoveListener {
         if (USE_SOLVER_DEBUG_PRINT) System.out.println(move);
 
         if (move.isCut()) {
-            moves.addAll(move.evalCutMoves(NewSolver.getState(blocks)));
-        } else {
-            moves.add(move);
+            move = move.evalCutMove(NewSolver.getState(blocks));
         }
+        moves.add(move);
+
         movesIterator = moves.listIterator(moves.size());
 
         blocks.get(startBlockIndex).move(move.getEndPos());
 
         boardComponent.repaint();
+
+        checkWin();
     }
 
     private static Point normalizeCord(Point input) {
@@ -288,7 +287,6 @@ public class Board implements BlockMoveListener {
         GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
 
         parser.save(blocks);
-
     }
 
     public void load() {
@@ -311,6 +309,5 @@ public class Board implements BlockMoveListener {
         boardComponent.setBlocks(blocks);
 
         boardComponent.repaint();
-
     }
 }
