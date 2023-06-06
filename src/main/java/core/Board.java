@@ -221,8 +221,6 @@ public class Board implements BlockMoveListener {
 
         Point directionVector = direction.getVector();
 
-        Point endPoint;
-
         while (steps > 0) {
 
             for (Point sectionPos : blockToMove.getSectionsPos()){
@@ -249,7 +247,7 @@ public class Board implements BlockMoveListener {
                 Point pos = block.getPos();
                 if (pos.x == 1 && pos.y == 3){
                     if (isGameWon()) {
-                        System.out.println("Hai vinto, sei un figo!");
+                        System.out.println("Hai vinto!");
                     }
                     gameWon = true;
                     Window.endGame(getBoardComponent());

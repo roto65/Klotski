@@ -1,6 +1,7 @@
 package core.listener;
 
-public interface MoveCountIncrementListener {
+import java.util.EventListener;
 
-    public void incrementMoveCounter();
+public interface MoveCountIncrementListener extends EventListener {
+    void incrementMoveCounter();
 }

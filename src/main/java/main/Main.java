@@ -21,5 +21,3 @@ public class Main {
         SwingUtilities.invokeLater(() -> Window.initWindow(board.getBoardComponent(), dashboard.getDashboardComponent()));
     }
 }
-
-// inspo: http://simonsays-tw.com/web/Klotski/game/klotskiDemo.html

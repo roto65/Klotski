@@ -61,7 +61,7 @@ public class NewSolver {
         }
     }
 
-    static void encode() {
+    private static void encode() {
         // This method encodes the state of the board in a string
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < ROWS; i++)
@@ -72,13 +72,13 @@ public class NewSolver {
         code = builder.toString();
     }
 
-    static String getCode() {
+    private static String getCode() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < code.length(); i += 2) builder.append(code.charAt(i));
         return builder.toString();
     }
 
-    static void setBoard(String s) {
+    private static void setBoard(String s) {
         // This method reconstructs a board base on it's encoding
         StringBuilder s_ = new StringBuilder();
         for (int i = 0; i < s.length(); i += 2) s_.append(s.charAt(i));
@@ -122,13 +122,13 @@ public class NewSolver {
         }
     }
 
-    static boolean checkEnd() {
+    private static boolean checkEnd() {
         // Check if final state ( solution board ) has been reached
         return (state[3][1] == state[3][2] && state[3][2] == state[4][1] &&
                 state[4][1] == state[4][2] && state[4][1] == 4);
     }
 
-    static void update(String aux, String cur) {
+    private static void update(String aux, String cur) {
         q.add(aux);
         m.put(aux, true);
         depth.put(aux, depth.get(cur) + 1);
@@ -142,7 +142,7 @@ public class NewSolver {
         }
     }
 
-    static void backtrackSolution(String s) {
+    private static void backtrackSolution(String s) {
         // Recursively printing optimal path
         if (st.get(s) == 0) {
             setBoard(full.get(st.get(s)));
@@ -154,7 +154,7 @@ public class NewSolver {
         saveState();
     }
 
-    static void saveState() {
+    private static void saveState() {
         StringBuilder boardBuilder = new StringBuilder();
         StringBuilder stateBuilder = new StringBuilder();
 
@@ -168,7 +168,7 @@ public class NewSolver {
         states.add(stateBuilder.toString());
     }
 
-    static boolean moveSpecific(Piece p, String cur, int direction) {
+    private static boolean moveSpecific(Piece p, String cur, int direction) {
         if (direction == 0 && p.left()) p.moveLeft();
         else if (direction == 1 && p.right()) p.moveRight();
         else if (direction == 2 && p.up()) p.moveUp();
@@ -216,7 +216,7 @@ public class NewSolver {
         }
     }
 
-    public static void uploadMoves() {
+    private static void uploadMoves() {
         MongoDbConnection dbConnection = new MongoDbConnection();
 
         List<HintSchema> movesToUpload = new ArrayList<>();
@@ -245,7 +245,7 @@ public class NewSolver {
         return builder.toString();
     }
 
-    public static void evalMoves() {
+    private static void evalMoves() {
         // Start BFS
         encode();
         String s = getCode();
@@ -272,7 +272,7 @@ public class NewSolver {
         }
     }
 
-    public static Move findMove(char [] prev, char [] curr) {
+    private static Move findMove(char [] prev, char [] curr) {
         int fromIndex = 0, toIndex = 0;
         char blockMoved = 'z';
 
@@ -331,7 +331,7 @@ public class NewSolver {
         return new Move(fromIndex, toIndex);
     }
 
-    static class Piece {
+    private static class Piece {
         int x;
         int y;
         int width;
