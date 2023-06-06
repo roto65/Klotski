@@ -1,7 +1,7 @@
 package ui;
 
-import core.BlockMoveListener;
-import ui.blocks.*;
+import core.listener.BlockMoveListener;
+import ui.blocks.Block;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import static main.Constants.*;
 
 public class BoardComponent extends JPanel implements MouseListener {
 
-    private final ArrayList<Block> blocks;
+    private ArrayList<Block> blocks;
 
     private BlockMoveListener listener;
 
@@ -29,6 +29,10 @@ public class BoardComponent extends JPanel implements MouseListener {
 
     public void setListener(BlockMoveListener listener) {
         this.listener = listener;
+    }
+
+    public void setBlocks(ArrayList<Block> blocks) {
+        this.blocks = blocks;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package main;
 
 import core.Board;
+import core.Dashboard;
 import ui.Window;
 
 import javax.swing.*;
@@ -14,9 +15,9 @@ public class Main {
         // Initialize game object(s)
         Board board = new Board(DEFAULT_BLOCK_CONFIGURATION);
 
+        Dashboard dashboard = new Dashboard(board);
+
         // Initialize ui
-        SwingUtilities.invokeLater(() -> Window.initWindow(board.getBoardComponent()));
+        SwingUtilities.invokeLater(() -> Window.initWindow(board.getBoardComponent(), dashboard.getDashboardComponent()));
     }
 }
-
-// inspo: http://simonsays-tw.com/web/Klotski/game/klotskiDemo.html

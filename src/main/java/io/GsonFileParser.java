@@ -3,6 +3,7 @@ package io;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import core.BlockCollection;
 import ui.blocks.Block;
 
 import java.io.FileReader;
@@ -10,24 +11,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Parser {
+import static main.Constants.LAST_LEVEL_CONFIGURATION;
 
-    private final String filename;
-    private final String extension;
+public class GsonFileParser {
 
-    public Parser(String filename) {
-        this.filename = filename;
-        extension = "json";
+    private String path;
+
+    public GsonFileParser(String absolutePath) {
+        this.path = absolutePath;
     }
 
-    public Parser(String filename, String extension) {
-        this.filename = filename;
-        this.extension = extension;
+    public GsonFileParser(String filename, String extension) {
+        this.path = "src/main/resources/layout/" + filename + "." + extension;
+    }
+
+    public void setLastPlayedPath() {
+        this.path = "src/main/resources/layout/" + LAST_LEVEL_CONFIGURATION + ".json";
     }
 
     public void save(ArrayList<Block> blocks) {
 
-        String path = "src/main/resources/layout/" + filename + "." + extension;
+        BlockCollection collection = new BlockCollection(blocks);
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter()).setPrettyPrinting();
 
@@ -36,35 +40,33 @@ public class Parser {
         try {
             FileWriter fileWriter = new FileWriter(path);
 
-            gson.toJson(blocks, fileWriter);
+            gson.toJson(collection, fileWriter);
 
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public ArrayList<Block> load() {
-
-        String path = "src/main/resources/layout/" + filename + "." + extension;
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
 
         Gson gson = gsonBuilder.create();
 
-        ArrayList<Block> blocks = null;
+        BlockCollection collection = null;
 
         try {
             FileReader fileReader = new FileReader(path);
 
-            blocks = gson.fromJson(fileReader, new TypeToken<ArrayList<Block>>(){}.getType());
+            collection = gson.fromJson(fileReader, new TypeToken<BlockCollection>(){}.getType());
             fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return blocks;
+        assert collection != null : "Error loading layout file";
+        return collection.getBlocks();
     }
 }
