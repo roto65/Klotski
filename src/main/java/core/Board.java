@@ -14,9 +14,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import static main.Constants.*;
+import static main.Constants.TITLE_SIZE;
+import static main.Constants.USE_SOLVER_DEBUG_PRINT;
 
 public class Board implements BlockMoveListener {
+
+    private ArrayList<Block> lastConfiguration;
 
     private boolean gameWon = false;
 
@@ -44,9 +47,11 @@ public class Board implements BlockMoveListener {
 
         Window.newGame(boardComponent);
 
-        GsonFileParser parser = new GsonFileParser(LAST_LEVEL_CONFIGURATION, "json");
+        blocks = new ArrayList<>();
 
-        this.blocks = parser.load();
+        for (Block block : lastConfiguration) {
+            blocks.add(block.copy());
+        }
 
         moves = new ArrayList<>();
         movesIterator = moves.listIterator();
@@ -60,9 +65,8 @@ public class Board implements BlockMoveListener {
     private void initBlocks(String filename) {
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
-        //BsonParser parser = new BsonParser();
-
-        this.blocks = new ArrayList<>(parser.load());
+        blocks = new ArrayList<>(parser.load());
+        lastConfiguration = new ArrayList<>(parser.load());
     }
 
     public BoardComponent getBoardComponent() {
@@ -300,9 +304,7 @@ public class Board implements BlockMoveListener {
         movesIterator = moves.listIterator();
 
         blocks = parser.load();
-
-        parser.setLastPlayedPath();
-        parser.save(blocks);
+        lastConfiguration = parser.load();
 
         boardComponent.setBlocks(blocks);
 

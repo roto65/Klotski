@@ -7,7 +7,6 @@ public final class Constants {
     public static final int COLUMNS = 4;
 
     public static final String DEFAULT_BLOCK_CONFIGURATION = "default";
-    public static final String LAST_LEVEL_CONFIGURATION    = "lastLevelPlayed";
 
 
     // database constants

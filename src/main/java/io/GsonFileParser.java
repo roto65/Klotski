@@ -11,11 +11,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static main.Constants.LAST_LEVEL_CONFIGURATION;
-
 public class GsonFileParser {
 
-    private String path;
+    private final String path;
 
     public GsonFileParser(String absolutePath) {
         this.path = absolutePath;
@@ -24,11 +22,6 @@ public class GsonFileParser {
     public GsonFileParser(String filename, String extension) {
         this.path = "src/main/resources/layout/" + filename + "." + extension;
     }
-
-    public void setLastPlayedPath() {
-        this.path = "src/main/resources/layout/" + LAST_LEVEL_CONFIGURATION + ".json";
-    }
-
     public void save(ArrayList<Block> blocks) {
 
         BlockCollection collection = new BlockCollection(blocks);

@@ -40,4 +40,22 @@ public abstract class Block {
             }
         };
     }
+
+    public Block copy() {
+        switch (blockType) {
+            case SMALL -> {
+                return new SmallBlock(pos.x, pos.y);
+            }
+            case WIDE_HORIZONTAL -> {
+                return new WideBlock(pos.x, pos.y, BlockType.WIDE_HORIZONTAL);
+            }
+            case WIDE_VERTICAL -> {
+                return new WideBlock(pos.x, pos.y, BlockType.WIDE_VERTICAL);
+            }
+            case LARGE -> {
+                return new LargeBlock(pos.x, pos.y);
+            }
+        }
+        return null;
+    }
 }
