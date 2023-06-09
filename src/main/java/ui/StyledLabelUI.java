@@ -12,22 +12,30 @@ import static main.Constants.TITLE_SIZE;
 
 public class StyledLabelUI extends BasicLabelUI {
 
-    private Image sprite;
+     private static Image sprite = null;
 
-    private Font labelFont;
+    private static Font labelFont = null;
+
+    public StyledLabelUI() {
+        loadResources();
+    }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-    public StyledLabelUI() {
-        try {
-            sprite = IOUtils.readFromPng("MoveCounter2.png");
-        } catch (IOException e) {
-            System.out.println("Error opening image file: " + e.getMessage());
+    private void loadResources() {
+        if (sprite == null) {
+            try {
+                sprite = IOUtils.readFromPng("MoveCounter2.png");
+            } catch (IOException e) {
+                System.out.println("Error opening image file: " + e.getMessage());
+            }
         }
 
-        try {
-            labelFont = IOUtils.readFromTtf("DotGothic.ttf").deriveFont(Font.BOLD, TITLE_SIZE / 6);
-        } catch (IOException | FontFormatException e) {
-            System.out.println("Error opening font file: " + e.getMessage());
+        if (labelFont == null) {
+            try {
+                labelFont = IOUtils.readFromTtf("DotGothic.ttf").deriveFont(Font.BOLD, TITLE_SIZE / 6);
+            } catch (IOException | FontFormatException e) {
+                System.out.println("Error opening font file: " + e.getMessage());
+            }
         }
     }
 

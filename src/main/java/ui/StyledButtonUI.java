@@ -12,24 +12,39 @@ import static main.Constants.TITLE_SIZE;
 
 public class StyledButtonUI extends BasicButtonUI {
 
-    private Image defaultButtonSprite;
-    private Image pressedButtonSprite;
+    private static Image defaultButtonSprite = null;
+    private static Image pressedButtonSprite = null;
 
-    private Font buttonFont;
+    private static Font buttonFont = null;
+
+    public StyledButtonUI() {
+        loadResources();
+    }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-    public StyledButtonUI() {
-        try {
-            defaultButtonSprite = IOUtils.readFromPng("Button.png");
-            pressedButtonSprite = IOUtils.readFromPng("PressedButton.png");
-        } catch (IOException e) {
-            System.out.println("Error opening image file: " + e.getMessage());
+    private void loadResources() {
+        if (defaultButtonSprite == null) {
+            try {
+                defaultButtonSprite = IOUtils.readFromPng("Button.png");
+            } catch (IOException e) {
+                System.out.println("Error opening image file: " + e.getMessage());
+            }
         }
 
-        try {
-            buttonFont = IOUtils.readFromTtf("DotGothic.ttf").deriveFont(Font.BOLD, TITLE_SIZE / 6);
-        } catch (IOException | FontFormatException e) {
-            System.out.println("Error opening font file: " + e.getMessage());
+        if (pressedButtonSprite == null) {
+            try {
+                pressedButtonSprite = IOUtils.readFromPng("PressedButton.png");
+            } catch (IOException e) {
+                System.out.println("Error opening image file: " + e.getMessage());
+            }
+        }
+
+        if (buttonFont == null) {
+            try {
+                buttonFont = IOUtils.readFromTtf("DotGothic.ttf").deriveFont(Font.BOLD, TITLE_SIZE / 6);
+            } catch (IOException | FontFormatException e) {
+                System.out.println("Error opening font file: " + e.getMessage());
+            }
         }
     }
 
