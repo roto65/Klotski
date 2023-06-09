@@ -7,7 +7,8 @@ import io.JsonFileChooser;
 import solver.NewSolver;
 import ui.BoardComponent;
 import ui.Window;
-import ui.blocks.*;
+import ui.blocks.Block;
+import ui.blocks.LargeBlock;
 
 import java.awt.*;
 import java.io.File;
@@ -65,8 +66,8 @@ public class Board implements BlockMoveListener {
     private void initBlocks(String filename) {
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
-        blocks = new ArrayList<>(parser.load());
-        lastConfiguration = new ArrayList<>(parser.load());
+        blocks = new ArrayList<>(parser.load(false));
+        lastConfiguration = new ArrayList<>(parser.load(false));
     }
 
     public BoardComponent getBoardComponent() {
@@ -83,24 +84,6 @@ public class Board implements BlockMoveListener {
 
     public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
         this.moveCountIncrementListener = moveCountIncrementListener;
-    }
-
-    @SuppressWarnings("unused")
-    private void populateBoard() {
-        blocks.add(new WideBlock(0, 0, BlockType.WIDE_VERTICAL));
-        blocks.add(new LargeBlock(1, 0));
-        blocks.add(new WideBlock(3, 0, BlockType.WIDE_VERTICAL));
-        blocks.add(new WideBlock(0, 2, BlockType.WIDE_VERTICAL));
-        blocks.add(new WideBlock(1, 2, BlockType.WIDE_HORIZONTAL));
-        blocks.add(new WideBlock(3, 2, BlockType.WIDE_VERTICAL));
-        blocks.add(new SmallBlock(1, 3));
-        blocks.add(new SmallBlock(2, 3));
-        blocks.add(new SmallBlock(0, 4));
-        blocks.add(new SmallBlock(3, 4));
-
-        GsonFileParser parser = new GsonFileParser("default", "json");
-
-        parser.save(blocks);
     }
 
     @Override
@@ -303,8 +286,8 @@ public class Board implements BlockMoveListener {
         moves = new ArrayList<>();
         movesIterator = moves.listIterator();
 
-        blocks = parser.load();
-        lastConfiguration = parser.load();
+        blocks = parser.load(true);
+        lastConfiguration = parser.load(true);
 
         boardComponent.setBlocks(blocks);
 

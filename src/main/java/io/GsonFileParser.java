@@ -7,8 +7,9 @@ import core.BlockCollection;
 import ui.blocks.Block;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 
 public class GsonFileParser {
@@ -20,7 +21,7 @@ public class GsonFileParser {
     }
 
     public GsonFileParser(String filename, String extension) {
-        this.path = "src/main/resources/layout/" + filename + "." + extension;
+        this.path = filename + "." + extension;
     }
     public void save(ArrayList<Block> blocks) {
 
@@ -31,30 +32,34 @@ public class GsonFileParser {
         Gson gson = gsonBuilder.create();
 
         try {
-            FileWriter fileWriter = new FileWriter(path);
+            Writer writer = IOUtils.writeToJson(path);
 
-            gson.toJson(collection, fileWriter);
+            gson.toJson(collection, writer);
 
-            fileWriter.flush();
-            fileWriter.close();
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Block> load() {
+    public ArrayList<Block> load(boolean externalFile) {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
 
         Gson gson = gsonBuilder.create();
 
         BlockCollection collection = null;
+        Reader reader = null;
 
         try {
-            FileReader fileReader = new FileReader(path);
-
-            collection = gson.fromJson(fileReader, new TypeToken<BlockCollection>(){}.getType());
-            fileReader.close();
+            if (externalFile) {
+                reader = new FileReader(path);
+            } else {
+                reader = IOUtils.readFromJson(path);
+            }
+            collection = gson.fromJson(reader, new TypeToken<BlockCollection>(){}.getType());
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

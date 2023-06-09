@@ -1,11 +1,10 @@
 package ui.blocks;
 
-import javax.imageio.ImageIO;
+import io.IOUtils;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ import static main.Constants.*;
 
 public class WideBlock extends Block{
 
-    private transient BufferedImage altSprite;
+    private transient Image altSprite;
 
     @SuppressWarnings("unused")
     public WideBlock() {
@@ -52,10 +51,10 @@ public class WideBlock extends Block{
     protected void loadSprite() {
         try {
             if (USE_LEGACY_SPRITES) {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/Mid.png"));
+                sprite = IOUtils.readFromPng("Mid.png");
             } else {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/WideBlock.png"));
-                altSprite = ImageIO.read(new File("src/main/resources/drawable/TallBlock.png"));
+                sprite = IOUtils.readFromPng("WideBlock.png");
+                altSprite = IOUtils.readFromPng("TallBlock.png");
             }
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
