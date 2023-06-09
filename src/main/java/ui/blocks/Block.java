@@ -57,4 +57,11 @@ public abstract class Block {
         }
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        Block block = (Block) obj;
+
+        return this.blockType == block.blockType && this.pos.x == block.pos.x && this.pos.y == block.pos.y;
+    }
 }

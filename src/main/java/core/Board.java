@@ -24,7 +24,7 @@ public class Board implements BlockMoveListener {
 
     private boolean gameWon = false;
 
-    private final BoardComponent boardComponent;
+    private BoardComponent boardComponent;
 
     private ArrayList<Move> moves;
     private ListIterator<Move> movesIterator;
@@ -32,6 +32,15 @@ public class Board implements BlockMoveListener {
     private MoveCountIncrementListener moveCountIncrementListener;
 
     private ArrayList<Block> blocks;
+
+    public Board() {
+        boardComponent = new BoardComponent(blocks);
+        boardComponent.setListener(this);
+
+        moves = new ArrayList<>();
+        movesIterator = moves.listIterator();
+    }
+
     public Board(String blockConfiguration) {
         initBlocks(blockConfiguration);
 
@@ -45,9 +54,9 @@ public class Board implements BlockMoveListener {
     public void resetBoard() {
 
         gameWon = false;
-
-        Window.newGame(boardComponent);
-
+        try {
+            Window.newGame(boardComponent);
+        }catch(NullPointerException e){}
         blocks = new ArrayList<>();
 
         for (Block block : lastConfiguration) {
@@ -84,6 +93,10 @@ public class Board implements BlockMoveListener {
 
     public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
         this.moveCountIncrementListener = moveCountIncrementListener;
+    }
+
+    public void setBlocks(ArrayList<Block> blocks) {
+        this.blocks = blocks;
     }
 
     @Override
@@ -131,7 +144,10 @@ public class Board implements BlockMoveListener {
             moves.add(move);
             movesIterator = moves.listIterator(moves.size());
 
-            moveCountIncrementListener.incrementMoveCounter();
+            try {
+                moveCountIncrementListener.incrementMoveCounter();
+            } catch (NullPointerException ignored) {
+            }
         }
 
         checkWin();
