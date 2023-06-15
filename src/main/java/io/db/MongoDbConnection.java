@@ -8,19 +8,21 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import core.HintSchema;
 import core.Move;
 import io.db.codecs.HintSchemaCodecProvider;
 import io.db.codecs.MoveCodecProvider;
 import io.db.codecs.PointCodec;
+import io.schemas.HintSchema;
+import io.schemas.LevelSchema;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.bson.BsonDocument;
-import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
+import ui.blocks.Block;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.db.Credentials.mongoUri;
@@ -31,8 +33,6 @@ import static main.Constants.*;
 public class MongoDbConnection {
 
     private final MongoDatabase database;
-
-    private final MongoCollection<BsonDocument> collection;
 
     public MongoDbConnection() {
 
@@ -53,8 +53,6 @@ public class MongoDbConnection {
 
         // specific database objet
         database = mongoClient.getDatabase(databaseName);
-        // specific collection object
-        collection = database.getCollection(collectionName, BsonDocument.class);
     }
 
     public MongoCollection<HintSchema> getHintCollection() {
@@ -80,13 +78,10 @@ public class MongoDbConnection {
 
     public Move findHint(String state) {
 
-        //getHintCollection().deleteMany(new Document());
-
         Bson stateFilter = Filters.eq("state", state);
 
         try {
             HintSchema result = getHintCollection().find(stateFilter).limit(1).first();
-            //System.out.println(result);
             if (result != null) {
                 return result.getBestMove();
             }
@@ -96,19 +91,33 @@ public class MongoDbConnection {
         return null;
     }
 
-    public String getFirst() {
-        for (BsonDocument nextDoc : collection.find()) {
-            nextDoc.remove("_id");
-
-            return nextDoc.toJson();
-        }
-
-        return null;
+    public MongoCollection<BsonDocument> getLevelCollection() {
+        return database.getCollection(levelsCollection, BsonDocument.class);
     }
 
-    public void insert(String jsonString) {
-        Document document = Document.parse(jsonString);
+    public LevelSchema getLevel(int levelNumber) {
 
-        collection.insertOne(document.toBsonDocument());
+        Bson levelFilter = Filters.eq("level", levelNumber);
+
+        try {
+            BsonDocument doc = getLevelCollection().find(levelFilter).limit(1).first();
+
+            if (doc == null) {
+                return null;
+            }
+
+            int minimumMoves = doc.get("mini").asInt32().getValue();
+
+            doc.remove("_id");
+            doc.remove("level");
+            doc.remove("mini");
+
+            ArrayList<Block> blocks = new BsonParser().load(doc.toJson());
+
+            return new LevelSchema(levelNumber, blocks, minimumMoves);
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

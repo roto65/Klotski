@@ -1,4 +1,5 @@
 {
+  "levelNumber": 0,
   "blocks": [
     {
       "pos": {
@@ -71,5 +72,5 @@
       "blockType": "SMALL"
     }
   ],
-  "moves": 0
+  "minimumMoves": 0
 }

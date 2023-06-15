@@ -1,4 +1,6 @@
-package core;
+package io.schemas;
+
+import core.Move;
 
 public class HintSchema {
 

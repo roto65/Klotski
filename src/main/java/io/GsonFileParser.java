@@ -2,15 +2,15 @@ package io;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import core.BlockCollection;
+import io.schemas.LevelSchema;
 import ui.blocks.Block;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.ArrayList;
 
 public class GsonFileParser {
 
@@ -23,9 +23,8 @@ public class GsonFileParser {
     public GsonFileParser(String filename, String extension) {
         this.path = filename + "." + extension;
     }
-    public void save(ArrayList<Block> blocks) {
 
-        BlockCollection collection = new BlockCollection(blocks);
+    public void save(LevelSchema levelSchema) {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter()).setPrettyPrinting();
 
@@ -34,7 +33,7 @@ public class GsonFileParser {
         try {
             Writer writer = IOUtils.writeToJson(path);
 
-            gson.toJson(collection, writer);
+            gson.toJson(levelSchema, writer);
 
             writer.flush();
             writer.close();
@@ -43,14 +42,14 @@ public class GsonFileParser {
         }
     }
 
-    public ArrayList<Block> load(boolean externalFile) {
+    public LevelSchema load(boolean externalFile) throws JsonSyntaxException {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
 
         Gson gson = gsonBuilder.create();
 
-        BlockCollection collection = null;
-        Reader reader = null;
+        LevelSchema levelSchema = null;
+        Reader reader;
 
         try {
             if (externalFile) {
@@ -58,13 +57,13 @@ public class GsonFileParser {
             } else {
                 reader = IOUtils.readFromJson(path);
             }
-            collection = gson.fromJson(reader, new TypeToken<BlockCollection>(){}.getType());
+            levelSchema = gson.fromJson(reader, new TypeToken<LevelSchema>(){}.getType());
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        assert collection != null : "Error loading layout file";
-        return collection.getBlocks();
+        assert levelSchema != null : "Error loading layout file";
+        return levelSchema;
     }
 }

@@ -1,11 +1,17 @@
 package core;
 
+import com.google.gson.JsonSyntaxException;
 import core.listener.MoveCountIncrementListener;
+import io.GsonFileParser;
+import io.JsonFileChooser;
 import io.db.MongoDbConnection;
+import io.schemas.LevelSchema;
 import solver.NewSolver;
 import ui.DashboardComponent;
+import ui.LevelSelector;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 import static main.Constants.USE_DB_HINT_CASHING;
@@ -16,7 +22,7 @@ public class Dashboard  implements MoveCountIncrementListener {
     private final DashboardComponent dashboardComponent;
 
     private StyledLabel moveCounter;
-    private StyledLabel layoutLabel;
+    private StyledLabel levelLabel;
 
     private ArrayList<StyledButton> buttons;
     private ArrayList<StyledLabel> labels;
@@ -36,31 +42,33 @@ public class Dashboard  implements MoveCountIncrementListener {
         return dashboardComponent;
     }
 
+    @SuppressWarnings("CodeBlock2Expr")
     private void loadButtons() {
         this.buttons = new ArrayList<>();
 
         StyledButton resetButton = new StyledButton("New Game", new Point(0, 0));
         resetButton.addActionListener(e -> {
             board.resetBoard();
-            setMoveCounter(0);
         });
         buttons.add(resetButton);
 
         StyledButton levelButton = new StyledButton("Levels", new Point(1, 0));
-        resetButton.addActionListener(e -> {
-            board.resetBoard();
+        levelButton.addActionListener(e -> {
+            loadLevel();
         });
         buttons.add(levelButton);
 
         StyledButton saveButton = new StyledButton("Save", new Point(0, 1));
         saveButton.addActionListener(e -> {
-            board.save();
+            if (!board.isGameWon())
+                saveLevel();
         });
         buttons.add(saveButton);
 
         StyledButton loadButton = new StyledButton("Load", new Point(1, 1));
         loadButton.addActionListener(e -> {
-            board.load();
+            if (!board.isGameWon())
+                loadLevelFromFile();
         });
         buttons.add(loadButton);
 
@@ -95,13 +103,13 @@ public class Dashboard  implements MoveCountIncrementListener {
     }
 
     private void loadLabels() {
-
-        layoutLabel = new StyledLabel("Level: ", "000", new Point(1, 4));
         this.labels = new ArrayList<>();
+
+        levelLabel = new StyledLabel("Level: ", "1", new Point(1, 4));
+        labels.add(levelLabel);
 
         moveCounter = new StyledLabel("Moves: ", "0", new Point(0, 4));
         labels.add(moveCounter);
-        labels.add(layoutLabel);
     }
 
     @Override
@@ -118,8 +126,12 @@ public class Dashboard  implements MoveCountIncrementListener {
         }
     }
 
-    private void setMoveCounter(int count) {
-        moveCounter.setVariableText(String.valueOf(count));
+    private void resetMoveCounter() {
+        moveCounter.setVariableText(String.valueOf(0));
+    }
+
+    private void setLevelLabel(int levelNumber) {
+        levelLabel.setVariableText(String.valueOf(levelNumber));
     }
 
     private void getHint() {
@@ -140,5 +152,47 @@ public class Dashboard  implements MoveCountIncrementListener {
             assert move != null;
             board.performMoveUnchecked(move);
         }
+    }
+
+    private void loadLevel() {
+        LevelSelector selector = new LevelSelector();
+        selector.showLevelSelector();
+        int selectedLevel = selector.getSelectedLevel();
+
+        MongoDbConnection db = new MongoDbConnection();
+
+        setLevelLabel(selectedLevel);
+
+        board.resetBoard(db.getLevel(selectedLevel));
+    }
+
+    private void loadLevelFromFile() {
+        JsonFileChooser fileChooser = new JsonFileChooser();
+        File file = fileChooser.showLoadDialog();
+
+        if (file == null) return;
+
+        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
+
+        try {
+            LevelSchema newLevel = parser.load(true);
+            board.resetBoard(newLevel);
+
+            setLevelLabel(newLevel.getLevelNumber());
+            resetMoveCounter();
+        } catch (JsonSyntaxException | NullPointerException e) {
+            System.out.println("Error loading Json save file");
+        }
+    }
+
+    private void saveLevel() {
+        JsonFileChooser fileChooser = new JsonFileChooser();
+        File file = fileChooser.showSaveDialog();
+
+        if (file == null) return;
+
+        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
+
+        parser.save(board.getCurrentLevel());
     }
 }

@@ -3,7 +3,7 @@ package core;
 import core.listener.BlockMoveListener;
 import core.listener.MoveCountIncrementListener;
 import io.GsonFileParser;
-import io.JsonFileChooser;
+import io.schemas.LevelSchema;
 import solver.NewSolver;
 import ui.BoardComponent;
 import ui.Window;
@@ -11,7 +11,6 @@ import ui.blocks.Block;
 import ui.blocks.LargeBlock;
 
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -24,7 +23,7 @@ public class Board implements BlockMoveListener {
 
     private boolean gameWon = false;
 
-    private BoardComponent boardComponent;
+    private final BoardComponent boardComponent;
 
     private ArrayList<Move> moves;
     private ListIterator<Move> movesIterator;
@@ -33,8 +32,11 @@ public class Board implements BlockMoveListener {
 
     private ArrayList<Block> blocks;
 
+    private int currentLevelNumber;
+    private int minimumMoves;
+
     public Board() {
-        boardComponent = new BoardComponent(blocks);
+        boardComponent = new BoardComponent(null);
         boardComponent.setListener(this);
 
         moves = new ArrayList<>();
@@ -56,7 +58,8 @@ public class Board implements BlockMoveListener {
         gameWon = false;
         try {
             Window.newGame(boardComponent);
-        }catch(NullPointerException e){}
+        } catch(NullPointerException ignored){}
+
         blocks = new ArrayList<>();
 
         for (Block block : lastConfiguration) {
@@ -71,12 +74,44 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
     }
 
-    @SuppressWarnings("SameParameterValue")
+    public void resetBoard(LevelSchema newLevel) {
+
+        gameWon = false;
+        try {
+            Window.newGame(boardComponent);
+        } catch(NullPointerException ignored){}
+
+        blocks = new ArrayList<>();
+        lastConfiguration = new ArrayList<>();
+
+        for (Block block : newLevel.getBlocks()) {
+            blocks.add(block.copy());
+            lastConfiguration.add(block.copy());
+        }
+
+        currentLevelNumber = newLevel.getLevelNumber();
+        minimumMoves = newLevel.getMinimumMoves();
+
+        moves = new ArrayList<>();
+        movesIterator = moves.listIterator();
+
+        boardComponent.setBlocks(blocks);
+
+        boardComponent.repaint();
+    }
+
     private void initBlocks(String filename) {
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
-        blocks = new ArrayList<>(parser.load(false));
-        lastConfiguration = new ArrayList<>(parser.load(false));
+        LevelSchema levelSchema = parser.load(false);
+
+        blocks = new ArrayList<>();
+        lastConfiguration = new ArrayList<>();
+
+        for (Block block : levelSchema.getBlocks()) {
+            blocks.add(block.copy());
+            lastConfiguration.add(block.copy());
+        }
     }
 
     public BoardComponent getBoardComponent() {
@@ -89,6 +124,10 @@ public class Board implements BlockMoveListener {
 
     public boolean isGameWon() {
         return gameWon;
+    }
+
+    public LevelSchema getCurrentLevel() {
+        return new LevelSchema(currentLevelNumber, blocks, minimumMoves);
     }
 
     public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
@@ -277,36 +316,5 @@ public class Board implements BlockMoveListener {
             return  true;
         }
         return false;
-    }
-
-    public void save() {
-        JsonFileChooser fileChooser = new JsonFileChooser();
-        File file = fileChooser.showSaveDialog();
-
-        if (file == null) return;
-
-        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
-
-        parser.save(blocks);
-    }
-
-    public void load() {
-
-        JsonFileChooser fileChooser = new JsonFileChooser();
-        File file = fileChooser.showLoadDialog();
-
-        if (file == null) return;
-
-        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
-
-        moves = new ArrayList<>();
-        movesIterator = moves.listIterator();
-
-        blocks = parser.load(true);
-        lastConfiguration = parser.load(true);
-
-        boardComponent.setBlocks(blocks);
-
-        boardComponent.repaint();
     }
 }

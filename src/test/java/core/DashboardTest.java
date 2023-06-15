@@ -41,9 +41,9 @@ class DashboardTest {
     @Test
     void SaveLoadTest() {
         GsonFileParser parser = new GsonFileParser("src/test/resources/layout/test.json");
-        parser.save(board.getBlocks());
+        parser.save(board.getCurrentLevel());
 
-        board.setBlocks(parser.load(true));
+        board.setBlocks(parser.load(true).getBlocks());
 
         String finalDestination = NewSolver.getState(board.getBlocks());
         assertEquals(finalDestination, initConfig);

@@ -3,8 +3,8 @@ package io.db;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import core.BlockCollection;
 import io.BlockAdapter;
+import io.schemas.LevelSchema;
 import ui.blocks.Block;
 
 import java.io.Reader;
@@ -15,14 +15,12 @@ import java.util.ArrayList;
 
 public class BsonParser {
 
-    private final MongoDbConnection connection;
-
     public BsonParser() {
-        connection = new MongoDbConnection();
     }
 
+    // OLD
+    @SuppressWarnings("unused")
     public void save(ArrayList<Block> blocks) {
-        BlockCollection collection = new BlockCollection(blocks);
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter()).setPrettyPrinting();
 
@@ -30,20 +28,18 @@ public class BsonParser {
 
         Writer writer = new StringWriter();
 
-        gson.toJson(collection, writer);
-
-        connection.insert(writer.toString());
+        gson.toJson(blocks, writer);
     }
 
-    public ArrayList<Block> load() {
+    public ArrayList<Block> load(String JsonString) {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
 
         Gson gson = gsonBuilder.create();
 
-        Reader reader = new StringReader(connection.getFirst()); // deve caricare la stringa con formato Json
+        Reader reader = new StringReader(JsonString); // deve caricare la stringa con formato Json
 
-        BlockCollection collection = gson.fromJson(reader, new TypeToken<BlockCollection>(){}.getType());
+        LevelSchema collection = gson.fromJson(reader, new TypeToken<LevelSchema>(){}.getType());
 
         return collection.getBlocks();
     }

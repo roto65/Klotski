@@ -1,8 +1,8 @@
 package solver;
 
-import core.HintSchema;
 import core.Move;
 import io.db.MongoDbConnection;
+import io.schemas.HintSchema;
 import ui.blocks.Block;
 
 import java.awt.*;
@@ -78,6 +78,7 @@ public class NewSolver {
         return builder.toString();
     }
 
+    @SuppressWarnings("RedundantLabeledSwitchRuleCodeBlock")
     private static void setBoard(String s) {
         // This method reconstructs a board base on it's encoding
         StringBuilder s_ = new StringBuilder();

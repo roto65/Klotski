@@ -5,31 +5,22 @@ import core.StyledButton;
 import javax.swing.*;
 import java.awt.*;
 
+import static main.Constants.*;
+
 public class LevelSelector extends JFrame {
-    private static final int ROWS = 4;
-    private static final int COLUMNS = 7;
-    private static final int BUTTONS_PER_PAGE = ROWS * COLUMNS;
+
     private int currentPage = 1;
-    private int totalPages;
+    private int selectedLevel = -1;
 
     public LevelSelector() {
-        setTitle("Main Game Window");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
-
-        JButton levelSelectorButton = new JButton("Select Level");
-        levelSelectorButton.addActionListener(e -> showLevelSelector(currentPage));
-        add(levelSelectorButton);
-
-        // Add other components to your main game window
-
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
-    private void showLevelSelector(int page) {
-        JFrame levelSelectorFrame = new JFrame("Level Selector");
+    public int getSelectedLevel() {
+        return selectedLevel;
+    }
+
+    public void showLevelSelector() {
+        JDialog levelSelectorFrame = new JDialog(this, "Level Selector", true);
         levelSelectorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         levelSelectorFrame.setLayout(new BorderLayout());
 
@@ -37,6 +28,10 @@ public class LevelSelector extends JFrame {
 
         JPanel pageButtonPanel = new JPanel(new FlowLayout());
         pageButtonPanel.setBackground(Color.GREEN);
+
+        int buttonsPerPage = LEVEL_SELECTOR_GRID_ROWS * LEVEL_SELECTOR_GRID_COLUMNS;
+        int totalPages = (int) Math.ceil((double) LEVELS / buttonsPerPage);
+
         JButton prevButton = new StyledButton("Prev", new Point(0, 0));
         prevButton.addActionListener(e -> {
             if (currentPage > 1) {
@@ -56,20 +51,23 @@ public class LevelSelector extends JFrame {
         pageButtonPanel.add(nextButton);
 
         int offset = 0;
-        totalPages = (int) Math.ceil((double) 420 / BUTTONS_PER_PAGE);
+
 
         for (int j = 1; j <= totalPages; j++) {
-            JPanel levelPanel = new JPanel(new GridLayout(ROWS, COLUMNS, 10, 10));
+            JPanel levelPanel = new JPanel(new GridLayout(LEVEL_SELECTOR_GRID_ROWS, LEVEL_SELECTOR_GRID_COLUMNS, 10, 10));
 
             levelPanel.setBackground(Color.MAGENTA);
 
-            for (int i = 1; i <= BUTTONS_PER_PAGE; i++) {
+            for (int i = 1; i <= buttonsPerPage; i++) {
                 JButton levelButton = new StyledButton("Level " + (i + offset), new Point(0 ,0));
                 final int levelNumber = (i + offset);
-                levelButton.addActionListener(e -> System.out.println("Level " + levelNumber + " selected"));
+                levelButton.addActionListener(e -> {
+                         selectedLevel = levelNumber;
+                         levelSelectorFrame.dispose();
+                });
                 levelPanel.add(levelButton);
             }
-            offset += BUTTONS_PER_PAGE;
+            offset += buttonsPerPage;
             levelWrapperPanel.add(levelPanel, String.valueOf(j));
         }
 
@@ -79,9 +77,5 @@ public class LevelSelector extends JFrame {
         levelSelectorFrame.pack();
         levelSelectorFrame.setLocationRelativeTo(null);
         levelSelectorFrame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(LevelSelector::new);
     }
 }

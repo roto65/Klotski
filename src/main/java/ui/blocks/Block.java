@@ -59,6 +59,7 @@ public abstract class Block {
     }
 
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(Object obj) {
         Block block = (Block) obj;
 
