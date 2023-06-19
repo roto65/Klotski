@@ -1,10 +1,12 @@
 package ui;
 
+import io.IOUtils;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 import static main.Constants.ROWS;
-import static main.Constants.TITLE_SIZE;
 
 public class Window {
 
@@ -27,7 +29,11 @@ public class Window {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //window.setSize(TITLE_SIZE * 7, TITLE_SIZE * 5);
+        try {
+            window.setIconImage(IOUtils.readFromPng("Icon.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         window.setResizable(false);
 

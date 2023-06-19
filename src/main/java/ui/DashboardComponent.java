@@ -5,6 +5,7 @@ import core.StyledLabel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import static main.Constants.ROWS;
@@ -12,7 +13,7 @@ import static main.Constants.TITLE_SIZE;
 
 public class DashboardComponent extends JPanel {
 
-    private GridBagConstraints constraints;
+    private final Color BgLight, BgDark;
 
     public DashboardComponent(ArrayList<StyledButton> buttons, ArrayList<StyledLabel> labels) {
 
@@ -20,8 +21,11 @@ public class DashboardComponent extends JPanel {
 
         setBackground(new Color(255,91,46));
 
+        BgDark  = new Color(255,91,46);
+        BgLight = new Color(255,91,46);
+
         this.setLayout(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         // padding settings to put some space between the buttons
         constraints.insets = new Insets(TITLE_SIZE / 16, TITLE_SIZE / 8, TITLE_SIZE / 16, TITLE_SIZE / 8);
@@ -44,27 +48,28 @@ public class DashboardComponent extends JPanel {
             add(label, constraints);
         }
 
-        /* Point moveCounterPos = moveCounter.getPos();
-
-        constraints.gridwidth = 2;
-
-        constraints.gridx = moveCounterPos.x;
-        constraints.gridy = moveCounterPos.y;
-
-        add(moveCounter, constraints);*/
     }
 
-    /*
-    Buttons:
-        - New Game (Reset)
-        - Change load-out ?
-        - Save
-        - Load
-        - Undo
-        - Redo ?
-        - Best Move (Hint)
-        - Exit
-    Move counter
-     */
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        AffineTransform backup = g2d.getTransform();
+
+        for (int row = 0; row < ROWS; row++) {
+            for (int column = 0; column < 3; column++) {
+                if ((row + column) % 2 == 0) {
+                    g2d.setColor(BgLight);
+                } else {
+                    g2d.setColor(BgDark);
+                }
+                g2d.fillRect(column * TITLE_SIZE, row * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE);
+            }
+        }
+
+        g2d.setTransform(backup);
+    }
 
 }

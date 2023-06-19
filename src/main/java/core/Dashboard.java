@@ -49,6 +49,7 @@ public class Dashboard  implements MoveCountIncrementListener {
         StyledButton resetButton = new StyledButton("New Game", new Point(0, 0));
         resetButton.addActionListener(e -> {
             board.resetBoard();
+            resetMoveCounter();
         });
         buttons.add(resetButton);
 
@@ -159,8 +160,11 @@ public class Dashboard  implements MoveCountIncrementListener {
         selector.showLevelSelector();
         int selectedLevel = selector.getSelectedLevel();
 
+        if (selectedLevel == -1) return;
+
         MongoDbConnection db = new MongoDbConnection();
 
+        resetMoveCounter();
         setLevelLabel(selectedLevel);
 
         board.resetBoard(db.getLevel(selectedLevel));
