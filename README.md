@@ -49,6 +49,10 @@ For further information please refer to [LICENSE](https://github.com/roto65/Klot
 
 ---
 
+## Levels credits
+
+---
+
 ## Contributors
 
 This project was carried out by:
