@@ -53,6 +53,12 @@ For further information please refer to [LICENSE](https://github.com/roto65/Klot
 
 ---
 
+## Font credits
+
+Google Fonts thing.
+
+---
+
 ## Contributors
 
 This project was carried out by:

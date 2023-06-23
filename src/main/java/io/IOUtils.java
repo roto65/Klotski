@@ -4,10 +4,12 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
 
+import static main.Constants.*;
+
 public class IOUtils {
 
     public static Reader readFromJson(String filename) throws IOException{
-        String path = "layout/" + filename;
+        String path = FOLDER_LAYOUTS + filename;
 
         InputStream inputStream = IOUtils.class.getClassLoader().getResourceAsStream(path);
         assert inputStream != null;
@@ -19,7 +21,7 @@ public class IOUtils {
     }
 
     public static Image readFromPng(String filename) throws IOException{
-        String path = "drawable/" + filename;
+        String path = FOLDER_IMAGES + filename;
 
         InputStream inputStream = IOUtils.class.getClassLoader().getResourceAsStream(path);
         assert inputStream != null;
@@ -27,7 +29,7 @@ public class IOUtils {
     }
 
     public static Font readFromTtf(String filename) throws IOException, FontFormatException {
-        String path = "font/" + filename;
+        String path = FOLDER_FONTS + filename;
 
         InputStream inputStream = IOUtils.class.getClassLoader().getResourceAsStream(path);
         assert inputStream != null;

@@ -1,5 +1,5 @@
 {
-  "levelNumber": 0,
+  "levelNumber": 1,
   "blocks": [
     {
       "pos": {
@@ -72,5 +72,7 @@
       "blockType": "SMALL"
     }
   ],
-  "minimumMoves": 0
+  "minimumMoves": 81,
+  "moves": [],
+  "iteratorIndex": 0
 }

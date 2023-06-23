@@ -18,6 +18,13 @@ public final class Constants {
     public static final int LEVEL_SELECTOR_GRID_COLUMNS = 7;
 
 
+    // folders
+
+    public static final String FOLDER_LAYOUTS = "layout/";
+    public static final String FOLDER_IMAGES  = "drawable/";
+    public static final String FOLDER_FONTS   = "font/";
+
+
     // database constants
 
     public static final String DATABASE_NAME     = "klotski";

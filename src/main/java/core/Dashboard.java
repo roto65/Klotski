@@ -1,6 +1,7 @@
 package core;
 
 import com.google.gson.JsonSyntaxException;
+import com.mongodb.MongoException;
 import core.listener.MoveCountIncrementListener;
 import io.GsonFileParser;
 import io.JsonFileChooser;
@@ -8,7 +9,8 @@ import io.db.MongoDbConnection;
 import io.schemas.LevelSchema;
 import solver.NewSolver;
 import ui.DashboardComponent;
-import ui.LevelSelector;
+import ui.dialogs.DbErrorDialog;
+import ui.dialogs.LevelSelectorDialog;
 
 import java.awt.*;
 import java.io.File;
@@ -48,8 +50,7 @@ public class Dashboard  implements MoveCountIncrementListener {
 
         StyledButton resetButton = new StyledButton("New Game", new Point(0, 0));
         resetButton.addActionListener(e -> {
-            board.resetBoard();
-            resetMoveCounter();
+            reset();
         });
         buttons.add(resetButton);
 
@@ -139,10 +140,21 @@ public class Dashboard  implements MoveCountIncrementListener {
         levelLabel.setVariableText(String.valueOf(levelNumber));
     }
 
+    private void reset() {
+        board.resetBoard();
+        resetMoveCounter();
+    }
+
     private void getHint() {
 
         if (USE_DB_HINT_CASHING) {
-            MongoDbConnection dbConnection = new MongoDbConnection();
+            MongoDbConnection dbConnection;
+            try {
+                dbConnection = new MongoDbConnection();
+            } catch (MongoException e) {
+                new DbErrorDialog(e.getMessage()).showDialog();
+                return;
+            }
 
             Move move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
 
@@ -151,6 +163,8 @@ public class Dashboard  implements MoveCountIncrementListener {
                 move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
             }
             board.performMoveUnchecked(move);
+
+            dbConnection.closeClient();
         } else {
             Move move = NewSolver.start(board.getBlocks());
 
@@ -160,18 +174,27 @@ public class Dashboard  implements MoveCountIncrementListener {
     }
 
     private void loadLevel() {
-        LevelSelector selector = new LevelSelector();
-        selector.showLevelSelector();
+
+        MongoDbConnection db;
+        try {
+            db = new MongoDbConnection();
+        } catch (MongoException e) {
+            new DbErrorDialog(e.getMessage()).showDialog();
+            return;
+        }
+
+        LevelSelectorDialog selector = new LevelSelectorDialog();
+        selector.showDialog();
         int selectedLevel = selector.getSelectedLevel();
 
         if (selectedLevel == -1) return;
-
-        MongoDbConnection db = new MongoDbConnection();
 
         resetMoveCounter();
         setLevelLabel(selectedLevel);
 
         board.resetBoard(db.getLevel(selectedLevel));
+
+        db.closeClient();
     }
 
     private void loadLevelFromFile() {

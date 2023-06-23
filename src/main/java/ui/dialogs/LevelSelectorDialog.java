@@ -1,6 +1,8 @@
-package ui;
+package ui.dialogs;
 
 import core.StyledButton;
+import ui.PageCounter;
+import ui.Window;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,7 +10,7 @@ import java.awt.*;
 
 import static main.Constants.*;
 
-public class LevelSelector extends JFrame {
+public class LevelSelectorDialog extends JFrame {
 
     private JDialog levelSelectorDialog;
     private JPanel levelWrapperPanel;
@@ -21,7 +23,7 @@ public class LevelSelector extends JFrame {
     private final int buttonsPerPage;
     private final int totalPages;
 
-    public LevelSelector() {
+    public LevelSelectorDialog() {
         buttonsPerPage = LEVEL_SELECTOR_GRID_ROWS * LEVEL_SELECTOR_GRID_COLUMNS;
         totalPages = (int) Math.ceil((double) LEVELS / buttonsPerPage);
 
@@ -32,7 +34,7 @@ public class LevelSelector extends JFrame {
         return selectedLevel;
     }
 
-    public void showLevelSelector() {
+    public void showDialog() {
         levelSelectorDialog = new JDialog(this, "Level Selector", true);
         levelSelectorDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         levelSelectorDialog.setLayout(new BorderLayout());
@@ -64,6 +66,7 @@ public class LevelSelector extends JFrame {
         levelSelectorDialog.add(pageButtonPanel, BorderLayout.SOUTH);
 
         levelSelectorDialog.pack();
+        levelSelectorDialog.setResizable(false);
         levelSelectorDialog.setLocationRelativeTo(null);
         levelSelectorDialog.setVisible(true);
     }

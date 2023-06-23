@@ -1,9 +1,11 @@
 package solver;
 
+import com.mongodb.MongoException;
 import core.Move;
 import io.db.MongoDbConnection;
 import io.schemas.HintSchema;
 import ui.blocks.Block;
+import ui.dialogs.DbErrorDialog;
 
 import java.awt.*;
 import java.util.List;
@@ -218,7 +220,13 @@ public class NewSolver {
     }
 
     private static void uploadMoves() {
-        MongoDbConnection dbConnection = new MongoDbConnection();
+        MongoDbConnection dbConnection;
+        try {
+            dbConnection = new MongoDbConnection();
+        } catch (MongoException e) {
+            new DbErrorDialog(e.getMessage()).showDialog();
+            return;
+        }
 
         List<HintSchema> movesToUpload = new ArrayList<>();
 
@@ -231,6 +239,8 @@ public class NewSolver {
             movesToUpload.add(hint);
         }
         dbConnection.uploadHints(movesToUpload);
+
+        dbConnection.closeClient();
     }
 
     public static String getState(ArrayList<Block> blocks) {

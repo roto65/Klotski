@@ -17,6 +17,7 @@ import io.schemas.LevelSchema;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.bson.BsonDocument;
+import org.bson.BsonInt32;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
@@ -32,9 +33,13 @@ import static main.Constants.*;
 
 public class MongoDbConnection {
 
+    private final MongoClient mongoClient;
     private final MongoDatabase database;
 
-    public MongoDbConnection() {
+    @SuppressWarnings("ConstantValue")
+    public MongoDbConnection() throws MongoException {
+
+        if (mongoUri.equals("")) throw new MongoException("Invalid database Uri");
 
         Logger.getLogger("org.mongodb.driver").setLevel(Level.WARN);
 
@@ -42,17 +47,30 @@ public class MongoDbConnection {
                 .applyConnectionString(new ConnectionString(mongoUri))
                 .build();
 
-        MongoClient mongoClient = null;
-
         try {
             mongoClient = MongoClients.create(settings);
         } catch (MongoException e) {
             e.printStackTrace();
-            System.exit(1);
+            throw new MongoException("Cannot open connection");
         }
 
         // specific database objet
         database = mongoClient.getDatabase(DATABASE_NAME);
+
+        testConnection();
+    }
+
+    private void testConnection() throws MongoException {
+        Bson pingCommand = new BsonDocument("ping", new BsonInt32(1));
+        try {
+            database.runCommand(pingCommand);
+        } catch (MongoException e) {
+            throw new MongoException("Cannot ping MongoDb server");
+        }
+    }
+
+    public void closeClient() {
+        mongoClient.close();
     }
 
     public MongoCollection<HintSchema> getHintCollection() {
