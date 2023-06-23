@@ -7,7 +7,7 @@ import solver.NewSolver;
 
 import java.awt.*;
 
-import static main.Constants.DEFAULT_BLOCK_CONFIGURATION;
+import static main.Constants.LAYOUT_DEFAULT;
 import static main.Constants.TITLE_SIZE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,7 +18,7 @@ class DashboardTest {
 
     @BeforeEach
     void setUp() {
-        board = new Board(DEFAULT_BLOCK_CONFIGURATION);
+        board = new Board(LAYOUT_DEFAULT);
         initConfig = NewSolver.getState(board.getBlocks());
     }
 

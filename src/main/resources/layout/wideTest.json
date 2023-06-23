@@ -1,4 +1,5 @@
 {
+  "levelNumber": 0,
   "blocks": [
     {
       "pos": {
@@ -14,5 +15,6 @@
       },
       "blockType": "WIDE_VERTICAL"
     }
-  ]
+  ],
+  "minimumMoves": 0
 }

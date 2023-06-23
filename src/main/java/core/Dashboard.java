@@ -2,7 +2,8 @@ package core;
 
 import com.google.gson.JsonSyntaxException;
 import com.mongodb.MongoException;
-import core.listener.MoveCountIncrementListener;
+import core.listener.MovePerformedListener;
+import core.listener.PostGameActionsListener;
 import io.GsonFileParser;
 import io.JsonFileChooser;
 import io.db.MongoDbConnection;
@@ -11,6 +12,7 @@ import solver.NewSolver;
 import ui.DashboardComponent;
 import ui.dialogs.DbErrorDialog;
 import ui.dialogs.LevelSelectorDialog;
+import ui.dialogs.PostGameDialog;
 
 import java.awt.*;
 import java.io.File;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 import static main.Constants.USE_DB_HINT_CASHING;
 
-public class Dashboard  implements MoveCountIncrementListener {
+public class Dashboard  implements MovePerformedListener, PostGameActionsListener {
 
     private final Board board;
     private final DashboardComponent dashboardComponent;
@@ -69,8 +71,7 @@ public class Dashboard  implements MoveCountIncrementListener {
 
         StyledButton loadButton = new StyledButton("Load", new Point(1, 1));
         loadButton.addActionListener(e -> {
-            if (!board.isGameWon())
-                loadLevelFromFile();
+            loadLevelFromFile();
         });
         buttons.add(loadButton);
 
@@ -99,7 +100,7 @@ public class Dashboard  implements MoveCountIncrementListener {
 
         StyledButton exitButton = new StyledButton("Exit", new Point(1, 3));
         exitButton.addActionListener(e -> {
-            System.exit(0);
+            exit();
         });
         buttons.add(exitButton);
     }
@@ -112,6 +113,13 @@ public class Dashboard  implements MoveCountIncrementListener {
 
         moveCounter = new StyledLabel("Moves: ", "0", new Point(0, 4));
         labels.add(moveCounter);
+    }
+
+    @Override
+    public void triggerPostGame() {
+        int moves = Integer.parseInt(moveCounter.getVariableText());
+
+        new PostGameDialog(moves, board.getMinimumMoves(), this).showDialog();
     }
 
     @Override
@@ -140,7 +148,8 @@ public class Dashboard  implements MoveCountIncrementListener {
         levelLabel.setVariableText(String.valueOf(levelNumber));
     }
 
-    private void reset() {
+    @Override
+    public void reset() {
         board.resetBoard();
         resetMoveCounter();
     }
@@ -173,21 +182,22 @@ public class Dashboard  implements MoveCountIncrementListener {
         }
     }
 
-    private void loadLevel() {
+    @Override
+    public boolean loadLevel() {
 
         MongoDbConnection db;
         try {
             db = new MongoDbConnection();
         } catch (MongoException e) {
             new DbErrorDialog(e.getMessage()).showDialog();
-            return;
+            return false;
         }
 
         LevelSelectorDialog selector = new LevelSelectorDialog();
         selector.showDialog();
         int selectedLevel = selector.getSelectedLevel();
 
-        if (selectedLevel == -1) return;
+        if (selectedLevel == -1) return false;
 
         resetMoveCounter();
         setLevelLabel(selectedLevel);
@@ -195,13 +205,16 @@ public class Dashboard  implements MoveCountIncrementListener {
         board.resetBoard(db.getLevel(selectedLevel));
 
         db.closeClient();
+
+        return true;
     }
 
-    private void loadLevelFromFile() {
+    @Override
+    public boolean loadLevelFromFile() {
         JsonFileChooser fileChooser = new JsonFileChooser();
         File file = fileChooser.showLoadDialog();
 
-        if (file == null) return;
+        if (file == null) return false;
 
         GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
 
@@ -213,7 +226,9 @@ public class Dashboard  implements MoveCountIncrementListener {
             setLevelLabel(newLevel.getLevelNumber());
         } catch (JsonSyntaxException | NullPointerException e) {
             System.out.println("Error loading Json save file");
+            return false;
         }
+        return true;
     }
 
     private void saveLevel() {
@@ -225,5 +240,10 @@ public class Dashboard  implements MoveCountIncrementListener {
         GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
 
         parser.save(board.getCurrentLevel());
+    }
+
+    @Override
+    public void exit() {
+        System.exit(0);
     }
 }

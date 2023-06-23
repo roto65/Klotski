@@ -6,14 +6,14 @@ import ui.Window;
 
 import javax.swing.*;
 
-import static main.Constants.DEFAULT_BLOCK_CONFIGURATION;
+import static main.Constants.LAYOUT_DEFAULT;
 
 public class Main {
 
     public static void main(String[] args) {
 
         // Initialize game object(s)
-        Board board = new Board(DEFAULT_BLOCK_CONFIGURATION);
+        Board board = new Board(LAYOUT_DEFAULT);
 
         Dashboard dashboard = new Dashboard(board);
 

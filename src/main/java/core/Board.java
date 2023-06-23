@@ -1,7 +1,7 @@
 package core;
 
 import core.listener.BlockMoveListener;
-import core.listener.MoveCountIncrementListener;
+import core.listener.MovePerformedListener;
 import io.GsonFileParser;
 import io.schemas.LevelSchema;
 import solver.NewSolver;
@@ -28,7 +28,7 @@ public class Board implements BlockMoveListener {
     private ArrayList<Move> moves;
     private ListIterator<Move> movesIterator;
 
-    private MoveCountIncrementListener moveCountIncrementListener;
+    private MovePerformedListener movePerformedListener;
 
     private ArrayList<Block> blocks;
 
@@ -139,8 +139,12 @@ public class Board implements BlockMoveListener {
         return new LevelSchema(currentLevelNumber, blocks, minimumMoves, moves, movesIterator.nextIndex());
     }
 
-    public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
-        this.moveCountIncrementListener = moveCountIncrementListener;
+    public int getMinimumMoves() {
+        return minimumMoves;
+    }
+
+    public void setMoveCountIncrementListener(MovePerformedListener movePerformedListener) {
+        this.movePerformedListener = movePerformedListener;
     }
 
     public void setBlocks(ArrayList<Block> blocks) {
@@ -193,7 +197,7 @@ public class Board implements BlockMoveListener {
             movesIterator = moves.listIterator(moves.size());
 
             try {
-                moveCountIncrementListener.incrementMoveCounter();
+                movePerformedListener.incrementMoveCounter();
             } catch (NullPointerException ignored) {
             }
         }
@@ -297,11 +301,9 @@ public class Board implements BlockMoveListener {
             if (block.getClass().equals(LargeBlock.class)) {
                 Point pos = block.getPos();
                 if (pos.x == 1 && pos.y == 3){
-                    if (isGameWon()) {
-                        System.out.println("Hai vinto!");
-                    }
                     gameWon = true;
                     Window.endGame(getBoardComponent());
+                    movePerformedListener.triggerPostGame();
                 }
             }
         }

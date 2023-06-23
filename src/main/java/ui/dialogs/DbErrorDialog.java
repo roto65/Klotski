@@ -38,7 +38,10 @@ public class DbErrorDialog extends JFrame {
         label.setForeground(Color.WHITE);
         try {
             label.setFont(IOUtils.readFromTtf("DotGothic.ttf").deriveFont(Font.BOLD, (float) TITLE_SIZE / 4));
-        } catch (IOException | FontFormatException ignored) {}
+        } catch (IOException | FontFormatException e) {
+            System.out.println("Error opening font file: " + e.getMessage());
+            return;
+        }
 
         JPanel buttonWrapperPanel = new JPanel(new FlowLayout());
         buttonWrapperPanel.setBackground(COLOR_BACKGROUND);
