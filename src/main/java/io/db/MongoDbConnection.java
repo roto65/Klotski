@@ -52,7 +52,7 @@ public class MongoDbConnection {
         }
 
         // specific database objet
-        database = mongoClient.getDatabase(databaseName);
+        database = mongoClient.getDatabase(DATABASE_NAME);
     }
 
     public MongoCollection<HintSchema> getHintCollection() {
@@ -63,7 +63,7 @@ public class MongoDbConnection {
                 MongoClientSettings.getDefaultCodecRegistry()
                 );
 
-        return database.getCollection(hintCollection, HintSchema.class).withCodecRegistry(codecRegistry);
+        return database.getCollection(HINT_COLLECTION, HintSchema.class).withCodecRegistry(codecRegistry);
     }
 
     public void uploadHints(List<HintSchema> hints) {
@@ -92,7 +92,7 @@ public class MongoDbConnection {
     }
 
     public MongoCollection<BsonDocument> getLevelCollection() {
-        return database.getCollection(levelsCollection, BsonDocument.class);
+        return database.getCollection(LEVELS_COLLECTION, BsonDocument.class);
     }
 
     public LevelSchema getLevel(int levelNumber) {

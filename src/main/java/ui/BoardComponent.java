@@ -21,20 +21,8 @@ public class BoardComponent extends JPanel implements MouseListener {
     @SuppressWarnings("FieldCanBeLocal")
     private static Point startCoord, endCoord;
 
-    private final Color BgLight, BgDark;
-    private final Color FgLight, FgDark ;
-
-
     public BoardComponent(ArrayList<Block> blocks) {
         setPreferredSize(new Dimension(TITLE_SIZE * COLUMNS, TITLE_SIZE * ROWS));
-
-        BgDark  = new Color(35, 59, 59);
-        BgLight = new Color(38, 83, 75);
-
-        FgDark  = new Color(91, 14, 29);
-        FgLight = new Color(96, 27, 39);
-
-//        setBackground(new Color(46, 91, 255));
 
         this.blocks = blocks;
     }
@@ -66,14 +54,14 @@ public class BoardComponent extends JPanel implements MouseListener {
 
         for (int row = 0; row < ROWS; row++) {
             for (int column = 0; column < COLUMNS; column++) {
-                if ((row == 3 && column == 1) || (row == 4 && column == 2)) {
-                    g2d.setColor(FgLight);
-                } else if ((row == 3 && column == 2) || (row == 4 && column == 1)) {
-                    g2d.setColor(FgDark);
+                if (((row == 3 && column == 1) || (row == 4 && column == 2)) && USE_BG_END_HIGHLIGHT) {
+                    g2d.setColor(COLOR_BOARD_END_LIGHT);
+                } else if (((row == 3 && column == 2) || (row == 4 && column == 1)) && USE_BG_END_HIGHLIGHT) {
+                    g2d.setColor(COLOR_BOARD_END_DARK);
                 } else if ((row + column) % 2 == 0) {
-                    g2d.setColor(BgLight);
+                    g2d.setColor(COLOR_BOARD_BG_LIGHT);
                 } else {
-                    g2d.setColor(BgDark);
+                    g2d.setColor(COLOR_BOARD_BG_DARK);
                 }
                 g2d.fillRect(column * TITLE_SIZE, row * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE);
             }

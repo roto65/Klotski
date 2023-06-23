@@ -13,6 +13,8 @@ public class Window {
     private static JFrame window;
     private static GridBagConstraints gridBagConstraints;
 
+    private static Image windowIcon;
+
     public static void initWindow(BoardComponent boardComponent, DashboardComponent dashboardComponent) {
 
         window = new JFrame("Klotski");
@@ -30,10 +32,12 @@ public class Window {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            window.setIconImage(IOUtils.readFromPng("Icon.png"));
+            windowIcon = IOUtils.readFromPng("Icon.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        window.setIconImage(windowIcon);
 
         window.setResizable(false);
 
@@ -62,5 +66,9 @@ public class Window {
 
     public static void newGame(BoardComponent boardComponent) {
         window.addMouseListener(boardComponent);
+    }
+
+    public static Image getWindowIcon() {
+        return windowIcon;
     }
 }

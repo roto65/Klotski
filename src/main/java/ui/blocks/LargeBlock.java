@@ -79,7 +79,8 @@ public class LargeBlock extends Block{
 
             g2d.setTransform(backup);
         } else {
-            g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE * 2, TITLE_SIZE * 2, observer);        }
+            g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE * 2, TITLE_SIZE * 2, observer);
+        }
     }
 
     @Override
