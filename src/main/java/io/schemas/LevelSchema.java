@@ -1,25 +1,35 @@
 package io.schemas;
 
+import core.Move;
 import ui.blocks.Block;
 
 import java.util.ArrayList;
 
 public class LevelSchema {
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private int levelNumber;
+    private Integer levelNumber;
     private ArrayList<Block> blocks;
-    @SuppressWarnings("FieldCanBeLocal")
-    private int minimumMoves;
+    private Integer minimumMoves;
+    private ArrayList<Move> moves;
+    private Integer iteratorIndex;
+
 
     @SuppressWarnings("unused")
     public LevelSchema() {
     }
 
-    public LevelSchema(int levelNumber, ArrayList<Block> blocks, int minimumMoves) {
+    public LevelSchema(Integer levelNumber, ArrayList<Block> blocks, Integer minimumMoves) {
         this.levelNumber = levelNumber;
         this.blocks = blocks;
         this.minimumMoves = minimumMoves;
+    }
+
+    public LevelSchema(Integer levelNumber, ArrayList<Block> blocks, Integer minimumMoves, ArrayList<Move> moves, Integer iteratorIndex) {
+        this.levelNumber = levelNumber;
+        this.blocks = blocks;
+        this.minimumMoves = minimumMoves;
+        this.moves = moves;
+        this.iteratorIndex = iteratorIndex;
     }
 
     public int getLevelNumber() {
@@ -32,6 +42,14 @@ public class LevelSchema {
 
     public int getMinimumMoves() {
         return minimumMoves;
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
+    public int getIteratorIndex() {
+        return iteratorIndex;
     }
 
     @Override

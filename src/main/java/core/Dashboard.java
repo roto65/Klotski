@@ -127,6 +127,10 @@ public class Dashboard  implements MoveCountIncrementListener {
         }
     }
 
+    private void setMoveCounter(int moves) {
+        moveCounter.setVariableText(String.valueOf(moves));
+    }
+
     private void resetMoveCounter() {
         moveCounter.setVariableText(String.valueOf(0));
     }
@@ -182,8 +186,8 @@ public class Dashboard  implements MoveCountIncrementListener {
             LevelSchema newLevel = parser.load(true);
             board.resetBoard(newLevel);
 
+            setMoveCounter(newLevel.getIteratorIndex());
             setLevelLabel(newLevel.getLevelNumber());
-            resetMoveCounter();
         } catch (JsonSyntaxException | NullPointerException e) {
             System.out.println("Error loading Json save file");
         }

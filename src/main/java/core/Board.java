@@ -92,9 +92,15 @@ public class Board implements BlockMoveListener {
         currentLevelNumber = newLevel.getLevelNumber();
         minimumMoves = newLevel.getMinimumMoves();
 
-        moves = new ArrayList<>();
-        movesIterator = moves.listIterator();
+        moves = newLevel.getMoves();
 
+        if (moves == null) {
+            moves = new ArrayList<>();
+            movesIterator = moves.listIterator();
+
+        } else {
+            movesIterator = moves.listIterator(newLevel.getIteratorIndex());
+        }
         boardComponent.setBlocks(blocks);
 
         boardComponent.repaint();
@@ -112,6 +118,9 @@ public class Board implements BlockMoveListener {
             blocks.add(block.copy());
             lastConfiguration.add(block.copy());
         }
+
+        currentLevelNumber = levelSchema.getLevelNumber();
+        minimumMoves = levelSchema.getMinimumMoves();
     }
 
     public BoardComponent getBoardComponent() {
@@ -127,7 +136,7 @@ public class Board implements BlockMoveListener {
     }
 
     public LevelSchema getCurrentLevel() {
-        return new LevelSchema(currentLevelNumber, blocks, minimumMoves);
+        return new LevelSchema(currentLevelNumber, blocks, minimumMoves, moves, movesIterator.nextIndex());
     }
 
     public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
