@@ -51,11 +51,4 @@ public class LevelSchema {
     public int getIteratorIndex() {
         return iteratorIndex;
     }
-
-    @Override
-    public String toString() {
-        return "BlockCollection{" +
-                "blocks=" + blocks +
-                '}';
-    }
 }

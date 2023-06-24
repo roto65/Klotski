@@ -25,12 +25,4 @@ public class HintSchema {
     public void setBestMove(Move bestMove) {
         this.bestMove = bestMove;
     }
-
-    @Override
-    public String toString() {
-        return "HintSchema{" +
-                "state='" + state + '\'' +
-                ", bestMove=" + bestMove +
-                '}';
-    }
 }
