@@ -1,7 +1,7 @@
 package io.db.codecs;
 
 import core.Move;
-import io.schemas.HintSchema;
+import io.db.schemas.HintSchema;
 import org.bson.BsonReader;
 import org.bson.BsonType;
 import org.bson.BsonWriter;

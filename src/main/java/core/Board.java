@@ -3,7 +3,7 @@ package core;
 import core.listener.BlockMoveListener;
 import core.listener.MovePerformedListener;
 import io.GsonFileParser;
-import io.schemas.LevelSchema;
+import io.db.schemas.LevelSchema;
 import solver.Solver;
 import ui.BoardComponent;
 import ui.Window;

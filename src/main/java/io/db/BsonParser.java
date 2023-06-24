@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import io.BlockAdapter;
-import io.schemas.LevelSchema;
+import io.db.schemas.LevelSchema;
 import ui.blocks.Block;
 
 import java.io.Reader;

@@ -1,4 +1,4 @@
-package io.schemas;
+package io.db.schemas;
 
 import core.Move;
 

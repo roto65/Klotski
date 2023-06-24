@@ -7,7 +7,7 @@ import core.listener.PostGameActionsListener;
 import io.GsonFileParser;
 import io.JsonFileChooser;
 import io.db.MongoDbConnection;
-import io.schemas.LevelSchema;
+import io.db.schemas.LevelSchema;
 import solver.Solver;
 import ui.DashboardComponent;
 import ui.dialogs.DbErrorDialog;

@@ -3,7 +3,7 @@ package solver;
 import com.mongodb.MongoException;
 import core.Move;
 import io.db.MongoDbConnection;
-import io.schemas.HintSchema;
+import io.db.schemas.HintSchema;
 import ui.blocks.Block;
 import ui.dialogs.DbErrorDialog;
 
