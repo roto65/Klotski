@@ -1,9 +1,9 @@
 package ui.blocks;
 
-import javax.imageio.ImageIO;
+import io.IOUtils;
+
 import java.awt.*;
 import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -37,9 +37,9 @@ public class SmallBlock extends Block{
     protected void loadSprite() {
         try {
             if (USE_LEGACY_SPRITES) {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/Small.png"));
+                sprite = IOUtils.readFromPng("Small.png");
             } else {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/SmallBlock.png"));
+                sprite = IOUtils.readFromPng("SmallBlock.png");
             }
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());

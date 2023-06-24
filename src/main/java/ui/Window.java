@@ -1,15 +1,19 @@
 package ui;
 
+import io.IOUtils;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 import static main.Constants.ROWS;
-import static main.Constants.TITLE_SIZE;
 
 public class Window {
 
     private static JFrame window;
     private static GridBagConstraints gridBagConstraints;
+
+    private static Image windowIcon;
 
     public static void initWindow(BoardComponent boardComponent, DashboardComponent dashboardComponent) {
 
@@ -27,7 +31,13 @@ public class Window {
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //window.setSize(TITLE_SIZE * 7, TITLE_SIZE * 5);
+        try {
+            windowIcon = IOUtils.readFromPng("Icon.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        window.setIconImage(windowIcon);
 
         window.setResizable(false);
 
@@ -56,5 +66,9 @@ public class Window {
 
     public static void newGame(BoardComponent boardComponent) {
         window.addMouseListener(boardComponent);
+    }
+
+    public static Image getWindowIcon() {
+        return windowIcon;
     }
 }

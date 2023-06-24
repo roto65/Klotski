@@ -1,15 +1,14 @@
 package ui.blocks;
 
-import javax.imageio.ImageIO;
+import io.IOUtils;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static main.Constants.*;
-import static main.Constants.ROWS;
 
 public class LargeBlock extends Block{
 
@@ -42,9 +41,9 @@ public class LargeBlock extends Block{
     protected void loadSprite() {
         try {
             if (USE_LEGACY_SPRITES) {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/Big.png"));
+                sprite = IOUtils.readFromPng("Big.png");
             } else {
-                sprite = ImageIO.read(new File("src/main/resources/drawable/LargeBlock.png"));
+                sprite = IOUtils.readFromPng("LargeBlock.png");
             }
         } catch (IOException e) {
             System.out.print("Error opening image file: " + e.getMessage());
@@ -80,7 +79,8 @@ public class LargeBlock extends Block{
 
             g2d.setTransform(backup);
         } else {
-            g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE * 2, TITLE_SIZE * 2, observer);        }
+            g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE * 2, TITLE_SIZE * 2, observer);
+        }
     }
 
     @Override

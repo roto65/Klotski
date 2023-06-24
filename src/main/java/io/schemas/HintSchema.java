@@ -1,4 +1,6 @@
-package core;
+package io.schemas;
+
+import core.Move;
 
 public class HintSchema {
 
@@ -22,13 +24,5 @@ public class HintSchema {
 
     public void setBestMove(Move bestMove) {
         this.bestMove = bestMove;
-    }
-
-    @Override
-    public String toString() {
-        return "HintSchema{" +
-                "state='" + state + '\'' +
-                ", bestMove=" + bestMove +
-                '}';
     }
 }

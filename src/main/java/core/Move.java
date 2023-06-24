@@ -107,12 +107,4 @@ public class Move {
     private Point fromIndex(int index) {
         return new Point(index % COLUMNS, index / COLUMNS);
     }
-
-    @Override
-    public String toString() {
-        return "Move{" +
-                "startPos=" + startPos +
-                ", endPos=" + endPos +
-                '}';
-    }
 }

@@ -2,6 +2,7 @@ package core.listener;
 
 import java.util.EventListener;
 
-public interface MoveCountIncrementListener extends EventListener {
+public interface MovePerformedListener extends EventListener {
     void incrementMoveCounter();
+    void triggerPostGame();
 }

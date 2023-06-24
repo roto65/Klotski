@@ -1,22 +1,32 @@
 package core;
 
-import core.listener.MoveCountIncrementListener;
+import com.google.gson.JsonSyntaxException;
+import com.mongodb.MongoException;
+import core.listener.MovePerformedListener;
+import core.listener.PostGameActionsListener;
+import io.GsonFileParser;
+import io.JsonFileChooser;
 import io.db.MongoDbConnection;
-import solver.NewSolver;
+import io.schemas.LevelSchema;
+import solver.Solver;
 import ui.DashboardComponent;
+import ui.dialogs.DbErrorDialog;
+import ui.dialogs.LevelSelectorDialog;
+import ui.dialogs.PostGameDialog;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 import static main.Constants.USE_DB_HINT_CASHING;
 
-public class Dashboard  implements MoveCountIncrementListener {
+public class Dashboard  implements MovePerformedListener, PostGameActionsListener {
 
     private final Board board;
     private final DashboardComponent dashboardComponent;
 
     private StyledLabel moveCounter;
-    private StyledLabel layoutLabel;
+    private StyledLabel levelLabel;
 
     private ArrayList<StyledButton> buttons;
     private ArrayList<StyledLabel> labels;
@@ -36,31 +46,32 @@ public class Dashboard  implements MoveCountIncrementListener {
         return dashboardComponent;
     }
 
+    @SuppressWarnings("CodeBlock2Expr")
     private void loadButtons() {
         this.buttons = new ArrayList<>();
 
         StyledButton resetButton = new StyledButton("New Game", new Point(0, 0));
         resetButton.addActionListener(e -> {
-            board.resetBoard();
-            setMoveCounter(0);
+            reset();
         });
         buttons.add(resetButton);
 
         StyledButton levelButton = new StyledButton("Levels", new Point(1, 0));
-        resetButton.addActionListener(e -> {
-            board.resetBoard();
+        levelButton.addActionListener(e -> {
+            loadLevel();
         });
         buttons.add(levelButton);
 
         StyledButton saveButton = new StyledButton("Save", new Point(0, 1));
         saveButton.addActionListener(e -> {
-            board.save();
+            if (!board.isGameWon())
+                saveLevel();
         });
         buttons.add(saveButton);
 
         StyledButton loadButton = new StyledButton("Load", new Point(1, 1));
         loadButton.addActionListener(e -> {
-            board.load();
+            loadLevelFromFile();
         });
         buttons.add(loadButton);
 
@@ -82,26 +93,32 @@ public class Dashboard  implements MoveCountIncrementListener {
         hintButton.addActionListener(e -> {
             if (!board.isGameWon()) {
                 getHint();
-                incrementMoveCounter();
             }
         });
         buttons.add(hintButton);
 
         StyledButton exitButton = new StyledButton("Exit", new Point(1, 3));
         exitButton.addActionListener(e -> {
-            System.exit(0);
+            exit();
         });
         buttons.add(exitButton);
     }
 
     private void loadLabels() {
-
-        layoutLabel = new StyledLabel("Level: ", "000", new Point(1, 4));
         this.labels = new ArrayList<>();
+
+        levelLabel = new StyledLabel("Level: ", "1", new Point(1, 4));
+        labels.add(levelLabel);
 
         moveCounter = new StyledLabel("Moves: ", "0", new Point(0, 4));
         labels.add(moveCounter);
-        labels.add(layoutLabel);
+    }
+
+    @Override
+    public void triggerPostGame() {
+        int moves = Integer.parseInt(moveCounter.getVariableText());
+
+        new PostGameDialog(moves, board.getMinimumMoves(), this).showDialog();
     }
 
     @Override
@@ -118,27 +135,115 @@ public class Dashboard  implements MoveCountIncrementListener {
         }
     }
 
-    private void setMoveCounter(int count) {
-        moveCounter.setVariableText(String.valueOf(count));
+    private void setMoveCounter(int moves) {
+        moveCounter.setVariableText(String.valueOf(moves));
+    }
+
+    private void resetMoveCounter() {
+        moveCounter.setVariableText(String.valueOf(0));
+    }
+
+    private void setLevelLabel(int levelNumber) {
+        levelLabel.setVariableText(String.valueOf(levelNumber));
+    }
+
+    @Override
+    public void reset() {
+        board.resetBoard();
+        resetMoveCounter();
     }
 
     private void getHint() {
+        incrementMoveCounter();
 
         if (USE_DB_HINT_CASHING) {
-            MongoDbConnection dbConnection = new MongoDbConnection();
+            MongoDbConnection dbConnection;
+            try {
+                dbConnection = new MongoDbConnection();
+            } catch (MongoException e) {
+                new DbErrorDialog(e.getMessage()).showDialog();
+                return;
+            }
 
-            Move move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+            Move move = dbConnection.findHint(Solver.getState(board.getBlocks()));
 
             if (move == null) {
-                NewSolver.start(board.getBlocks());
-                move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+                Solver.start(board.getBlocks());
+                move = dbConnection.findHint(Solver.getState(board.getBlocks()));
             }
             board.performMoveUnchecked(move);
+
+            dbConnection.closeClient();
         } else {
-            Move move = NewSolver.start(board.getBlocks());
+            Move move = Solver.start(board.getBlocks());
 
             assert move != null;
             board.performMoveUnchecked(move);
         }
+    }
+
+    @Override
+    public boolean loadLevel() {
+
+        MongoDbConnection db;
+        try {
+            db = new MongoDbConnection();
+        } catch (MongoException e) {
+            new DbErrorDialog(e.getMessage()).showDialog();
+            return false;
+        }
+
+        LevelSelectorDialog selector = new LevelSelectorDialog();
+        selector.showDialog();
+        int selectedLevel = selector.getSelectedLevel();
+
+        if (selectedLevel == -1) return false;
+
+        resetMoveCounter();
+        setLevelLabel(selectedLevel);
+
+        board.resetBoard(db.getLevel(selectedLevel));
+
+        db.closeClient();
+
+        return true;
+    }
+
+    @Override
+    public boolean loadLevelFromFile() {
+        JsonFileChooser fileChooser = new JsonFileChooser();
+        File file = fileChooser.showLoadDialog();
+
+        if (file == null) return false;
+
+        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
+
+        try {
+            LevelSchema newLevel = parser.load(true);
+            board.resetBoard(newLevel);
+
+            setMoveCounter(newLevel.getIteratorIndex());
+            setLevelLabel(newLevel.getLevelNumber());
+        } catch (JsonSyntaxException | NullPointerException e) {
+            System.out.println("Error loading Json save file");
+            return false;
+        }
+        return true;
+    }
+
+    private void saveLevel() {
+        JsonFileChooser fileChooser = new JsonFileChooser();
+        File file = fileChooser.showSaveDialog();
+
+        if (file == null) return;
+
+        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
+
+        parser.save(board.getCurrentLevel());
+    }
+
+    @Override
+    public void exit() {
+        System.exit(0);
     }
 }

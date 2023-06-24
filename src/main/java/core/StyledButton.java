@@ -40,6 +40,10 @@ public class StyledButton extends JButton {
         this.pos = pos;
     }
 
+    public StyledButton(String text) {
+        this(text, null);
+    }
+
     public boolean isPressed() {
         return pressed ;
     }

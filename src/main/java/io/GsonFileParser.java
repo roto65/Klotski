@@ -2,71 +2,68 @@ package io;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import core.BlockCollection;
+import io.schemas.LevelSchema;
 import ui.blocks.Block;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import static main.Constants.LAST_LEVEL_CONFIGURATION;
+import java.io.Reader;
+import java.io.Writer;
 
 public class GsonFileParser {
 
-    private String path;
+    private final String path;
 
     public GsonFileParser(String absolutePath) {
         this.path = absolutePath;
     }
 
     public GsonFileParser(String filename, String extension) {
-        this.path = "src/main/resources/layout/" + filename + "." + extension;
+        this.path = filename + "." + extension;
     }
 
-    public void setLastPlayedPath() {
-        this.path = "src/main/resources/layout/" + LAST_LEVEL_CONFIGURATION + ".json";
-    }
-
-    public void save(ArrayList<Block> blocks) {
-
-        BlockCollection collection = new BlockCollection(blocks);
+    public void save(LevelSchema levelSchema) {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter()).setPrettyPrinting();
 
         Gson gson = gsonBuilder.create();
 
         try {
-            FileWriter fileWriter = new FileWriter(path);
+            Writer writer = IOUtils.writeToJson(path);
 
-            gson.toJson(collection, fileWriter);
+            gson.toJson(levelSchema, writer);
 
-            fileWriter.flush();
-            fileWriter.close();
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Block> load() {
+    public LevelSchema load(boolean externalFile) throws JsonSyntaxException {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
 
         Gson gson = gsonBuilder.create();
 
-        BlockCollection collection = null;
+        LevelSchema levelSchema = null;
+        Reader reader;
 
         try {
-            FileReader fileReader = new FileReader(path);
-
-            collection = gson.fromJson(fileReader, new TypeToken<BlockCollection>(){}.getType());
-            fileReader.close();
+            if (externalFile) {
+                reader = new FileReader(path);
+            } else {
+                reader = IOUtils.readFromJson(path);
+            }
+            levelSchema = gson.fromJson(reader, new TypeToken<LevelSchema>(){}.getType());
+            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        assert collection != null : "Error loading layout file";
-        return collection.getBlocks();
+        assert levelSchema != null : "Error loading layout file";
+        return levelSchema;
     }
 }

@@ -1,7 +1,6 @@
 package ui.blocks;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
@@ -9,7 +8,7 @@ public abstract class Block {
 
     protected Point pos;
     protected transient ArrayList<Point> offsets;
-    protected transient BufferedImage sprite; //transient = non serializable
+    protected transient Image sprite; //transient = non serializable
     protected BlockType blockType;
     protected abstract void loadOffsets();
     protected abstract void loadSprite();
@@ -39,5 +38,31 @@ public abstract class Block {
                 }
             }
         };
+    }
+
+    public Block copy() {
+        switch (blockType) {
+            case SMALL -> {
+                return new SmallBlock(pos.x, pos.y);
+            }
+            case WIDE_HORIZONTAL -> {
+                return new WideBlock(pos.x, pos.y, BlockType.WIDE_HORIZONTAL);
+            }
+            case WIDE_VERTICAL -> {
+                return new WideBlock(pos.x, pos.y, BlockType.WIDE_VERTICAL);
+            }
+            case LARGE -> {
+                return new LargeBlock(pos.x, pos.y);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+    public boolean equals(Object obj) {
+        Block block = (Block) obj;
+
+        return this.blockType == block.blockType && this.pos.x == block.pos.x && this.pos.y == block.pos.y;
     }
 }

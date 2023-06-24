@@ -1,38 +1,50 @@
 package ui;
 
 import core.StyledButton;
+import io.IOUtils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import static main.Constants.TITLE_SIZE;
 
 public class StyledButtonUI extends BasicButtonUI {
 
-    private BufferedImage defaultButtonSprite;
-    private BufferedImage pressedButtonSprite;
+    private static Image defaultButtonSprite = null;
+    private static Image pressedButtonSprite = null;
 
-    private Font buttonFont;
+    private static Font buttonFont = null;
+
+    public StyledButtonUI() {
+        loadResources();
+    }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-    public StyledButtonUI() {
-        try {
-            defaultButtonSprite = ImageIO.read(new File("src/main/resources/drawable/Button.png"));
-            pressedButtonSprite = ImageIO.read(new File("src/main/resources/drawable/PressedButton.png"));
-        } catch (IOException e) {
-            System.out.println("Error opening image file: " + e.getMessage());
+    private void loadResources() {
+        if (defaultButtonSprite == null) {
+            try {
+                defaultButtonSprite = IOUtils.readFromPng("Button.png");
+            } catch (IOException e) {
+                System.out.println("Error opening image file: " + e.getMessage());
+            }
         }
 
-        try {
-            buttonFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/font/DotGothic.ttf"))
-                    .deriveFont(Font.BOLD, TITLE_SIZE / 6);
-        } catch (IOException | FontFormatException e) {
-            System.out.println("Error opening font file: " + e.getMessage());
+        if (pressedButtonSprite == null) {
+            try {
+                pressedButtonSprite = IOUtils.readFromPng("PressedButton.png");
+            } catch (IOException e) {
+                System.out.println("Error opening image file: " + e.getMessage());
+            }
+        }
+
+        if (buttonFont == null) {
+            try {
+                buttonFont = IOUtils.readFromTtf("DotGothic.ttf").deriveFont(Font.BOLD, TITLE_SIZE / 6);
+            } catch (IOException | FontFormatException e) {
+                System.out.println("Error opening font file: " + e.getMessage());
+            }
         }
     }
 

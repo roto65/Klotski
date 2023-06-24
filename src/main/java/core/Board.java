@@ -1,22 +1,25 @@
 package core;
 
 import core.listener.BlockMoveListener;
-import core.listener.MoveCountIncrementListener;
+import core.listener.MovePerformedListener;
 import io.GsonFileParser;
-import io.JsonFileChooser;
-import solver.NewSolver;
+import io.schemas.LevelSchema;
+import solver.Solver;
 import ui.BoardComponent;
 import ui.Window;
-import ui.blocks.*;
+import ui.blocks.Block;
+import ui.blocks.LargeBlock;
 
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
-import static main.Constants.*;
+import static main.Constants.TITLE_SIZE;
+import static main.Constants.USE_SOLVER_DEBUG_PRINT;
 
 public class Board implements BlockMoveListener {
+
+    private ArrayList<Block> lastConfiguration;
 
     private boolean gameWon = false;
 
@@ -25,9 +28,21 @@ public class Board implements BlockMoveListener {
     private ArrayList<Move> moves;
     private ListIterator<Move> movesIterator;
 
-    private MoveCountIncrementListener moveCountIncrementListener;
+    private MovePerformedListener movePerformedListener;
 
     private ArrayList<Block> blocks;
+
+    private int currentLevelNumber;
+    private int minimumMoves;
+
+    public Board() {
+        boardComponent = new BoardComponent(null);
+        boardComponent.setListener(this);
+
+        moves = new ArrayList<>();
+        movesIterator = moves.listIterator();
+    }
+
     public Board(String blockConfiguration) {
         initBlocks(blockConfiguration);
 
@@ -41,12 +56,15 @@ public class Board implements BlockMoveListener {
     public void resetBoard() {
 
         gameWon = false;
+        try {
+            Window.newGame(boardComponent);
+        } catch(NullPointerException ignored){}
 
-        Window.newGame(boardComponent);
+        blocks = new ArrayList<>();
 
-        GsonFileParser parser = new GsonFileParser(LAST_LEVEL_CONFIGURATION, "json");
-
-        this.blocks = parser.load();
+        for (Block block : lastConfiguration) {
+            blocks.add(block.copy());
+        }
 
         moves = new ArrayList<>();
         movesIterator = moves.listIterator();
@@ -56,13 +74,53 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
     }
 
-    @SuppressWarnings("SameParameterValue")
+    public void resetBoard(LevelSchema newLevel) {
+
+        gameWon = false;
+        try {
+            Window.newGame(boardComponent);
+        } catch(NullPointerException ignored){}
+
+        blocks = new ArrayList<>();
+        lastConfiguration = new ArrayList<>();
+
+        for (Block block : newLevel.getBlocks()) {
+            blocks.add(block.copy());
+            lastConfiguration.add(block.copy());
+        }
+
+        currentLevelNumber = newLevel.getLevelNumber();
+        minimumMoves = newLevel.getMinimumMoves();
+
+        moves = newLevel.getMoves();
+
+        if (moves == null) {
+            moves = new ArrayList<>();
+            movesIterator = moves.listIterator();
+
+        } else {
+            movesIterator = moves.listIterator(newLevel.getIteratorIndex());
+        }
+        boardComponent.setBlocks(blocks);
+
+        boardComponent.repaint();
+    }
+
     private void initBlocks(String filename) {
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
-        //BsonParser parser = new BsonParser();
+        LevelSchema levelSchema = parser.load(false);
 
-        this.blocks = new ArrayList<>(parser.load());
+        blocks = new ArrayList<>();
+        lastConfiguration = new ArrayList<>();
+
+        for (Block block : levelSchema.getBlocks()) {
+            blocks.add(block.copy());
+            lastConfiguration.add(block.copy());
+        }
+
+        currentLevelNumber = levelSchema.getLevelNumber();
+        minimumMoves = levelSchema.getMinimumMoves();
     }
 
     public BoardComponent getBoardComponent() {
@@ -77,26 +135,20 @@ public class Board implements BlockMoveListener {
         return gameWon;
     }
 
-    public void setMoveCountIncrementListener(MoveCountIncrementListener moveCountIncrementListener) {
-        this.moveCountIncrementListener = moveCountIncrementListener;
+    public LevelSchema getCurrentLevel() {
+        return new LevelSchema(currentLevelNumber, blocks, minimumMoves, moves, movesIterator.nextIndex());
     }
 
-    @SuppressWarnings("unused")
-    private void populateBoard() {
-        blocks.add(new WideBlock(0, 0, BlockType.WIDE_VERTICAL));
-        blocks.add(new LargeBlock(1, 0));
-        blocks.add(new WideBlock(3, 0, BlockType.WIDE_VERTICAL));
-        blocks.add(new WideBlock(0, 2, BlockType.WIDE_VERTICAL));
-        blocks.add(new WideBlock(1, 2, BlockType.WIDE_HORIZONTAL));
-        blocks.add(new WideBlock(3, 2, BlockType.WIDE_VERTICAL));
-        blocks.add(new SmallBlock(1, 3));
-        blocks.add(new SmallBlock(2, 3));
-        blocks.add(new SmallBlock(0, 4));
-        blocks.add(new SmallBlock(3, 4));
+    public int getMinimumMoves() {
+        return minimumMoves;
+    }
 
-        GsonFileParser parser = new GsonFileParser("default", "json");
+    public void setMoveCountIncrementListener(MovePerformedListener movePerformedListener) {
+        this.movePerformedListener = movePerformedListener;
+    }
 
-        parser.save(blocks);
+    public void setBlocks(ArrayList<Block> blocks) {
+        this.blocks = blocks;
     }
 
     @Override
@@ -104,8 +156,8 @@ public class Board implements BlockMoveListener {
 
         if (startCoord == null || endCoord == null) return;
 
-        Point startPoint = normalizeCord(startCoord);
-        Point endPoint   = normalizeCord(endCoord);
+        Point startPoint = normalizeCoord(startCoord);
+        Point endPoint   = normalizeCoord(endCoord);
 
         // Mono axis move
         int deltaX = endPoint.x - startPoint.x;
@@ -144,7 +196,10 @@ public class Board implements BlockMoveListener {
             moves.add(move);
             movesIterator = moves.listIterator(moves.size());
 
-            moveCountIncrementListener.incrementMoveCounter();
+            try {
+                movePerformedListener.incrementMoveCounter();
+            } catch (NullPointerException ignored) {
+            }
         }
 
         checkWin();
@@ -178,7 +233,7 @@ public class Board implements BlockMoveListener {
         if (USE_SOLVER_DEBUG_PRINT) System.out.println(move);
 
         if (move.isCut()) {
-            move = move.evalCutMove(NewSolver.getState(blocks));
+            move = move.evalCutMove(Solver.getState(blocks));
         }
         moves.add(move);
 
@@ -191,7 +246,7 @@ public class Board implements BlockMoveListener {
         checkWin();
     }
 
-    private static Point normalizeCord(Point input) {
+    private static Point normalizeCoord(Point input) {
 
         int x = input.x / TITLE_SIZE;
         int y = input.y / TITLE_SIZE;
@@ -212,12 +267,6 @@ public class Board implements BlockMoveListener {
     }
 
     private Point pushBlock(Block blockToMove, int steps, Direction direction) {
-
-        /*
-         * TODO: forse questa funzione dovrebbe prendere in input l'indice del blocco e non il blocco stesso
-         * in questo modo si rende più atomico il tutto e si eliminano le operazioni precedenti alla chiamata della
-         * funzione stessa
-         */
 
         Point directionVector = direction.getVector();
 
@@ -246,11 +295,9 @@ public class Board implements BlockMoveListener {
             if (block.getClass().equals(LargeBlock.class)) {
                 Point pos = block.getPos();
                 if (pos.x == 1 && pos.y == 3){
-                    if (isGameWon()) {
-                        System.out.println("Hai vinto!");
-                    }
                     gameWon = true;
                     Window.endGame(getBoardComponent());
+                    movePerformedListener.triggerPostGame();
                 }
             }
         }
@@ -274,38 +321,5 @@ public class Board implements BlockMoveListener {
             return  true;
         }
         return false;
-    }
-
-    public void save() {
-        JsonFileChooser fileChooser = new JsonFileChooser();
-        File file = fileChooser.showSaveDialog();
-
-        if (file == null) return;
-
-        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
-
-        parser.save(blocks);
-    }
-
-    public void load() {
-
-        JsonFileChooser fileChooser = new JsonFileChooser();
-        File file = fileChooser.showLoadDialog();
-
-        if (file == null) return;
-
-        GsonFileParser parser = new GsonFileParser(file.getAbsolutePath());
-
-        moves = new ArrayList<>();
-        movesIterator = moves.listIterator();
-
-        blocks = parser.load();
-
-        parser.setLastPlayedPath();
-        parser.save(blocks);
-
-        boardComponent.setBlocks(blocks);
-
-        boardComponent.repaint();
     }
 }

@@ -7,21 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static main.Constants.ROWS;
-import static main.Constants.TITLE_SIZE;
+import static main.Constants.*;
 
 public class DashboardComponent extends JPanel {
-
-    private GridBagConstraints constraints;
 
     public DashboardComponent(ArrayList<StyledButton> buttons, ArrayList<StyledLabel> labels) {
 
         setPreferredSize(new Dimension(TITLE_SIZE * 3, TITLE_SIZE * ROWS));
 
-        setBackground(new Color(255,91,46));
+        setBackground(COLOR_BACKGROUND);
 
         this.setLayout(new GridBagLayout());
-        constraints = new GridBagConstraints();
+        GridBagConstraints constraints = new GridBagConstraints();
 
         // padding settings to put some space between the buttons
         constraints.insets = new Insets(TITLE_SIZE / 16, TITLE_SIZE / 8, TITLE_SIZE / 16, TITLE_SIZE / 8);
@@ -44,27 +41,6 @@ public class DashboardComponent extends JPanel {
             add(label, constraints);
         }
 
-        /* Point moveCounterPos = moveCounter.getPos();
-
-        constraints.gridwidth = 2;
-
-        constraints.gridx = moveCounterPos.x;
-        constraints.gridy = moveCounterPos.y;
-
-        add(moveCounter, constraints);*/
     }
-
-    /*
-    Buttons:
-        - New Game (Reset)
-        - Change load-out ?
-        - Save
-        - Load
-        - Undo
-        - Redo ?
-        - Best Move (Hint)
-        - Exit
-    Move counter
-     */
 
 }

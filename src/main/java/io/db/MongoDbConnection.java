@@ -8,19 +8,22 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import core.HintSchema;
 import core.Move;
 import io.db.codecs.HintSchemaCodecProvider;
 import io.db.codecs.MoveCodecProvider;
 import io.db.codecs.PointCodec;
+import io.schemas.HintSchema;
+import io.schemas.LevelSchema;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.bson.BsonDocument;
-import org.bson.Document;
+import org.bson.BsonInt32;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
+import ui.blocks.Block;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.db.Credentials.mongoUri;
@@ -30,11 +33,13 @@ import static main.Constants.*;
 
 public class MongoDbConnection {
 
+    private final MongoClient mongoClient;
     private final MongoDatabase database;
 
-    private final MongoCollection<BsonDocument> collection;
+    @SuppressWarnings("ConstantValue")
+    public MongoDbConnection() throws MongoException {
 
-    public MongoDbConnection() {
+        if (mongoUri.equals("")) throw new MongoException("Invalid database Uri");
 
         Logger.getLogger("org.mongodb.driver").setLevel(Level.WARN);
 
@@ -42,19 +47,30 @@ public class MongoDbConnection {
                 .applyConnectionString(new ConnectionString(mongoUri))
                 .build();
 
-        MongoClient mongoClient = null;
-
         try {
             mongoClient = MongoClients.create(settings);
         } catch (MongoException e) {
             e.printStackTrace();
-            System.exit(1);
+            throw new MongoException("Cannot open connection");
         }
 
         // specific database objet
-        database = mongoClient.getDatabase(databaseName);
-        // specific collection object
-        collection = database.getCollection(collectionName, BsonDocument.class);
+        database = mongoClient.getDatabase(DATABASE_NAME);
+
+        testConnection();
+    }
+
+    private void testConnection() throws MongoException {
+        Bson pingCommand = new BsonDocument("ping", new BsonInt32(1));
+        try {
+            database.runCommand(pingCommand);
+        } catch (MongoException e) {
+            throw new MongoException("Cannot ping MongoDb server");
+        }
+    }
+
+    public void closeClient() {
+        mongoClient.close();
     }
 
     public MongoCollection<HintSchema> getHintCollection() {
@@ -65,7 +81,7 @@ public class MongoDbConnection {
                 MongoClientSettings.getDefaultCodecRegistry()
                 );
 
-        return database.getCollection(hintCollection, HintSchema.class).withCodecRegistry(codecRegistry);
+        return database.getCollection(HINT_COLLECTION, HintSchema.class).withCodecRegistry(codecRegistry);
     }
 
     public void uploadHints(List<HintSchema> hints) {
@@ -80,13 +96,10 @@ public class MongoDbConnection {
 
     public Move findHint(String state) {
 
-        //getHintCollection().deleteMany(new Document());
-
         Bson stateFilter = Filters.eq("state", state);
 
         try {
             HintSchema result = getHintCollection().find(stateFilter).limit(1).first();
-            //System.out.println(result);
             if (result != null) {
                 return result.getBestMove();
             }
@@ -96,19 +109,33 @@ public class MongoDbConnection {
         return null;
     }
 
-    public String getFirst() {
-        for (BsonDocument nextDoc : collection.find()) {
-            nextDoc.remove("_id");
-
-            return nextDoc.toJson();
-        }
-
-        return null;
+    public MongoCollection<BsonDocument> getLevelCollection() {
+        return database.getCollection(LEVELS_COLLECTION, BsonDocument.class);
     }
 
-    public void insert(String jsonString) {
-        Document document = Document.parse(jsonString);
+    public LevelSchema getLevel(int levelNumber) {
 
-        collection.insertOne(document.toBsonDocument());
+        Bson levelFilter = Filters.eq("level", levelNumber);
+
+        try {
+            BsonDocument doc = getLevelCollection().find(levelFilter).limit(1).first();
+
+            if (doc == null) {
+                return null;
+            }
+
+            int minimumMoves = doc.get("mini").asInt32().getValue();
+
+            doc.remove("_id");
+            doc.remove("level");
+            doc.remove("mini");
+
+            ArrayList<Block> blocks = new BsonParser().load(doc.toJson());
+
+            return new LevelSchema(levelNumber, blocks, minimumMoves);
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
