@@ -13,20 +13,20 @@ import static main.Constants.*;
 
 public class Solver {
 
-    static int[][] state; // Keep  the current state of the board based on pieces
-    static int[][] board; // Keep  the current full state of the board
-    static Map<String, Boolean> m; // Keep track of visited states
-    static Map<String, Integer> depth; // Keep track of the depth of exploration
-    static Map<String, Integer> st; // Map between states and integers
-    static Map<Integer, String> ts; // Inverse map of the above-mentioned
-    static Map<Integer, String> full; // From integers position to full board state
-    static ArrayList<Integer> parent; // Keep track of the parents in exploration
-    static Queue<String> q; // Queue to keep current visited state
-    static int c; // Number of states visited so far
-    static String code;
-    static List<SolverPiece> pieces; // Array of the different pieces to locate in board
-    static List<char []> boards;
-    static List<String> states;
+    public static int[][] state; // Keep  the current state of the board based on pieces
+    public static int[][] board; // Keep  the current full state of the board
+    private static Map<String, Boolean> m; // Keep track of visited states
+    private static Map<String, Integer> depth; // Keep track of the depth of exploration
+    private static Map<String, Integer> st; // Map between states and integers
+    private static Map<Integer, String> ts; // Inverse map of the above-mentioned
+    private static Map<Integer, String> full; // From integers position to full board state
+    private static ArrayList<Integer> parent; // Keep track of the parents in exploration
+    private static Queue<String> q; // Queue to keep current visited state
+    private static int c; // Number of states visited so far
+    private static String code;
+    private static List<SolverPiece> pieces; // Array of the different pieces to locate in board
+    private static List<char []> boards;
+    private static List<String> states;
 
     private static void init(ArrayList<Block> blocks) {
         state = new int[ROWS][COLUMNS];

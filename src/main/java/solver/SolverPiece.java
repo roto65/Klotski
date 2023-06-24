@@ -10,13 +10,13 @@ import static solver.Solver.board;
 import static solver.Solver.state;
 
 public class SolverPiece {
-    int x;
-    int y;
-    int width;
-    int height;
-    int info;
+    private int x;
+    private int y;
+    private final int width;
+    private final int height;
+    private final int info;
 
-    SolverPiece(int y, int x, int width, int height, int info) {
+    public SolverPiece(int y, int x, int width, int height, int info) {
         this.width = width;
         this.height = height;
         this.info = info;
@@ -24,7 +24,7 @@ public class SolverPiece {
         setYX(y, x);
     }
 
-    SolverPiece(Block block, int info) {
+    public SolverPiece(Block block, int info) {
         this.width = block.getBlockType().getWidth();
         this.height = block.getBlockType().getHeight();
         this.info = info;
@@ -32,11 +32,11 @@ public class SolverPiece {
         setYX(block.getPos());
     }
 
-    int getInfo() {
+    private int getInfo() {
         return info;
     }
 
-    int getNotation() {
+    private int getNotation() {
         /*
         Notation for pieces of the board
             width x height -> notation
@@ -49,7 +49,7 @@ public class SolverPiece {
         return 0;
     }
 
-    void setYX(Point pos) {
+    private void setYX(Point pos) {
         this.x = pos.x;
         this.y = pos.y;
 
@@ -66,7 +66,7 @@ public class SolverPiece {
                 board[i][j] = m;
     }
 
-    void setYX(int y, int x) {
+    private void setYX(int y, int x) {
         this.x = x;
         this.y = y;
 
@@ -83,7 +83,7 @@ public class SolverPiece {
                 board[i][j] = m;
     }
 
-    boolean left() {
+    public boolean left() {
         // Whether is possible to move the current piece to the left
         if (x == 0) return false; // If it is touching the left border
         // If it has height 1 or 2 blocks and there is a free space next to it
@@ -91,7 +91,7 @@ public class SolverPiece {
         return state[y][x - 1] == 0 && state[y + height - 1][x - 1] == 0;
     }
 
-    boolean right() {
+    public boolean right() {
         // Whether is possible to move the current piece to the right
         if (x + width == COLUMNS) return false; // If it is touching the right border
         // If it has height 1 or 2 blocks and there is a free space next to it
@@ -99,7 +99,7 @@ public class SolverPiece {
         return state[y][x + width] == 0 && state[y + height - 1][x + width] == 0;
     }
 
-    boolean up() {
+    public boolean up() {
         // Whether is possible to move the current piece up.
         if (y == 0) return false; // If it is touching the top border
         // If it has width 1 or 2 blocks and there is a free space next to it
@@ -107,7 +107,7 @@ public class SolverPiece {
         return state[y - 1][x] == 0 && state[y - 1][x + width - 1] == 0;
     }
 
-    boolean down() {
+    public boolean down() {
         // Whether is possible to move the current piece up.
         if (y + height == ROWS) return false; // If it is touching the bottom border
         // If it has width 1 or 2 blocks and there is a free space next to it
@@ -115,7 +115,7 @@ public class SolverPiece {
         return state[y + height][x] == 0 && state[y + height][x + width - 1] == 0;
     }
 
-    void moveLeft() {
+    public void moveLeft() {
         if (!left()) return;  // Check if possible to move
         // Make move to the left and actualize board
         state[y][x + width - 1] = 0;
@@ -129,7 +129,7 @@ public class SolverPiece {
         x--;
     }
 
-    void moveRight() {
+    public void moveRight() {
         if (!right()) return; // Check if possible to move
         // Make move to the right and actualize board
         state[y][x] = 0;
@@ -143,7 +143,7 @@ public class SolverPiece {
         x++;
     }
 
-    void moveUp() {
+    public void moveUp() {
         if (!up()) return; // Check if possible move
         // Make move up and actualize board
         state[y + height - 1][x] = 0;
@@ -157,7 +157,7 @@ public class SolverPiece {
         y--;
     }
 
-    void moveDown() {
+    public void moveDown() {
         if (!down()) return; // Check if possible move
         // Make move down and actualize board
         state[y][x] = 0;
