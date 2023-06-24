@@ -1,6 +1,12 @@
 # Klotski
 
-[![Java CI with Gradle](https://github.com/roto65/Klotski/actions/workflows/gradle.yml/badge.svg)](https://github.com/roto65/Klotski/actions/workflows/gradle.yml)
+[![Gradle Build](https://github.com/roto65/Klotski/actions/workflows/gradleBuild.yml/badge.svg)](https://github.com/roto65/Klotski/actions/workflows/gradleBuild.yml)
+[![Gradle Test](https://github.com/roto65/Klotski/actions/workflows/gradleTest.yaml/badge.svg)](https://github.com/roto65/Klotski/actions/workflows/gradleTest.yaml)
+[![Static Badge](https://img.shields.io/badge/contributors-3-blue)](#contributors)
+[![Static Badge](https://img.shields.io/badge/java-17-red)](https://docs.oracle.com/en/java/javase/17/docs/api/)
+[![Static Badge](https://img.shields.io/badge/licence-MIT-orange)](https://github.com/roto65/Klotski/blob/d3989182fab2d6030c4cdfa95b921d4df40377ab/LICENSE)
+
+
 
 ---
 
