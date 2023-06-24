@@ -4,7 +4,7 @@ import core.listener.BlockMoveListener;
 import core.listener.MovePerformedListener;
 import io.GsonFileParser;
 import io.schemas.LevelSchema;
-import solver.NewSolver;
+import solver.Solver;
 import ui.BoardComponent;
 import ui.Window;
 import ui.blocks.Block;
@@ -156,8 +156,8 @@ public class Board implements BlockMoveListener {
 
         if (startCoord == null || endCoord == null) return;
 
-        Point startPoint = normalizeCord(startCoord);
-        Point endPoint   = normalizeCord(endCoord);
+        Point startPoint = normalizeCoord(startCoord);
+        Point endPoint   = normalizeCoord(endCoord);
 
         // Mono axis move
         int deltaX = endPoint.x - startPoint.x;
@@ -233,7 +233,7 @@ public class Board implements BlockMoveListener {
         if (USE_SOLVER_DEBUG_PRINT) System.out.println(move);
 
         if (move.isCut()) {
-            move = move.evalCutMove(NewSolver.getState(blocks));
+            move = move.evalCutMove(Solver.getState(blocks));
         }
         moves.add(move);
 
@@ -246,7 +246,7 @@ public class Board implements BlockMoveListener {
         checkWin();
     }
 
-    private static Point normalizeCord(Point input) {
+    private static Point normalizeCoord(Point input) {
 
         int x = input.x / TITLE_SIZE;
         int y = input.y / TITLE_SIZE;
@@ -267,12 +267,6 @@ public class Board implements BlockMoveListener {
     }
 
     private Point pushBlock(Block blockToMove, int steps, Direction direction) {
-
-        /*
-         * TODO: forse questa funzione dovrebbe prendere in input l'indice del blocco e non il blocco stesso
-         * in questo modo si rende più atomico il tutto e si eliminano le operazioni precedenti alla chiamata della
-         * funzione stessa
-         */
 
         Point directionVector = direction.getVector();
 

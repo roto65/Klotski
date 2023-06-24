@@ -10,8 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.IOException;
 
-import static main.Constants.COLOR_BACKGROUND;
-import static main.Constants.TITLE_SIZE;
+import static main.Constants.*;
 
 
 public class PostGameDialog extends JFrame {
@@ -88,7 +87,11 @@ public class PostGameDialog extends JFrame {
 
         int deltaMoves = moves - par;
         if (deltaMoves > 0) {
-            labelSubTitle.setText("This level can be solved in " + par + " moves (+" + deltaMoves + ")");
+            if (USE_SHAME_BRAKETS) {
+                labelSubTitle.setText("This level can be solved in " + par + " moves (+" + deltaMoves + ")");
+            } else {
+                labelSubTitle.setText("This level can be solved in " + par + " moves");
+            }
         } else if (deltaMoves == 0) {
             labelSubTitle.setText("You made the optimal amount of moves");
         } else {

@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-import static main.Constants.COLOR_BACKGROUND;
-import static main.Constants.TITLE_SIZE;
+import static main.Constants.*;
 
 public class PageCounter extends JPanel {
     private final int dotSize = TITLE_SIZE / 10;
@@ -44,11 +43,11 @@ public class PageCounter extends JPanel {
 
             if (i == currentPage) {
                 // Draw active dot
-                g2d.setColor(new Color(143, 222, 93));
+                g2d.setColor(COLOR_PC_ACTIVE);
                 g2d.fillOval(dotX, 0, activeDotSize, activeDotSize);
             } else {
                 // Draw inactive dot
-                g2d.setColor(new Color(60, 163, 112));
+                g2d.setColor(COLOR_PC_INACTIVE);
                 g2d.fillOval(dotX, dotY, dotSize, dotSize);
             }
         }

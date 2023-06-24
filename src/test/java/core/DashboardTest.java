@@ -3,7 +3,7 @@ package core;
 import io.GsonFileParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solver.NewSolver;
+import solver.Solver;
 
 import java.awt.*;
 
@@ -19,7 +19,7 @@ class DashboardTest {
     @BeforeEach
     void setUp() {
         board = new Board(LAYOUT_DEFAULT);
-        initConfig = NewSolver.getState(board.getBlocks());
+        initConfig = Solver.getState(board.getBlocks());
     }
 
     @Test
@@ -34,7 +34,7 @@ class DashboardTest {
 
         board.resetBoard();
 
-        String finalDestination = NewSolver.getState(board.getBlocks());
+        String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(finalDestination, initConfig);
     }
 
@@ -45,7 +45,7 @@ class DashboardTest {
 
         board.setBlocks(parser.load(true).getBlocks());
 
-        String finalDestination = NewSolver.getState(board.getBlocks());
+        String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(finalDestination, initConfig);
     }
 
@@ -58,7 +58,7 @@ class DashboardTest {
 
         board.undo();
 
-        String finalDestination = NewSolver.getState(board.getBlocks());
+        String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(finalDestination, initConfig);
     }
 
@@ -68,22 +68,22 @@ class DashboardTest {
         Point endPos = new Point(2 * TITLE_SIZE, 4 * TITLE_SIZE);
         board.blockMoved(startPos, endPos);
 
-        String midDestination = NewSolver.getState(board.getBlocks());
+        String midDestination = Solver.getState(board.getBlocks());
 
         board.undo();
         board.redo();
 
-        String finalDestination = NewSolver.getState(board.getBlocks());
+        String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(finalDestination, midDestination );
     }
 
     @Test
     void HintTest() {
-        Move move = NewSolver.start(board.getBlocks());
+        Move move = Solver.start(board.getBlocks());
         assert move != null;
         board.performMoveUnchecked(move);
 
-       String finalDestination = NewSolver.getState(board.getBlocks());
+       String finalDestination = Solver.getState(board.getBlocks());
        String actualDestination = "24422442233220121101";
        assertEquals(finalDestination, actualDestination);
     }

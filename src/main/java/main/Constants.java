@@ -45,12 +45,16 @@ public final class Constants {
     public static final boolean USE_DB_HINT_CASHING    = false;
     public static final boolean USE_SOLVER_DEBUG_PRINT = false;
     public static final boolean USE_BG_END_HIGHLIGHT   = false;
+    public static final boolean USE_SHAME_BRAKETS      = false;
+
 
     // colors
 
-    public static final Color COLOR_BACKGROUND      = new Color(69, 76, 90, 255);
-    public static final Color COLOR_BOARD_BG_LIGHT  = new Color(38, 83, 75, 255);
-    public static final Color COLOR_BOARD_BG_DARK   = new Color(35, 59, 59, 255);
-    public static final Color COLOR_BOARD_END_LIGHT = new Color(96, 27, 39, 255);
-    public static final Color COLOR_BOARD_END_DARK  = new Color(91, 14, 29, 255);
+    public static final Color COLOR_BACKGROUND      = new Color(69,  76,  90, 255);
+    public static final Color COLOR_BOARD_BG_LIGHT  = new Color(38,  83,  75, 255);
+    public static final Color COLOR_BOARD_BG_DARK   = new Color(35,  59,  59, 255);
+    public static final Color COLOR_BOARD_END_LIGHT = new Color(96,  27,  39, 255);
+    public static final Color COLOR_BOARD_END_DARK  = new Color(91,  14,  29, 255);
+    public static final Color COLOR_PC_ACTIVE       = new Color(143, 222, 93, 255);
+    public static final Color COLOR_PC_INACTIVE     = new Color(60, 163, 112, 255);
 }

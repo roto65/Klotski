@@ -8,7 +8,7 @@ import io.GsonFileParser;
 import io.JsonFileChooser;
 import io.db.MongoDbConnection;
 import io.schemas.LevelSchema;
-import solver.NewSolver;
+import solver.Solver;
 import ui.DashboardComponent;
 import ui.dialogs.DbErrorDialog;
 import ui.dialogs.LevelSelectorDialog;
@@ -93,7 +93,6 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
         hintButton.addActionListener(e -> {
             if (!board.isGameWon()) {
                 getHint();
-                incrementMoveCounter();
             }
         });
         buttons.add(hintButton);
@@ -155,6 +154,7 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
     }
 
     private void getHint() {
+        incrementMoveCounter();
 
         if (USE_DB_HINT_CASHING) {
             MongoDbConnection dbConnection;
@@ -165,17 +165,17 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
                 return;
             }
 
-            Move move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+            Move move = dbConnection.findHint(Solver.getState(board.getBlocks()));
 
             if (move == null) {
-                NewSolver.start(board.getBlocks());
-                move = dbConnection.findHint(NewSolver.getState(board.getBlocks()));
+                Solver.start(board.getBlocks());
+                move = dbConnection.findHint(Solver.getState(board.getBlocks()));
             }
             board.performMoveUnchecked(move);
 
             dbConnection.closeClient();
         } else {
-            Move move = NewSolver.start(board.getBlocks());
+            Move move = Solver.start(board.getBlocks());
 
             assert move != null;
             board.performMoveUnchecked(move);
