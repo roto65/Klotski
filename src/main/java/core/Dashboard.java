@@ -139,7 +139,7 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
         moveCounter.setVariableText(String.valueOf(moves));
     }
 
-    private void resetMoveCounter() {
+    public void resetMoveCounter() {
         moveCounter.setVariableText(String.valueOf(0));
     }
 
@@ -245,5 +245,9 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
     @Override
     public void exit() {
         System.exit(0);
+    }
+
+    public StyledLabel getMoveCounter (){
+        return moveCounter;
     }
 }
