@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.mongodb:mongodb-driver-sync:4.9.1'
     implementation 'org.slf4j:slf4j-log4j12:2.0.7'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testImplementation 'com.github.stefanbirkner:system-lambda:1.2.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 }
 
