@@ -4,9 +4,19 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
+/**
+ * Defines a dialog that the user can use to visually save and load Json file on his computer
+ */
 public class JsonFileChooser {
+
+    /**
+     * Actual file chooser instance
+     */
     private JFileChooser fileChooser;
 
+    /**
+     * Method that initializes the file chooser and sets its properties to match the operating system in use
+     */
     public JsonFileChooser() {
         LookAndFeel backup = UIManager.getLookAndFeel();
 
@@ -28,6 +38,11 @@ public class JsonFileChooser {
         }
     }
 
+    /**
+     * Method that defines a custom filter only for Json files
+     *
+     * @return the custom filter
+     */
     private FileFilter createJSONFileFilter() {
         return new FileFilter() {
             @Override
@@ -42,6 +57,11 @@ public class JsonFileChooser {
         };
     }
 
+    /**
+     * Initializes the save dialog and shows it to the user
+     *
+     * @return the file object selected by the user
+     */
     public File showSaveDialog() {
         int saveValue = fileChooser.showSaveDialog(null);
         if (saveValue == JFileChooser.APPROVE_OPTION) {
@@ -58,6 +78,11 @@ public class JsonFileChooser {
         return null;
     }
 
+    /**
+     * Initializes the load dialog and shows it to the user
+     *
+     * @return the file object selected by the user
+     */
     public File showLoadDialog() {
         int openValue = fileChooser.showOpenDialog(null);
         if (openValue == JFileChooser.APPROVE_OPTION) {

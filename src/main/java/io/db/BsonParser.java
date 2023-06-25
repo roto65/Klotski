@@ -30,6 +30,7 @@ public class BsonParser {
      * @param blocks the list of blocks that needs to be parsed
      * @deprecated
      */
+    @Deprecated
     @SuppressWarnings("unused")
     public void save(ArrayList<Block> blocks) {
 
