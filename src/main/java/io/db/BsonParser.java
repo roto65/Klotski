@@ -13,12 +13,23 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 
+/**
+ * Provides a custom parser between the block class and the Bson objects using the Gson library
+ */
 public class BsonParser {
 
+    /**
+     * Default constructor for the BsonParser objects
+     */
     public BsonParser() {
     }
 
-    // OLD
+    /**
+     * Method that writes in Json format the input data
+     *
+     * @param blocks the list of blocks that needs to be parsed
+     * @deprecated
+     */
     @SuppressWarnings("unused")
     public void save(ArrayList<Block> blocks) {
 
@@ -31,6 +42,12 @@ public class BsonParser {
         gson.toJson(blocks, writer);
     }
 
+    /**
+     * Method that reads block data in Json format and returns it as a list of objects
+     *
+     * @param JsonString the Json data tht needs to be parsed
+     * @return a list containing block objects
+     */
     public ArrayList<Block> load(String JsonString) {
 
         GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(Block.class, new BlockAdapter());
