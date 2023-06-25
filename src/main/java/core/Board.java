@@ -17,24 +17,66 @@ import java.util.ListIterator;
 import static main.Constants.TITLE_SIZE;
 import static main.Constants.USE_SOLVER_DEBUG_PRINT;
 
+/**
+ * Defines all the game core functionality, including block managing and moving
+ */
 public class Board implements BlockMoveListener {
 
+    /**
+     * List that stores the initial block configuration of the current game, so it can be restored at any point
+     */
     private ArrayList<Block> lastConfiguration;
 
+    /**
+     * Variable that indicates if the player won the current game
+     */
     private boolean gameWon = false;
 
+    /**
+     * Objects that represents the GUI part of the Board itself
+     *
+     * @see BoardComponent
+     */
     private final BoardComponent boardComponent;
 
+    /**
+     * List that stores all the moves made by the player. Used by the undo / redo methods
+     *
+     * @see #undo()
+     * @see #redo()
+     */
     private ArrayList<Move> moves;
+
+    /**
+     * Iterator used for the moves list
+     *
+     * @see #moves
+     */
     private ListIterator<Move> movesIterator;
 
+    /**
+     * Listener used to trigger certain methods execution after a block is moved
+     */
     private MovePerformedListener movePerformedListener;
 
+    /**
+     * List that holds all the objects relative to the blocks present on the board
+     */
     private ArrayList<Block> blocks;
 
+    /**
+     * Variable that stores the number of the level the player is playing
+     */
     private int currentLevelNumber;
+
+    /**
+     * Variable that stores the minimum number of moves required for the current level to be completed
+     */
     private int minimumMoves;
 
+    /**
+     * Default constructor, used mainly for testing purposes
+     */
     public Board() {
         boardComponent = new BoardComponent(null);
         boardComponent.setListener(this);
@@ -43,6 +85,13 @@ public class Board implements BlockMoveListener {
         movesIterator = moves.listIterator();
     }
 
+    /**
+     * Method that initializes th Board object, his component and all the data structures needed for a normal game
+     *
+     * @param blockConfiguration the name of the Json file that contains the configuration info needed when the game
+     *                           starts
+     * @see BoardComponent
+     */
     public Board(String blockConfiguration) {
         initBlocks(blockConfiguration);
 
@@ -53,6 +102,9 @@ public class Board implements BlockMoveListener {
         movesIterator = moves.listIterator();
     }
 
+    /**
+     * Method that resets the Board object back to the start of the level
+     */
     public void resetBoard() {
 
         gameWon = false;
@@ -74,6 +126,12 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
     }
 
+    /**
+     * Method that resets the Board object with the data passed as argument
+     *
+     * @param newLevel object that contains all the data needed to change level
+     * @see LevelSchema
+     */
     public void resetBoard(LevelSchema newLevel) {
 
         gameWon = false;
@@ -106,6 +164,12 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
     }
 
+    /**
+     * Method that initializes the blocks list with the data red from a Json file
+     *
+     * @param filename name of the file to read
+     * @see GsonFileParser
+     */
     private void initBlocks(String filename) {
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
@@ -123,34 +187,62 @@ public class Board implements BlockMoveListener {
         minimumMoves = levelSchema.getMinimumMoves();
     }
 
+    /**
+     * @return ui component bound to this board instance
+     */
     public BoardComponent getBoardComponent() {
         return boardComponent;
     }
 
+    /**
+     * @return list of the blocks currently displayed on the board
+     */
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
 
+    /**
+     * @return true if the player won the game
+     */
     public boolean isGameWon() {
         return gameWon;
     }
 
+    /**
+     * @return a new LevelSchema object containing all the relevant game status information
+     * @see LevelSchema
+     */
     public LevelSchema getCurrentLevel() {
         return new LevelSchema(currentLevelNumber, blocks, minimumMoves, moves, movesIterator.nextIndex());
     }
 
+    /**
+     * @return the minimum number of moves needed to win in the current level
+     */
     public int getMinimumMoves() {
         return minimumMoves;
     }
 
+    /**
+     * @param movePerformedListener new listener to bind with this board instance
+     */
     public void setMoveCountIncrementListener(MovePerformedListener movePerformedListener) {
         this.movePerformedListener = movePerformedListener;
     }
 
+    /**
+     * @param blocks new block list that needs to replace the existing one
+     */
     public void setBlocks(ArrayList<Block> blocks) {
         this.blocks = blocks;
     }
 
+    /**
+     * This method contains all the logic needed to execute a block move with complete checks
+     *
+     * @param startCoord The coordinate where the actions started
+     * @param endCoord The coordinate where the action ended
+     */
     @Override
     public void blockMoved(Point startCoord, Point endCoord) {
 
@@ -205,6 +297,11 @@ public class Board implements BlockMoveListener {
         checkWin();
     }
 
+    /**
+     * This method prepares the block and the list for the changes needed to actuate a move
+     *
+     * @param move the movement that needs to be done
+     */
     private void performMove(Move move) {
 
         int startBlockIndex = linearSearch(move.getStartPos());
@@ -219,6 +316,11 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
     }
 
+    /**
+     * This method executes directly a move bypassing all the checks usually needed
+     *
+     * @param move the movement that needs to be done
+     */
     public void performMoveUnchecked(Move move) {
 
         int startBlockIndex = linearSearch(move.getStartPos());
@@ -246,6 +348,12 @@ public class Board implements BlockMoveListener {
         checkWin();
     }
 
+    /**
+     * Methods that converts global window coordinates to board coordinates
+     *
+     * @param input the coordinates received from the ui component
+     * @return coordinates usable inside the board
+     */
     private static Point normalizeCoord(Point input) {
 
         int x = input.x / TITLE_SIZE;
@@ -254,6 +362,12 @@ public class Board implements BlockMoveListener {
         return new Point(x, y);
     }
 
+    /**
+     * Method that searches which block (if any) occupies a position
+     *
+     * @param point the position of the block
+     * @return the index of the block list where the found block object is placed
+     */
     private int linearSearch(Point point) {
 
         for (int i = 0; i < blocks.size(); i++) {
@@ -266,6 +380,14 @@ public class Board implements BlockMoveListener {
         return -1;
     }
 
+    /**
+     * Method that tries to move a given block, one step at a time
+     *
+     * @param blockToMove the block that needs to be moved removed from the list
+     * @param steps the number of spaces the block needs to be moved
+     * @param direction the direction the block needs to be moved
+     * @return the position the block moved sits after the movement
+     */
     private Point pushBlock(Block blockToMove, int steps, Direction direction) {
 
         Point directionVector = direction.getVector();
@@ -290,6 +412,9 @@ public class Board implements BlockMoveListener {
         return blockToMove.getPos();
     }
 
+    /**
+     * Method that checks if the win condition is met
+     */
     public void checkWin() {
         for (Block block : blocks) {
             if (block.getClass().equals(LargeBlock.class)) {
@@ -303,6 +428,10 @@ public class Board implements BlockMoveListener {
         }
     }
 
+    /**
+     * Method that undoes the last move the player has done
+     * @return true if the move was actually undone
+     */
     public boolean undo() {
         if (movesIterator.hasPrevious()) {
             Move previous = movesIterator.previous().reverse();
@@ -313,6 +442,10 @@ public class Board implements BlockMoveListener {
         return false;
     }
 
+    /**
+     * Method that redoes the last move the player has undone
+     * @return true if the move was actually redone
+     */
     public boolean redo() {
         if (movesIterator.hasNext()) {
             Move next = movesIterator.next();
