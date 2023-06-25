@@ -11,23 +11,86 @@ import java.util.*;
 
 import static main.Constants.*;
 
+/**
+ * Provides an algorithm to evaluate the best move for any given board state
+ */
 public class Solver {
 
-    public static int[][] state; // Keep  the current state of the board based on pieces
-    public static int[][] board; // Keep  the current full state of the board
-    private static Map<String, Boolean> m; // Keep track of visited states
-    private static Map<String, Integer> depth; // Keep track of the depth of exploration
-    private static Map<String, Integer> st; // Map between states and integers
-    private static Map<Integer, String> ts; // Inverse map of the above-mentioned
-    private static Map<Integer, String> full; // From integers position to full board state
-    private static ArrayList<Integer> parent; // Keep track of the parents in exploration
-    private static Queue<String> q; // Queue to keep current visited state
-    private static int c; // Number of states visited so far
+    /**
+     * Keeps the current state of the board based on pieces
+     */
+    public static int[][] state;
+
+    /**
+     * Keeps the current full state of the board
+     */
+    public static int[][] board;
+
+    /**
+     * Keeps track of visited states
+     */
+    private static Map<String, Boolean> m;
+
+    /**
+     * Keeps track of the depth of exploration
+     */
+    private static Map<String, Integer> depth;
+
+    /**
+     * Map between states and integers
+     */
+    private static Map<String, Integer> st;
+
+    /**
+     * Inverse map of the above-mentioned
+     */
+    private static Map<Integer, String> ts;
+
+    /**
+     * From integers position to full board state
+     */
+    private static Map<Integer, String> full;
+
+    /**
+     * Keep track of the parents in exploration
+     */
+    private static ArrayList<Integer> parent;
+
+    /**
+     * Queue to keep current visited state
+     */
+    private static Queue<String> q;
+
+    /**
+     * Number of states visited so far
+     */
+    private static int c;
+
+    /**
+     * Temporary board representation
+     */
     private static String code;
-    private static List<SolverPiece> pieces; // Array of the different pieces to locate in board
+
+    /**
+     * List of the different pieces to locate in board
+     */
+    private static List<SolverPiece> pieces;
+
+    /**
+     * Boards visited between current and solved
+     */
     private static List<char []> boards;
+
+    /**
+     * States visited between current and solved
+     */
     private static List<String> states;
 
+    /**
+     * Method that initializes all the above data structures
+     *
+     * @param blocks the current board blocks
+     */
     private static void init(ArrayList<Block> blocks) {
         state = new int[ROWS][COLUMNS];
         board = new int[ROWS][COLUMNS];
@@ -60,8 +123,10 @@ public class Solver {
         }
     }
 
+    /**
+     * Method that encodes the state of the board in a string
+     */
     private static void encode() {
-        // This method encodes the state of the board in a string
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < ROWS; i++)
             for (int j = 0; j < COLUMNS; j++) {
@@ -71,15 +136,21 @@ public class Solver {
         code = builder.toString();
     }
 
+    /**
+     * @return code of the board based on current information
+     */
     private static String getCode() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < code.length(); i += 2) builder.append(code.charAt(i));
         return builder.toString();
     }
 
+
+    /**
+     * Method that reconstructs a board base on it's encoding
+     */
     @SuppressWarnings("RedundantLabeledSwitchRuleCodeBlock")
     private static void setBoard(String s) {
-        // This method reconstructs a board base on it's encoding
         StringBuilder s_ = new StringBuilder();
         for (int i = 0; i < s.length(); i += 2) s_.append(s.charAt(i));
 
@@ -122,12 +193,22 @@ public class Solver {
         }
     }
 
+    /**
+     * Method that checks if the final state has been reached
+     *
+     * @return true if the condition is met
+     */
     private static boolean checkEnd() {
-        // Check if final state ( solution board ) has been reached
         return (state[3][1] == state[3][2] && state[3][2] == state[4][1] &&
                 state[4][1] == state[4][2] && state[4][1] == 4);
     }
 
+    /**
+     * Method that updates all the data structures when a new state is inserted
+     *
+     * @param aux new state to be inserted
+     * @param cur current state
+     */
     private static void update(String aux, String cur) {
         q.add(aux);
         m.put(aux, true);
@@ -142,8 +223,12 @@ public class Solver {
         }
     }
 
+    /**
+     * This method recursively evaluates the optimal path for the solution
+     *
+     * @param s current state
+     */
     private static void backtrackSolution(String s) {
-        // Recursively printing optimal path
         if (st.get(s) == 0) {
             setBoard(full.get(st.get(s)));
             saveState();
@@ -154,6 +239,9 @@ public class Solver {
         saveState();
     }
 
+    /**
+     * Method that saves a new state to the boards/states lists
+     */
     private static void saveState() {
         StringBuilder boardBuilder = new StringBuilder();
         StringBuilder stateBuilder = new StringBuilder();
@@ -168,6 +256,14 @@ public class Solver {
         states.add(stateBuilder.toString());
     }
 
+    /**
+     * Method that moves a piece in every possible way
+     *
+     * @param p the piece that needs to be moved
+     * @param cur the current state
+     * @param direction the direction the piece is moving
+     * @return true if the piece could be moved
+     */
     private static boolean moveSpecific(SolverPiece p, String cur, int direction) {
         if (direction == 0 && p.left()) p.moveLeft();
         else if (direction == 1 && p.right()) p.moveRight();
@@ -202,6 +298,12 @@ public class Solver {
         return false;
     }
 
+    /**
+     * Method that starts the algorithm
+     *
+     * @param blocks current block list of the board
+     * @return the best move for the given state
+     */
     public static Move start(ArrayList<Block> blocks) {
         // Initialize Board
         init(blocks);
@@ -216,6 +318,9 @@ public class Solver {
         }
     }
 
+    /**
+     * Method that opens a new database connection and saves all the middle states to the hint collection
+     */
     private static void uploadMoves() {
         MongoDbConnection dbConnection;
         try {
@@ -240,6 +345,12 @@ public class Solver {
         dbConnection.closeClient();
     }
 
+    /**
+     * Method that converts the given block list to a simpler string
+     *
+     * @param blocks list that needs to be converted
+     * @return state representation as a string
+     */
     public static String getState(ArrayList<Block> blocks) {
         init(blocks);
 
@@ -253,6 +364,9 @@ public class Solver {
         return builder.toString();
     }
 
+    /**
+     * Method that handles the bfs algorithm
+     */
     private static void evalMoves() {
         // Start BFS
         encode();
@@ -280,6 +394,13 @@ public class Solver {
         }
     }
 
+    /**
+     * Method that evaluates a Move done between two states
+     *
+     * @param prev first state
+     * @param curr second state
+     * @return evaluated move
+     */
     private static Move findMove(char [] prev, char [] curr) {
         int fromIndex = 0, toIndex = 0;
         char blockMoved = 'z';

@@ -17,7 +17,7 @@ public class BlockAdapter implements JsonDeserializer<Block> {
      * @param typeOfT The type of the Object to deserialize to
      * @param context The context when the method is called
      * @return deserialized Block
-     * @throws JsonParseException
+     * @throws JsonParseException when there is a problem with the Json format
      */
     @Override
     public Block deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

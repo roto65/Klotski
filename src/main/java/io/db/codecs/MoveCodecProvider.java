@@ -16,7 +16,7 @@ public class MoveCodecProvider implements CodecProvider {
      * @param clazz the Class for which to get a Codec
      * @param registry the registry to use for resolving dependent Codec instances
      * @return Codec for the Move object
-     * @param <T>
+     * @param <T> generic type
      */
     @Override
     @SuppressWarnings("unchecked")
