@@ -6,8 +6,8 @@ import io.db.MongoDbConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.github.stefanbirkner.systemlambda.SystemLambda;
 import com.mongodb.MongoException;
-
 import solver.Solver;
 import ui.dialogs.DbErrorDialog;
 
@@ -126,5 +126,14 @@ class DashboardTest {
         dashboard.resetMoveCounter();
         String Move = dashboard.getMoveCounter().getVariableText();
         assertEquals(Move, "0");
+    }
+
+    @Test
+    void ExitTest() throws Exception {
+        int status = SystemLambda.catchSystemExit(() -> {
+            dashboard.exit();
+        });
+
+        assertEquals(status, 0);
     }
 }
