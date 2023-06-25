@@ -1,4 +1,4 @@
-package io.db.schemas;
+package io.schemas;
 
 import core.Move;
 import ui.blocks.Block;

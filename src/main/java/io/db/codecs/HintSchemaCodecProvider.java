@@ -1,6 +1,6 @@
 package io.db.codecs;
 
-import io.db.schemas.HintSchema;
+import io.schemas.HintSchema;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
