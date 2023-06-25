@@ -220,7 +220,7 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
 
         try {
             LevelSchema newLevel = parser.load(true);
-            board.resetBoard(newLevel);
+            board.loadBoard(newLevel);
 
             setMoveCounter(newLevel.getIteratorIndex());
             setLevelLabel(newLevel.getLevelNumber());

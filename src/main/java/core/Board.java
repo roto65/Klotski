@@ -3,16 +3,20 @@ package core;
 import core.listener.BlockMoveListener;
 import core.listener.MovePerformedListener;
 import io.GsonFileParser;
+import io.db.MongoDbConnection;
 import io.schemas.LevelSchema;
 import solver.Solver;
 import ui.BoardComponent;
 import ui.Window;
 import ui.blocks.Block;
 import ui.blocks.LargeBlock;
+import ui.dialogs.DbErrorDialog;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
+
+import com.mongodb.MongoException;
 
 import static main.Constants.TITLE_SIZE;
 import static main.Constants.USE_SOLVER_DEBUG_PRINT;
@@ -106,6 +110,45 @@ public class Board implements BlockMoveListener {
         boardComponent.repaint();
     }
 
+     public void loadBoard(LevelSchema newLevel) {
+
+        gameWon = false;
+        try {
+            Window.newGame(boardComponent);
+        } catch(NullPointerException ignored){}
+
+        blocks = new ArrayList<>();
+        lastConfiguration = new ArrayList<>();
+
+        for (Block block : newLevel.getBlocks()) {
+            blocks.add(block.copy());
+        }
+        MongoDbConnection db;
+        try {
+            db = new MongoDbConnection();
+            lastConfiguration = db.getLevel(newLevel.getLevelNumber()).getBlocks();
+            db.closeClient();
+        } catch (MongoException e) {
+            new DbErrorDialog(e.getMessage()).showDialog();
+        }
+
+        currentLevelNumber = newLevel.getLevelNumber();
+        minimumMoves = newLevel.getMinimumMoves();
+
+        moves = newLevel.getMoves();
+
+        if (moves == null) {
+            moves = new ArrayList<>();
+            movesIterator = moves.listIterator();
+
+        } else {
+            movesIterator = moves.listIterator(newLevel.getIteratorIndex());
+        }
+        boardComponent.setBlocks(blocks);
+
+        boardComponent.repaint();
+    }
+    
     private void initBlocks(String filename) {
         GsonFileParser parser = new GsonFileParser(filename, "json");
 
