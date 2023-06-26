@@ -1,5 +1,6 @@
 package core;
 
+import com.mongodb.MongoException;
 import core.listener.BlockMoveListener;
 import core.listener.MovePerformedListener;
 import io.GsonFileParser;
@@ -15,8 +16,6 @@ import ui.dialogs.DbErrorDialog;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
-
-import com.mongodb.MongoException;
 
 import static main.Constants.TITLE_SIZE;
 import static main.Constants.USE_SOLVER_DEBUG_PRINT;
@@ -167,31 +166,13 @@ public class Board implements BlockMoveListener {
 
         boardComponent.repaint();
     }
-  
+
     /**
-     * Method that initializes the blocks list with the data red from a Json file
+     * Method that resets the Board object with the data passed as argument but fetches the original
+     * configuration data from the database
      *
-     * @param filename name of the file to read
-     * @see GsonFileParser
-     */    
-private void initBlocks(String filename) {
-        GsonFileParser parser = new GsonFileParser(filename, "json");
-
-        LevelSchema levelSchema = parser.load(false);
-
-        blocks = new ArrayList<>();
-        lastConfiguration = new ArrayList<>();
-
-        for (Block block : levelSchema.getBlocks()) {
-            blocks.add(block.copy());
-            lastConfiguration.add(block.copy());
-        }
-
-        currentLevelNumber = levelSchema.getLevelNumber();
-        minimumMoves = levelSchema.getMinimumMoves();
-    }
-  
-  
+     * @param newLevel object that contains all the data needed to change level
+     */
     public void loadBoard(LevelSchema newLevel) {
 
         gameWon = false;
@@ -205,6 +186,7 @@ private void initBlocks(String filename) {
         for (Block block : newLevel.getBlocks()) {
             blocks.add(block.copy());
         }
+
         MongoDbConnection db;
         try {
             db = new MongoDbConnection();
@@ -229,6 +211,29 @@ private void initBlocks(String filename) {
         boardComponent.setBlocks(blocks);
 
         boardComponent.repaint();
+    }
+
+    /**
+     * Method that initializes the blocks list with the data red from a Json file
+     *
+     * @param filename name of the file to read
+     * @see GsonFileParser
+     */
+    private void initBlocks(String filename) {
+        GsonFileParser parser = new GsonFileParser(filename, "json");
+
+        LevelSchema levelSchema = parser.load(false);
+
+        blocks = new ArrayList<>();
+        lastConfiguration = new ArrayList<>();
+
+        for (Block block : levelSchema.getBlocks()) {
+            blocks.add(block.copy());
+            lastConfiguration.add(block.copy());
+        }
+
+        currentLevelNumber = levelSchema.getLevelNumber();
+        minimumMoves = levelSchema.getMinimumMoves();
     }
 
     /**

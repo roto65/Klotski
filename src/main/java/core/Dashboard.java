@@ -196,7 +196,7 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
     /**
      * This method sets the move counter back to 0
      */
-    private void resetMoveCounter() {
+    public void resetMoveCounter() {
         moveCounter.setVariableText(String.valueOf(0));
     }
 
