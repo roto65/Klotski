@@ -10,16 +10,33 @@ import java.io.IOException;
 
 import static main.Constants.TITLE_SIZE;
 
+/**
+ * Defines a custom ui used in custom labels
+ *
+ * @see StyledLabel
+ */
 public class StyledLabelUI extends BasicLabelUI {
 
-     private static Image sprite = null;
+    /**
+     * The label's sprite
+     */
+    private static Image sprite = null;
 
+    /**
+     * The font used for the label text
+     */
     private static Font labelFont = null;
 
+    /**
+     * Constructor method that initializes the label's resources
+     */
     public StyledLabelUI() {
         loadResources();
     }
 
+    /**
+     * Method that actually loads the label's resources from file
+     */
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     private void loadResources() {
         if (sprite == null) {
@@ -39,6 +56,16 @@ public class StyledLabelUI extends BasicLabelUI {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g the <code>Graphics</code> context in which to paint
+     * @param component the component being painted;
+     *          this argument is often ignored,
+     *          but might be used if the UI object is stateless
+     *          and shared by multiple components
+     *
+     */
     @Override
     public void paint(Graphics g, JComponent component) {
 
@@ -51,6 +78,15 @@ public class StyledLabelUI extends BasicLabelUI {
         super.paint(g, component);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param label an instance of {@code JLabel}
+     * @param g an instance of {@code Graphics}
+     * @param text a text
+     * @param textX an X coordinate
+     * @param textY an Y coordinate
+     */
     @Override
     protected void paintEnabledText(JLabel label, Graphics g, String text, int textX, int textY) {
         g.setFont(labelFont);
@@ -58,9 +94,7 @@ public class StyledLabelUI extends BasicLabelUI {
         // Get the FontMetrics to calculate the text position
         FontMetrics metrics = g.getFontMetrics(labelFont);
         int width = label.getWidth();
-        int height = label.getHeight();
         int textWidth = metrics.stringWidth(text);
-        int textHeight = metrics.getHeight();
 
         // Calculate the x-position of the text to center it horizontally
         int x = (width - textWidth) / 2;

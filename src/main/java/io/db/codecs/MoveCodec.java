@@ -11,14 +11,29 @@ import org.bson.codecs.configuration.CodecRegistry;
 
 import java.awt.*;
 
+/**
+ * Implements the Codec interface for the Move object
+ */
 public class MoveCodec implements Codec<Move> {
 
     private final Codec<Point> pointCodec;
 
+    /**
+     * Constructor for the MoveCodec
+     *
+     * @param registry the codec registry
+     */
     public MoveCodec(CodecRegistry registry) {
         this.pointCodec = registry.get(Point.class);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param reader         the BSON reader
+     * @param decoderContext the decoder context
+     * @return decoded Move
+     */
     @Override
     public Move decode(BsonReader reader, DecoderContext decoderContext) {
         Move move = new Move();
@@ -40,6 +55,13 @@ public class MoveCodec implements Codec<Move> {
         return move;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param writer the BSON writer to encode into
+     * @param value the value to encode
+     * @param encoderContext the encoder context
+     */
     @Override
     public void encode(BsonWriter writer, Move value, EncoderContext encoderContext) {
         if (value == null) return;
@@ -54,6 +76,11 @@ public class MoveCodec implements Codec<Move> {
         writer.writeEndDocument();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return class instance
+     */
     @Override
     public Class<Move> getEncoderClass() {
         return Move.class;

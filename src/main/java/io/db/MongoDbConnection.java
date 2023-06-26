@@ -31,11 +31,27 @@ import static main.Constants.*;
 
 // Ref: https://github.com/mongodb-university/atlas_starter_java/blob/master/src/main/java/mongodb/Main.java
 
+/**
+ * Provides all the functionality to exchange data from and to the database
+ */
 public class MongoDbConnection {
 
+    /**
+     * The database client object.
+     * Needs a valid Uri to be initialized properly
+     */
     private final MongoClient mongoClient;
+
+    /**
+     * The actual database object
+     */
     private final MongoDatabase database;
 
+    /**
+     * Constructor that opens the db connection and initializes the db object
+     *
+     * @throws MongoException if connection cannot be established
+     */
     @SuppressWarnings("ConstantValue")
     public MongoDbConnection() throws MongoException {
 
@@ -60,6 +76,11 @@ public class MongoDbConnection {
         testConnection();
     }
 
+    /**
+     * Method that tests the connection to the database sending a ping command
+     *
+     * @throws MongoException if connection cannot be established
+     */
     private void testConnection() throws MongoException {
         Bson pingCommand = new BsonDocument("ping", new BsonInt32(1));
         try {
@@ -69,10 +90,16 @@ public class MongoDbConnection {
         }
     }
 
+    /**
+     * Method that closes the connection once it has been used
+     */
     public void closeClient() {
         mongoClient.close();
     }
 
+    /**
+     * @return the database object representing the hint collection
+     */
     public MongoCollection<HintSchema> getHintCollection() {
 
         CodecRegistry codecRegistry = CodecRegistries.fromRegistries(
@@ -84,6 +111,11 @@ public class MongoDbConnection {
         return database.getCollection(HINT_COLLECTION, HintSchema.class).withCodecRegistry(codecRegistry);
     }
 
+    /**
+     * Method that loads the given hints in the database
+     *
+     * @param hints list containing the hints to be loaded
+     */
     public void uploadHints(List<HintSchema> hints) {
         MongoCollection<HintSchema> hintCollection = getHintCollection();
 
@@ -94,6 +126,12 @@ public class MongoDbConnection {
         hintCollection.insertMany(hints);
     }
 
+    /**
+     * Method that queries the database to find a hint for the given board configuration
+     *
+     * @param state string that represents the current board configuration
+     * @return hint if existing
+     */
     public Move findHint(String state) {
 
         Bson stateFilter = Filters.eq("state", state);
@@ -109,10 +147,19 @@ public class MongoDbConnection {
         return null;
     }
 
+    /**
+     * @return the database object representing the level collection
+     */
     public MongoCollection<BsonDocument> getLevelCollection() {
         return database.getCollection(LEVELS_COLLECTION, BsonDocument.class);
     }
 
+    /**
+     * Method that queries the database to find a level that matches the given level number
+     *
+     * @param levelNumber the number of the level to be found
+     * @return corresponding level schema if existing
+     */
     public LevelSchema getLevel(int levelNumber) {
 
         Bson levelFilter = Filters.eq("level", levelNumber);

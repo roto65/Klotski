@@ -9,12 +9,24 @@ import java.util.ArrayList;
 
 import static main.Constants.*;
 
+/**
+ * Defines the small block extending the abstract block
+ */
 public class SmallBlock extends Block{
 
+    /**
+     * Default constructor method used in deserialization
+     */
     @SuppressWarnings("unused")
     public SmallBlock() {
     }
 
+    /**
+     * Constructor method with coordinates
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public SmallBlock(int x, int y) {
         pos = new Point(x, y);
 
@@ -24,6 +36,9 @@ public class SmallBlock extends Block{
         loadSprite();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void loadOffsets() {
         offsets = new ArrayList<>() {
@@ -33,6 +48,9 @@ public class SmallBlock extends Block{
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void loadSprite() {
         try {
@@ -46,10 +64,21 @@ public class SmallBlock extends Block{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g graphics object
+     * @param observer receives information about the objects drawn
+     */
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage(sprite, pos.x * TITLE_SIZE, pos.y * TITLE_SIZE, TITLE_SIZE, TITLE_SIZE, observer);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param destination the position the block needs to be moved into
+     */
     @Override
     public void move(Point destination) {
 

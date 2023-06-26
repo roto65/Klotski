@@ -10,17 +10,38 @@ import java.io.IOException;
 
 import static main.Constants.TITLE_SIZE;
 
+/**
+ * Defines a custom ui used in custom buttons
+ *
+ * @see StyledButton
+ */
 public class StyledButtonUI extends BasicButtonUI {
 
+    /*
+     * The button's sprite when idling
+     */
     private static Image defaultButtonSprite = null;
+
+    /**
+     * The button's sprite when pressed
+     */
     private static Image pressedButtonSprite = null;
 
+    /**
+     * The font used for the button's text
+     */
     private static Font buttonFont = null;
 
+    /**
+     * Constructor method that initializes the button's resources
+     */
     public StyledButtonUI() {
         loadResources();
     }
 
+    /**
+     * Method that actually loads the button's resources from file
+     */
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     private void loadResources() {
         if (defaultButtonSprite == null) {
@@ -48,6 +69,16 @@ public class StyledButtonUI extends BasicButtonUI {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g the <code>Graphics</code> context in which to paint
+     * @param component the component being painted;
+     *          this argument is often ignored,
+     *          but might be used if the UI object is stateless
+     *          and shared by multiple components
+     *
+     */
     @Override
     public void paint(Graphics g, JComponent component) {
 
@@ -66,6 +97,14 @@ public class StyledButtonUI extends BasicButtonUI {
         super.paint(g, button);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g an instance of {@code Graphics}
+     * @param component a component
+     * @param textRect a bounding rectangle to render the text
+     * @param text a string to render
+     */
     @Override
     protected void paintText(Graphics g, JComponent component, Rectangle textRect, String text) {
 

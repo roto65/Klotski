@@ -12,14 +12,27 @@ import java.io.IOException;
 import static main.Constants.COLOR_BACKGROUND;
 import static main.Constants.TITLE_SIZE;
 
+/**
+ * Defines a dialog window used when a database error occurs
+ */
 public class DbErrorDialog extends JFrame {
 
+    /**
+     * The message to be displayed
+     */
     private final String errorMsg;
 
+    /**
+     * Constructor method that initializes the dialog's data
+     * @param msg the message to be displayed
+     */
     public DbErrorDialog(String msg) {
         this.errorMsg = msg;
     }
 
+    /**
+     * Method that defines dialog properties and widgets, including all the layouts. Then it shows it to the user
+     */
     public void showDialog() {
         JDialog dialog = new JDialog(this, "Database Error", true);
         dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

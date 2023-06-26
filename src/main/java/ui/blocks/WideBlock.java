@@ -10,13 +10,30 @@ import java.util.ArrayList;
 
 import static main.Constants.*;
 
+/**
+ * Defines the wide block extending the abstract block
+ */
 public class WideBlock extends Block{
 
+    /**
+     * Additional sprite for the other rotation of the block
+     */
     private transient Image altSprite;
 
+    /**
+     * Default constructor method used in deserialization
+     */
     @SuppressWarnings("unused")
     public WideBlock() {
     }
+
+    /**
+     * Constructor method with coordinates
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param blockType the type of the block, needed for orientation
+     */
     public WideBlock(int x, int y, BlockType blockType) {
         pos = new Point(x, y);
 
@@ -29,6 +46,9 @@ public class WideBlock extends Block{
         loadSprite();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void loadOffsets() {
         switch (blockType) {
@@ -47,6 +67,9 @@ public class WideBlock extends Block{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void loadSprite() {
         try {
@@ -61,6 +84,12 @@ public class WideBlock extends Block{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g graphics object
+     * @param observer receives information about the objects drawn
+     */
     public void draw(Graphics g, ImageObserver observer) {
 
         if (USE_LEGACY_SPRITES) {
@@ -93,6 +122,11 @@ public class WideBlock extends Block{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param destination the position the block needs to be moved into
+     */
     @Override
     public void move(Point destination) {
 
