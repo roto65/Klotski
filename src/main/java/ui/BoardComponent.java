@@ -12,29 +12,57 @@ import java.util.ArrayList;
 
 import static main.Constants.*;
 
+/**
+ * Defines the ui for the board class
+ */
 public class BoardComponent extends JPanel implements MouseListener {
 
+    /**
+     * Reference of the block list of the parent board
+     */
     private ArrayList<Block> blocks;
 
+    /**
+     * Listener used to tell the board when the user made an interaction
+     */
     private BlockMoveListener listener;
 
+    /**
+     * Coordinates of the user interaction
+     */
     @SuppressWarnings("FieldCanBeLocal")
     private static Point startCoord, endCoord;
 
+    /**
+     * Constructor method that initializes the data needed to show the component correctly
+     *
+     * @param blocks a reference of the parent block list
+     */
     public BoardComponent(ArrayList<Block> blocks) {
         setPreferredSize(new Dimension(TITLE_SIZE * COLUMNS, TITLE_SIZE * ROWS));
 
         this.blocks = blocks;
     }
 
+    /**
+     * @param listener the parent instance of the board class
+     */
     public void setListener(BlockMoveListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * @param blocks the reference of a new list of blocks
+     */
     public void setBlocks(ArrayList<Block> blocks) {
         this.blocks = blocks;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g the <code>Graphics</code> object to protect
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -46,6 +74,11 @@ public class BoardComponent extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Method used to draw custom background of the component
+     *
+     * @param g the graphics object
+     */
     private void drawBackground(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
@@ -70,11 +103,21 @@ public class BoardComponent extends JPanel implements MouseListener {
         g2d.setTransform(backup);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
 //        System.out.println("Mouse clicked: " + e);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mousePressed(MouseEvent e) {
 //        System.out.println("Mouse pressed: " + e);
@@ -82,6 +125,11 @@ public class BoardComponent extends JPanel implements MouseListener {
         startCoord = e.getPoint();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
 //        System.out.println("Mouse released: " + e);
@@ -91,11 +139,21 @@ public class BoardComponent extends JPanel implements MouseListener {
         listener.blockMoved(startCoord, endCoord);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
 //        System.out.println("Mouse entered: " + e);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param e the event to be processed
+     */
     @Override
     public void mouseExited(MouseEvent e) {
 //        System.out.println("Mouse exited: " + e);
