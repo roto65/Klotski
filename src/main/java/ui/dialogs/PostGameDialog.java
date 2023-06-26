@@ -12,25 +12,57 @@ import java.io.IOException;
 
 import static main.Constants.*;
 
-
+/**
+ * Defines a dialog window used when the player wins the game
+ */
 public class PostGameDialog extends JFrame {
 
+    /**
+     * The number of moves the player made to win
+     */
     private final int moves;
+
+    /**
+     * The minimum number of moves needed to win the current level
+     */
     private final int par;
 
+    /**
+     * The layout portion that contains all the buttons
+     */
     private JPanel buttonWrapperPanel;
 
+    /**
+     * The big text that is displayed
+     */
     private JLabel labelTitle;
+
+    /**
+     * The smaller text that is displayed under the other one
+     */
     private JLabel labelSubTitle;
 
+    /**
+     * The listener needed to send back to the dashboard all the actions of the buttons
+     */
     private final PostGameActionsListener listener;
 
+    /**
+     * Constructor method that initializes the dialog's data
+     *
+     * @param moves the number of moves the player made
+     * @param par the minimum number of moves needed to win the current level
+     * @param listener the listener needed to sent back to the dashboard all the actions of the buttons
+     */
     public PostGameDialog(int moves, int par, PostGameActionsListener listener) {
         this.moves = moves;
         this.par = par;
         this.listener = listener;
     }
 
+    /**
+     * Method that defines dialog properties and widgets, including all the layouts. Then it shows it to the user
+     */
     public void showDialog() {
         JDialog dialog = new JDialog(this, "You Won!", true);
         dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -64,6 +96,9 @@ public class PostGameDialog extends JFrame {
         dialog.setVisible(true);
     }
 
+    /**
+     * Method that initializes the labels used in this dialog
+     */
     private void initializeLabels() {
         Font labelFont;
         try {
@@ -99,6 +134,9 @@ public class PostGameDialog extends JFrame {
         }
     }
 
+    /**
+     * Method that initializes all the buttons needed in this dialog
+     */
     private void populateButtons() {
         JButton newGameButton = new StyledButton("New Game");
         newGameButton.addActionListener(e -> {

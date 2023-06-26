@@ -10,19 +10,53 @@ import java.awt.*;
 
 import static main.Constants.*;
 
+/**
+ * Defines a dialog window used when the user wants to select a new level to play
+ */
 public class LevelSelectorDialog extends JFrame {
 
+    /**
+     * The actual dialog instance
+     */
     private JDialog levelSelectorDialog;
+
+    /**
+     * The layout portion that contains all the buttons for the levels
+     */
     private JPanel levelWrapperPanel;
 
+    /**
+     * The indicator of the page currently shown
+     */
     private final PageCounter pageCounter;
 
+    /**
+     * The number of the page currently shown
+     */
     private int currentPage = 1;
+
+    /**
+     * The number of the level the user selected
+     */
     private int selectedLevel = -1;
 
+    /**
+     * The number of buttons per page, calculated with values from Constants
+     *
+     * @see main.Constants
+     */
     private final int buttonsPerPage;
+
+    /**
+     * The number of pages, calculated with values from Constants
+     *
+     * @see main.Constants
+     */
     private final int totalPages;
 
+    /**
+     * Constructor method that initializes the dialog's data
+     */
     public LevelSelectorDialog() {
         buttonsPerPage = LEVEL_SELECTOR_GRID_ROWS * LEVEL_SELECTOR_GRID_COLUMNS;
         totalPages = (int) Math.ceil((double) LEVELS / buttonsPerPage);
@@ -30,10 +64,16 @@ public class LevelSelectorDialog extends JFrame {
         pageCounter = new PageCounter(totalPages);
     }
 
+    /**
+     * @return the number of the level selected by the user, -1 if the choice wasn't made
+     */
     public int getSelectedLevel() {
         return selectedLevel;
     }
 
+    /**
+     * Method that defines dialog properties and widgets, including all the layouts. Then it shows it to the user
+     */
     public void showDialog() {
         levelSelectorDialog = new JDialog(this, "Level Selector", true);
         levelSelectorDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -71,6 +111,9 @@ public class LevelSelectorDialog extends JFrame {
         levelSelectorDialog.setVisible(true);
     }
 
+    /**
+     * Method used by the <i>prev</i> button to switch page
+     */
     private void prevPage() {
         if (currentPage > 1) {
             currentPage--;
@@ -80,6 +123,9 @@ public class LevelSelectorDialog extends JFrame {
         }
     }
 
+    /**
+     * Method used by the <i>next</i> button to switch page
+     */
     private void nextPage() {
         if (currentPage < totalPages) {
             currentPage++;
@@ -89,6 +135,9 @@ public class LevelSelectorDialog extends JFrame {
         }
     }
 
+    /**
+     * Method in charge of creating all the buttons for all the different levels and organizing them in different pages
+     */
     private void populateLevelButtons() {
         int offset = 0;
 

@@ -12,8 +12,17 @@ import java.util.ArrayList;
 
 import static main.Constants.*;
 
+/**
+ * Defines the ui for the dashboard class
+ */
 public class DashboardComponent extends JPanel {
 
+    /**
+     * Constructor method that initializes the data needed to show the component correctly
+     *
+     * @param buttons the list of all the buttons needed in the component
+     * @param labels the list of all the labels needed in the component
+     */
     public DashboardComponent(ArrayList<StyledButton> buttons, ArrayList<StyledLabel> labels) {
 
         setPreferredSize(new Dimension(TITLE_SIZE * 3, TITLE_SIZE * ROWS));
@@ -66,7 +75,5 @@ public class DashboardComponent extends JPanel {
 
         add(title, BorderLayout.NORTH);
         add(gridWrapper, BorderLayout.CENTER);
-
     }
-
 }

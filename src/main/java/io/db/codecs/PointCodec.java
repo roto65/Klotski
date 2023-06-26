@@ -9,8 +9,18 @@ import org.bson.codecs.EncoderContext;
 
 import java.awt.*;
 
+/**
+ * Implements the Codec interface for the Point object
+ */
 public class PointCodec implements Codec<Point> {
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param reader         the BSON reader
+     * @param decoderContext the decoder context
+     * @return decoded Point
+     */
     @Override
     public Point decode(BsonReader reader, DecoderContext decoderContext) {
         Point point = new Point();
@@ -32,6 +42,13 @@ public class PointCodec implements Codec<Point> {
         return point;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param writer the BSON writer to encode into
+     * @param value the value to encode
+     * @param encoderContext the encoder context
+     */
     @Override
     public void encode(BsonWriter writer, Point value, EncoderContext encoderContext) {
         if (value == null) return;
@@ -44,6 +61,11 @@ public class PointCodec implements Codec<Point> {
         writer.writeEndDocument();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return class instance
+     */
     @Override
     public Class<Point> getEncoderClass() {
         return Point.class;

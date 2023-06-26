@@ -10,12 +10,24 @@ import java.util.ArrayList;
 
 import static main.Constants.*;
 
+/**
+ * Defines the large block extending the abstract block
+ */
 public class LargeBlock extends Block{
 
+    /**
+     * Default constructor method used in deserialization
+     */
     @SuppressWarnings("unused")
     public LargeBlock() {
     }
 
+    /**
+     * Constructor method with coordinates
+     *
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     public LargeBlock(int x, int y) {
         pos = new Point(x, y);
 
@@ -25,6 +37,9 @@ public class LargeBlock extends Block{
         loadSprite();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void loadOffsets() {
         offsets = new ArrayList<>() {
@@ -37,6 +52,9 @@ public class LargeBlock extends Block{
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void loadSprite() {
         try {
@@ -50,6 +68,12 @@ public class LargeBlock extends Block{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param g graphics object
+     * @param observer receives information about the objects drawn
+     */
     public void draw(Graphics g, ImageObserver observer) {
 
         if (USE_LEGACY_SPRITES) {
@@ -83,6 +107,11 @@ public class LargeBlock extends Block{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param destination the position the block needs to be moved into
+     */
     @Override
     public void move(Point destination) {
 
