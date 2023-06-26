@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import com.github.stefanbirkner.systemlambda.SystemLambda;
 import com.mongodb.MongoException;
 import solver.Solver;
-import ui.dialogs.DbErrorDialog;
 
 import java.awt.*;
 
@@ -101,7 +100,7 @@ class DashboardTest {
     void LevelSelectorTest(){
         try {
             db = new MongoDbConnection();
-        } catch (MongoException e) {
+        } catch (MongoException ignored) {
         }
         board.resetBoard(db.getLevel(420));
         db.closeClient();
@@ -129,9 +128,7 @@ class DashboardTest {
 
     @Test
     void ExitTest() throws Exception {
-        int status = SystemLambda.catchSystemExit(() -> {
-            dashboard.exit();
-        });
+        int status = SystemLambda.catchSystemExit(() -> dashboard.exit());
 
         assertEquals(0, status);
     }
@@ -160,7 +157,7 @@ class DashboardTest {
         parser.save(board.getCurrentLevel());
          try {
             db = new MongoDbConnection();
-        } catch (MongoException e) {
+        } catch (MongoException ignored) {
         }
         board.resetBoard(db.getLevel(420));
         db.closeClient();

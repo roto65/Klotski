@@ -327,6 +327,9 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
         System.exit(0);
     }
 
+    /**
+     * @return the move counter object
+     */
     public StyledLabel getMoveCounter (){
         return moveCounter;
     }
