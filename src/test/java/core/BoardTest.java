@@ -2,6 +2,8 @@ package core;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import solver.Solver;
 import ui.blocks.*;
 
 import java.awt.*;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 
 import static main.Constants.TITLE_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
+import static main.Constants.LAYOUT_DEFAULT;
 
 @SuppressWarnings("PointlessArithmeticExpression")
 class BoardTest {
@@ -28,6 +31,14 @@ class BoardTest {
                 add(new LargeBlock(1, 2));
             }
         });
+    }
+
+
+    @Test
+    void startGameTest(){
+        Board b2 = new Board(LAYOUT_DEFAULT);
+        String status = Solver.getState(b2.getBlocks());
+        assertEquals("24422442233221121001", status);
     }
 
     @Test
