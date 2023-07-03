@@ -2,6 +2,7 @@ title: Klotski
 description: some random description
 show_downloads: false
 theme: jekyll-theme-architect
+markdown: kramdown
 
 author:
   name: Alessandro Rotondo
