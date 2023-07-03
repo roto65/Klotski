@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: ch.qos.reload4j:reload4j:1.2.22" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="ch.qos.reload4j" artifactId="reload4j" version="1.2.22" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.reload4j/reload4j/1.2.22/f9d9e55d1072d7a697d2bf06e1847e93635a7cf9/reload4j-1.2.22.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.reload4j/reload4j/1.2.22/6e109f68f55e270bebbd0c9ab098977bad6c2bb4/reload4j-1.2.22-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
