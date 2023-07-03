@@ -1,7 +1,10 @@
 package io;
 
+import ui.Window;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import java.awt.*;
 import java.io.File;
 
 /**
@@ -23,7 +26,15 @@ public class JsonFileChooser {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
-            fileChooser = new JFileChooser();
+            fileChooser = new JFileChooser(){
+                @Override
+                protected JDialog createDialog(Component parent) throws HeadlessException {
+                    JDialog dialog = super.createDialog(parent);
+                    dialog.setIconImage(Window.getWindowIcon());
+
+                    return dialog;
+                }
+            };
             FileFilter jsonFilter = createJSONFileFilter();
             fileChooser.setFileFilter(jsonFilter);
 
