@@ -120,8 +120,7 @@ class DashboardTest {
         endPos = new Point(3 * TITLE_SIZE, 4 * TITLE_SIZE);
         board.blockMoved(startPos, endPos);
 
-        board.resetBoard();
-        dashboard.resetMoveCounter();
+        dashboard.reset();
         String Move = dashboard.getMoveCounter().getVariableText();
         assertEquals("0", Move);
     }
@@ -181,5 +180,13 @@ class DashboardTest {
         board.resetBoard();
         String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(initConfig, finalDestination);
+    }
+
+    @Test
+    void startLabelsTest(){
+        String startMove = dashboard.getMoveCounter().getVariableText();
+        String startLevel = dashboard.getLevelLabel().getVariableText();
+        assertEquals("0", startMove);
+        assertEquals("1", startLevel);
     }
 }
