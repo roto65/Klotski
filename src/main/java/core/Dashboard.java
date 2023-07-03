@@ -333,4 +333,11 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
     public StyledLabel getMoveCounter (){
         return moveCounter;
     }
+
+    /**
+     * @return the level label object
+     */
+    public StyledLabel getLevelLabel (){
+        return levelLabel;
+    }
 }
