@@ -1,5 +1,9 @@
-* Placeholder for Table of Content <newline> {:toc}
-* 
+---
+layout: default
+permalink: /
+---
+
+
 # Hello There
 
 This is some ugly test 
