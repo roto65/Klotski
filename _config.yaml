@@ -3,7 +3,7 @@ description: some random description
 show_downloads: false
 theme: jekyll-theme-architect
 
-authors:
-  roto65:
-    name: Alessandro Rotondo
-    email: alessandro.rotondo@studenti.unipd.it
+author:
+  name: Alessandro Rotondo
+  url: https://github.com/roto65
+
