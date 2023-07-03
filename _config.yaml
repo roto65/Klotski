@@ -4,5 +4,6 @@ show_downloads: false
 theme: jekyll-theme-architect
 
 authors:
-  name: Alessandro Rotondo
-  email: alessandro.rotondo@studenti.unipd.it
+  roto65:
+    name: Alessandro Rotondo
+    email: alessandro.rotondo@studenti.unipd.it
