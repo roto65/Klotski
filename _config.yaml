@@ -2,3 +2,7 @@ title: Klotski
 description: some random description
 show_downloads: false
 theme: jekyll-theme-architect
+
+authors:
+  name: Alessandro Rotondo
+  email: alessandro.rotondo@studenti.unipd.it
