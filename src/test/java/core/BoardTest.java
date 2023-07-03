@@ -35,7 +35,7 @@ class BoardTest {
 
 
     @Test
-    void startGameTest(){
+    void startGameLayoutTest(){
         Board b2 = new Board(LAYOUT_DEFAULT);
         String status = Solver.getState(b2.getBlocks());
         assertEquals("24422442233221121001", status);
