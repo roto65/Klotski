@@ -1,7 +1,9 @@
 title: Klotski
 description: some random description
 show_downloads: false
-theme: jekyll-theme-architect
+remote_theme: pages-themes/architect@v0.2.0
+plugins:
+  - jeckyll-remote-theme
 
 author:
   name: Alessandro Rotondo
