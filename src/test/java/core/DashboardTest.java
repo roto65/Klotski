@@ -63,11 +63,11 @@ class DashboardTest {
         Point startPos = new Point(3 * TITLE_SIZE, 4 * TITLE_SIZE);
         Point endPos = new Point(2 * TITLE_SIZE, 4 * TITLE_SIZE);
         board.blockMoved(startPos, endPos);
-
-        board.undo();
-
+        if(board.undo()) dashboard.decrementMoveCounter();
+        String MovePerformed = dashboard.getMoveCounter().getVariableText();
         String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(initConfig, finalDestination);
+        assertEquals("0",MovePerformed);
     }
 
     @Test
@@ -78,11 +78,13 @@ class DashboardTest {
 
         String midDestination = Solver.getState(board.getBlocks());
 
-        board.undo();
-        board.redo();
+        if(board.undo()) dashboard.decrementMoveCounter();
+        if(board.redo()) dashboard.incrementMoveCounter();
+        String MovePerformed = dashboard.getMoveCounter().getVariableText();
 
         String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(midDestination, finalDestination );
+        assertEquals("1", MovePerformed);
     }
 
     @Test
