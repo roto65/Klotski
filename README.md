@@ -24,6 +24,17 @@ Some features had been added, such as:
 
 ---
 
+## Cloning this repository
+
+This repository includes a submodule that it is not mandatory for the correct execution of the program. If you want to 
+clone all the code, including the files in the submodule use the following command:
+
+``` batch
+git clone --branch master --recurse-submodules https://github.com/roto65/Klotski.git
+```
+
+---
+
 ## Technologies used in this project
 
 During the development of this project we used the following technologies:
