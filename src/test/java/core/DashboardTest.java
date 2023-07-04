@@ -105,11 +105,13 @@ class DashboardTest {
         } catch (MongoException ignored) {
         }
         board.resetBoard(db.getLevel(420));
+        int  level = db.getLevel(420).getLevelNumber();
         db.closeClient();
 
         String finalDestination = Solver.getState(board.getBlocks());
         String actualDestination = "44124402103312331233";
         assertEquals(actualDestination, finalDestination);
+        assertEquals(420, level);
     }
 
     @Test
