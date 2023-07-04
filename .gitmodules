@@ -1,0 +1,3 @@
+[submodule "KlotskiLevelGenerator"]
+	path = KlotskiLevelGenerator
+	url = https://github.com/roto65/KlotskiLevelGenerator.git
