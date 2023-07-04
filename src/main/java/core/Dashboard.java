@@ -176,7 +176,7 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
     /**
      * This method removes 1 form the current move count
      */
-    private void decrementMoveCounter() {
+    public void decrementMoveCounter() {
         int currCount = Integer.parseInt(moveCounter.getVariableText());
 
         if (currCount != 0) {
@@ -332,5 +332,12 @@ public class Dashboard  implements MovePerformedListener, PostGameActionsListene
      */
     public StyledLabel getMoveCounter (){
         return moveCounter;
+    }
+
+    /**
+     * @return the level label object
+     */
+    public StyledLabel getLevelLabel (){
+        return levelLabel;
     }
 }

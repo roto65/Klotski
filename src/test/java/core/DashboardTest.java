@@ -63,11 +63,11 @@ class DashboardTest {
         Point startPos = new Point(3 * TITLE_SIZE, 4 * TITLE_SIZE);
         Point endPos = new Point(2 * TITLE_SIZE, 4 * TITLE_SIZE);
         board.blockMoved(startPos, endPos);
-
-        board.undo();
-
+        if(board.undo()) dashboard.decrementMoveCounter();
+        String MovePerformed = dashboard.getMoveCounter().getVariableText();
         String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(initConfig, finalDestination);
+        assertEquals("0",MovePerformed);
     }
 
     @Test
@@ -78,11 +78,13 @@ class DashboardTest {
 
         String midDestination = Solver.getState(board.getBlocks());
 
-        board.undo();
-        board.redo();
+        if(board.undo()) dashboard.decrementMoveCounter();
+        if(board.redo()) dashboard.incrementMoveCounter();
+        String MovePerformed = dashboard.getMoveCounter().getVariableText();
 
         String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(midDestination, finalDestination );
+        assertEquals("1", MovePerformed);
     }
 
     @Test
@@ -103,11 +105,13 @@ class DashboardTest {
         } catch (MongoException ignored) {
         }
         board.resetBoard(db.getLevel(420));
+        int  level = db.getLevel(420).getLevelNumber();
         db.closeClient();
 
         String finalDestination = Solver.getState(board.getBlocks());
         String actualDestination = "44124402103312331233";
         assertEquals(actualDestination, finalDestination);
+        assertEquals(420, level);
     }
 
     @Test
@@ -120,8 +124,7 @@ class DashboardTest {
         endPos = new Point(3 * TITLE_SIZE, 4 * TITLE_SIZE);
         board.blockMoved(startPos, endPos);
 
-        board.resetBoard();
-        dashboard.resetMoveCounter();
+        dashboard.reset();
         String Move = dashboard.getMoveCounter().getVariableText();
         assertEquals("0", Move);
     }
@@ -181,5 +184,13 @@ class DashboardTest {
         board.resetBoard();
         String finalDestination = Solver.getState(board.getBlocks());
         assertEquals(initConfig, finalDestination);
+    }
+
+    @Test
+    void startLabelsTest(){
+        String startMove = dashboard.getMoveCounter().getVariableText();
+        String startLevel = dashboard.getLevelLabel().getVariableText();
+        assertEquals("0", startMove);
+        assertEquals("1", startLevel);
     }
 }
