@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"core"},{"l":"core.listener"},{"l":"io"},{"l":"io.db"},{"l":"io.db.codecs"},{"l":"io.schemas"},{"l":"main"},{"l":"solver"},{"l":"ui"},{"l":"ui.blocks"},{"l":"ui.dialogs"}];updateSearchResults();
