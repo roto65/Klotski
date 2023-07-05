@@ -276,6 +276,10 @@ If you want to review the **Docs** associated to the code click [here](/resource
 
 ## Unit Test Report
 
+The auto-generated JUnit test report can be found at [this page](/resources/UnitTestReport/index.html).
+
+These tests were performed on **4 July 2023** and include all the latest test case that have been developed.
+
 [**Back to Index**](#index-of-contents)
 
 ---
@@ -297,5 +301,7 @@ This project was carried out by:
 |  Francesco Ariani   | 2041835 |
 | Simone Pietrogrande | 2032448 |
 | Alessandro Rotondo  | 2032447 |
+
+<br>
 
 [**Back to Index**](#index-of-contents)
