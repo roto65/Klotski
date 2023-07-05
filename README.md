@@ -24,6 +24,17 @@ Some features had been added, such as:
 
 ---
 
+## How to play Klotski
+
+To win the game you need to move the **big red block** in the **bottom-central position** of the game board.
+
+The commands are very simple: you can drag blocks inside the board by just left-clicking on the block you want to move
+and releasing the mouse button once your cursor is sitting on top of the position you want to move the block in.
+
+It's a matter of *dragging* and *dropping* blocks around until you reach the victory!
+
+---
+
 ## Cloning this repository
 
 This repository includes a submodule that it is not mandatory for the correct execution of the program. If you want to 
