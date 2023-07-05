@@ -4,7 +4,7 @@ permalink: /
 
 # Documentation
 
-This page contains all the documentation associated for the Klotski project.
+This page contains all the documentation associated for the **Klotski** project.
 
 Please note that, due to the large size of some diagrams, sometimes you'll need to use the zoom function of your browser
 of choice.
@@ -19,12 +19,13 @@ Below is reported a clickable list of all the section of this page:
 4. [**System Test Document**](#system-test-document)
 5. [**Unit Test Report**](#unit-test-report)
 6. [**Manual**](#manual)
+7. [**Contributors**](#contributors)
 
 ---
 
 ## Specification Document
 
-This section contains the **Use Case Diagram**, visible at [this page](/resources/diagrams/Use-Case-Diagram.html)
+This section contains the **Use Case Diagram**, visible at [this page](/resources/Diagrams/Use-Case-Diagram.html)
 
 Below are reported the tabular descriptions of each use case in the following order:
 
@@ -57,7 +58,7 @@ Below are reported the tabular descriptions of each use case in the following or
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Open_Game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Open_Game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #2: Move**
 
@@ -74,7 +75,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Open_Game.html) to vi
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Move.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Move.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #3: Undo**
 
@@ -91,7 +92,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Move.html) to view th
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Undo.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Undo.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #4: Redo**
 
@@ -108,7 +109,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Undo.html) to view th
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Redo.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Redo.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #5: Best Move**
 
@@ -125,7 +126,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Redo.html) to view th
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Best_Move.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Best_Move.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #6: End Game**
 
@@ -142,7 +143,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Best_Move.html) to vi
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-End_game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-End_game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #7: Save**
 
@@ -159,7 +160,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-End_game.html) to vie
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Save.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Save.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #8: Load**
 
@@ -176,7 +177,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Save.html) to view th
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Load.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Load.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #9: New Layout**
 
@@ -193,7 +194,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Load.html) to view th
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Layout.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-New_Layout.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #10: New Game**
 
@@ -210,7 +211,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Layout.html) to v
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-New_Game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 ### **Use case #11: Quit**
 
@@ -227,7 +228,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Game.html) to vie
 
 <br>
 
-Click [here](/resources/diagrams/Internal-sequence-Diagram-Quit.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
+Click [here](/resources/Diagrams/Internal-sequence-Diagram-Quit.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
 
 [**Back to Index**](#index-of-contents)
 
@@ -237,21 +238,21 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Quit.html) to view th
 
 This section contains links to the following diagrams:
 
-- To view the **Domain Model** click [here](/resources/diagrams/Domain-Model.html) <br><br>
-- To view the **System Sequence Diagram** click [here](/resources/diagrams/System-Sequence-Diagram.html) <br><br>
-- To view the **Class Diagram** click [here](/resources/diagrams/Class-Diagram.html) <br><br>
+- To view the **Domain Model** click [here](/resources/Diagrams/Domain-Model.html) <br><br>
+- To view the **System Sequence Diagram** click [here](/resources/Diagrams/System-Sequence-Diagram.html) <br><br>
+- To view the **Class Diagram** click [here](/resources/Diagrams/Class-Diagram.html) <br><br>
 - To view the **Internal Sequence Diagrams** click the corresponding **use case** from the list below:
-  1. [Open Game](/resources/diagrams/Internal-sequence-Diagram-Open_Game.html)
-  2. [Move](/resources/diagrams/Internal-sequence-Diagram-Move.html)
-  3. [Undo](/resources/diagrams/Internal-sequence-Diagram-Undo.html)
-  4. [Redo](/resources/diagrams/Internal-sequence-Diagram-Redo.html)
-  5. [Best Move](/resources/diagrams/Internal-sequence-Diagram-Best_Move.html)
-  6. [End Game](/resources/diagrams/Internal-sequence-Diagram-End_game.html)
-  7. [Save](/resources/diagrams/Internal-sequence-Diagram-Save.html)
-  8. [Load](/resources/diagrams/Internal-sequence-Diagram-Load.html)
-  9. [New Layout](/resources/diagrams/Internal-sequence-Diagram-New_Layout.html)
-  10. [New Game](/resources/diagrams/Internal-sequence-Diagram-New_Game.html)
-  11. [Quit](/resources/diagrams/Internal-sequence-Diagram-Quit.html)
+  1. [Open Game](/resources/Diagrams/Internal-sequence-Diagram-Open_Game.html)
+  2. [Move](/resources/Diagrams/Internal-sequence-Diagram-Move.html)
+  3. [Undo](/resources/Diagrams/Internal-sequence-Diagram-Undo.html)
+  4. [Redo](/resources/Diagrams/Internal-sequence-Diagram-Redo.html)
+  5. [Best Move](/resources/Diagrams/Internal-sequence-Diagram-Best_Move.html)
+  6. [End Game](/resources/Diagrams/Internal-sequence-Diagram-End_game.html)
+  7. [Save](/resources/Diagrams/Internal-sequence-Diagram-Save.html)
+  8. [Load](/resources/Diagrams/Internal-sequence-Diagram-Load.html)
+  9. [New Layout](/resources/Diagrams/Internal-sequence-Diagram-New_Layout.html)
+  10. [New Game](/resources/Diagrams/Internal-sequence-Diagram-New_Game.html)
+  11. [Quit](/resources/Diagrams/Internal-sequence-Diagram-Quit.html)
 
 [**Back to Index**](#index-of-contents)
 
@@ -280,5 +281,21 @@ If you want to review the **Docs** associated to the code click [here](/resource
 ---
 
 ## Manual
+
+If you want to consult the **Manual** of the **Klotski** application click [here](/manual/). 
+
+[**Back to Index**](#index-of-contents)
+
+---
+
+## Contributors
+
+This project was carried out by:
+
+|        Name         | Badge   |
+|:-------------------:|---------|
+|  Francesco Ariani   | 2041835 |
+| Simone Pietrogrande | 2032448 |
+| Alessandro Rotondo  | 2032447 |
 
 [**Back to Index**](#index-of-contents)
