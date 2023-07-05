@@ -54,6 +54,7 @@ Below are reported the tabular descriptions of each use case in the following or
 | Special Requirements | None                                                                                                                                                                                                     |
 | Pre Conditions       | The program is not running                                                                                                                                                                               |
 | Post Conditions      | The program is running                                                                                                                                                                                   |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Open_Game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -70,6 +71,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Open_Game.html) to vi
 | Special Requirements | The game hasn't ended                                                                                                                                                                                                                                                                                                                                                                                              |
 | Pre Conditions       | The block must have some blank spaces adjacent to it so that neither the block overlaps any other block nor it leaves the game board                                                                                                                                                                                                                                                                               |
 | Post Conditions      | The block is set in the selected position and it is placed correctly                                                                                                                                                                                                                                                                                                                                               |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Move.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -86,6 +88,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Move.html) to view th
 | Special Requirements | The game hasn't ended                                                                                                                              |
 | Pre Conditions       | At least one move has to been done previously                                                                                                      |
 | Post Conditions      | The block that last moved return to its previous position                                                                                          |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Undo.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -102,6 +105,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Undo.html) to view th
 | Special Requirements | The game hasn't ended                                                                                                                                                 |
 | Pre Conditions       | At least one undo has to been done previously and the game hasn't ended                                                                                               |
 | Post Conditions      | The block that last was undone return to its previous position                                                                                                        |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Redo.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -118,6 +122,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Redo.html) to view th
 | Special Requirements | The game hasn't ended                                                                                                                                                                         |
 | Pre Conditions       | The program is running                                                                                                                                                                        |
 | Post Conditions      | A block is set to a new position and it is placed correctly                                                                                                                                   |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Best_Move.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -134,6 +139,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Best_Move.html) to vi
 | Special Requirements | A move must has just been done                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | Pre Conditions       | The large block isn't placed on the bottom mid part of the game board, so it was moved there                                                                                                                                                                                                                                                                                                                                                                  |
 | Post Conditions      | The blocks cannot be move anymore and some functions (undo, redo, hint, and save) are disabled                                                                                                                                                                                                                                                                                                                                                                |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-End_game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -150,6 +156,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-End_game.html) to vie
 | Special Requirements | The game hasn't ended                                                                                                                                                 |
 | Pre Conditions       | The program is running                                                                                                                                                |
 | Post Conditions      | Everything in the game remains the same as before, and a save file is created or overwritten                                                                          |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Save.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -166,6 +173,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Save.html) to view th
 | Special Requirements | None                                                                                                                                                                                                                                              |
 | Pre Conditions       | There must have been a save in the past, not necessarily in the current session                                                                                                                                                                   |
 | Post Conditions      | The game board is equal to the one saved as the moves done and the move counter                                                                                                                                                                   |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Load.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -182,6 +190,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-Load.html) to view th
 | Special Requirements | There must be a connection with the Layout Database                                                                                                                                                                                                          |
 | Pre Conditions       | The program is running                                                                                                                                                                                                                                       |
 | Post Conditions      | All blocks are set so that the disposition is equal to the one chosen by the player and sets the move counter to zero                                                                                                                                        |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Layout.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -198,6 +207,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Layout.html) to v
 | Special Requirements | None                                                                                                                                                             |
 | Pre Conditions       | The program is running                                                                                                                                           |
 | Post Conditions      | All blocks are set to their original position and the game counter is set to zero                                                                                |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Game.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
@@ -214,6 +224,7 @@ Click [here](/resources/diagrams/Internal-sequence-Diagram-New_Game.html) to vie
 | Special Requirements | None                                                                                                               |
 | Pre Conditions       | The program is running                                                                                             |
 | Post Conditions      | The program is not running                                                                                         |
+
 <br>
 
 Click [here](/resources/diagrams/Internal-sequence-Diagram-Quit.html) to view the **Internal Sequence Diagram** associated with this use case. <br><br>
