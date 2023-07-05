@@ -270,6 +270,12 @@ If you want to review the **Docs** associated to the code click [here](/resource
 
 ## System Test Document
 
+The **System Test Report** can be found at [this page](/resources/Documents/System_Test_Report.pdf)
+
+This document contains a big table that follows the [template](https://www.ibm.com/docs/en/engineering-lifecycle-management-suite/test-management/7.0.3?topic=sections-test-case-template-reference)
+suggested by **IBM**. In the table each row represents a different system test case, and it's definition can be found in
+the first column.
+
 [**Back to Index**](#index-of-contents)
 
 ---
@@ -296,9 +302,9 @@ If you want to consult the **Manual** of the **Klotski** application click [here
 
 This project was carried out by:
 
-|        Name         | Badge   |
-|:-------------------:|---------|
-|  Francesco Ariani   | 2041835 |
+| Name                | Badge   |
+|:--------------------|---------|
+| Francesco Ariani    | 2041835 |
 | Simone Pietrogrande | 2032448 |
 | Alessandro Rotondo  | 2032447 |
 
