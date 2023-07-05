@@ -282,7 +282,7 @@ If you want to review the **Docs** associated to the code click [here](/resource
 
 ## Manual
 
-If you want to consult the **Manual** of the **Klotski** application click [here](/manual/). 
+If you want to consult the **Manual** of the **Klotski** application click [here](/Klotski/manual/). 
 
 [**Back to Index**](#index-of-contents)
 

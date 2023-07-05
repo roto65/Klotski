@@ -4,6 +4,8 @@ permalink: /manual/
 
 # Klotski Manual
 
+[**Back to home page**](/Klotski/)
+
 ## Project description
 
 In this project we recreated the classic **Klotski** wooden sliding puzzle.
@@ -156,3 +158,6 @@ The Klotski game includes a **save** features that allows the player to export a
 file. In this way a game can be resumed at any time and even on a different computer.
 
 Any alteration of the exported files may result in unwanted behaviour or sometimes even complete crashes of the application.
+
+
+[**Back to home page**](/Klotski/)
