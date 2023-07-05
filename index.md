@@ -6,6 +6,8 @@ permalink: /
 
 This page contains all the documentation associated for the **Klotski** project.
 
+The specifications for this project are contained in [this document](/resources/Documents/Project_Specification.pdf).
+
 Please note that, due to the large size of some diagrams, sometimes you'll need to use the zoom function of your browser
 of choice.
 
@@ -45,7 +47,7 @@ Below are reported the tabular descriptions of each use case in the following or
 
 ### **Use case #1: Open Game**
 
-| Section              | Section Description                                                                                                                                                                                      |
+| **Section**          | **Section Description**                                                                                                                                                                                  |
 |:---------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Start the software                                                                                                                                                                                       |
 | Actors               | Player                                                                                                                                                                                                   |
@@ -62,7 +64,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Open_Game.html) to vi
 
 ### **Use case #2: Move**
 
-| Section              | Section Description                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Section**          | **Section Description**                                                                                                                                                                                                                                                                                                                                                                                            |
 |:---------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Move a block                                                                                                                                                                                                                                                                                                                                                                                                       |
 | Actors               | Player                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -79,7 +81,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Move.html) to view th
 
 ### **Use case #3: Undo**
 
-| Section              | Section Description                                                                                                                                |
+| **Section**          | **Section Description**                                                                                                                            |
 |:---------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Undo the last move(s)                                                                                                                              |
 | Actors               | Player                                                                                                                                             |
@@ -96,7 +98,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Undo.html) to view th
 
 ### **Use case #4: Redo**
 
-| Section              | Section Description                                                                                                                                                   |
+| **Section**          | **Section Description**                                                                                                                                               |
 |:---------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Redo the undone move(s)                                                                                                                                               |
 | Actors               | Player                                                                                                                                                                |
@@ -113,7 +115,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Redo.html) to view th
 
 ### **Use case #5: Best Move**
 
-| Section              | Section Description                                                                                                                                                                           |
+| **Section**          | **Section Description**                                                                                                                                                                       |
 |:---------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Best move possible                                                                                                                                                                            |
 | Actors               | Player                                                                                                                                                                                        |
@@ -130,7 +132,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Best_Move.html) to vi
 
 ### **Use case #6: End Game**
 
-| Section              | Section Description                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Section**          | **Section Description**                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |:---------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | End the game                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | Actors               | Player                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -147,7 +149,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-End_game.html) to vie
 
 ### **Use case #7: Save**
 
-| Section              | Section Description                                                                                                                                                   |
+| **Section**          | **Section Description**                                                                                                                                               |
 |:---------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Save the game                                                                                                                                                         |
 | Actors               | Player                                                                                                                                                                |
@@ -164,7 +166,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Save.html) to view th
 
 ### **Use case #8: Load**
 
-| Section              | Section Description                                                                                                                                                                                                                               |
+| **Section**          | **Section Description**                                                                                                                                                                                                                           |
 |:---------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Load the game                                                                                                                                                                                                                                     |
 | Actors               | Player                                                                                                                                                                                                                                            |
@@ -181,7 +183,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-Load.html) to view th
 
 ### **Use case #9: New Layout**
 
-| Section              | Section Description                                                                                                                                                                                                                                          |
+| **Section**          | **Section Description**                                                                                                                                                                                                                                      |
 |:---------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Change the initial board layout                                                                                                                                                                                                                              |
 | Actors               | Player                                                                                                                                                                                                                                                       |
@@ -198,7 +200,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-New_Layout.html) to v
 
 ### **Use case #10: New Game**
 
-| Section              | Section Description                                                                                                                                              |
+| **Section**          | **Section Description**                                                                                                                                          |
 |:---------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Start a new game                                                                                                                                                 |
 | Actors               | Player                                                                                                                                                           |
@@ -215,7 +217,7 @@ Click [here](/resources/Diagrams/Internal-sequence-Diagram-New_Game.html) to vie
 
 ### **Use case #11: Quit**
 
-| Section              | Section Description                                                                                                |
+| **Section**          | **Section Description**                                                                                            |
 |:---------------------|:-------------------------------------------------------------------------------------------------------------------|
 | Use Case             | Quit                                                                                                               |
 | Actors               | Player                                                                                                             |
@@ -302,11 +304,11 @@ If you want to consult the **Manual** of the **Klotski** application click [here
 
 This project was carried out by:
 
-| Name                | Badge   |
-|:--------------------|---------|
-| Francesco Ariani    | 2041835 |
-| Simone Pietrogrande | 2032448 |
-| Alessandro Rotondo  | 2032447 |
+|      **Name**       | **Badge** |
+|:-------------------:|-----------|
+|  Francesco Ariani   | 2041835   |
+| Simone Pietrogrande | 2032448   |
+| Alessandro Rotondo  | 2032447   |
 
 <br>
 
